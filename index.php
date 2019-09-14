@@ -10,18 +10,18 @@
     <body>
         <header>
             <a href="index.php"><h1>NOMADE</h1></a>
+            <img src="img/arrow.png" class="retorno" alt="">
             <nav class="encabezado">
-
                 <div class="usuario"><img src="img/user.png" alt=""></div>
                 <div class="favoritos"><img src="img/heart.png" alt=""></div>
                 <div class="info"><img src="img/info.png" alt=""></div>
             </nav>
         </header>
         <section class="mapa">
-            <!-- <img src="img/map.png" alt=""> -->
         </section>
-        <form action="#" method="POST">
-            <input class="buscar" type="text" name="buscar" placeholder="Dónde vas?">
+        <form action="" id="formBuscar" method="POST">
+            <input class="buscar" type="text" name="buscar" id="buscar" placeholder="Dónde vas?">
+            <nav class="filtros">2<img src="img/persona.png" alt=""> | 40m<sup>2</sup> | +2.000<img src="img/peso.png" ></nav>
         </form>
         <footer>
           <p>
@@ -32,11 +32,10 @@
           </p>
         </footer>
         <section class="seccionPrincipalArticulos">
-            <div class="pestana"><?php echo $_POST["buscar"]." :" ?></div>
+            <div class="pestana"></div>
             <article class="articulosPrincipales" id="dept1">
+                <nav class=""></nav>
                 <p class="infoPrevia">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
                 </p>
@@ -48,8 +47,6 @@
                 <p class="infoPrevia">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
                 </p>
                 <p class="infoCompleta">
                     70m2 | 4 camas | <strong>2000ARS/día</strong>
@@ -57,8 +54,6 @@
             </article>
             <article class="articulosPrincipales" id="dept3">
                 <p class="infoPrevia">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
                 </p>
@@ -70,8 +65,6 @@
                 <p class="infoPrevia">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
                 </p>
                 <p class="infoCompleta">
                     70m2 | 4 camas | <strong>2000ARS/día</strong>
@@ -81,8 +74,6 @@
                 <p class="infoPrevia">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
                 </p>
                 <p class="infoCompleta">
                     70m2 | 4 camas | <strong>2000ARS/día</strong>
@@ -90,7 +81,6 @@
             </article>
         </section>
         <section class="panelFavoritos">
-            <div class="etiquetasVerticales"><b>F<BR>A<BR>V<BR>O<BR>R<BR>I<BR>T<BR>O<BR>S</b></div>
             <article class="articulosFavoritos" id="dept1"></article>
             <article class="articulosFavoritos" id="dept2"></article>
             <article class="articulosFavoritos" id="dept3"></article>
@@ -113,12 +103,9 @@
             <article class="articulosFavoritos" id="dept5"></article>
         </section>
         <section class="panelLogin">
-          <div class="etiquetasVerticales"><b>L<BR>O<BR>G<BR>I<BR>N</b></div>
-          <br><br>
-          <div>
          <h2 align="center">REGISTRARSE:</h2>
-         <img src="img/loginFacebook.png" alt="Facebook">
-         <img src="img/loginGoogle.png" alt="Google">
+         <img class="social" src="img/loginFacebook.png" alt="Facebook">
+         <img class="social" src="img/loginGoogle.png" alt="Google">
              <form class="formLogin" action="html5-formularios.html" method="get">
              <label form="email"></label>
              <input name="email" type="email" placeholder= "Dirección de correo electrónico">
@@ -156,7 +143,6 @@
           </div>
         </section>
         <section class="panelInfo">
-           <div class="etiquetasVerticales"><b>I<BR>N<BR>F<BR>O</b></div>
            <div class="preguntasFrecuentes">
            <br><br>
            <h2 align="center">Preguntas Frecuentes:</h2>
@@ -199,105 +185,4 @@
 </html>
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript">
-        $(function(){
-            $('.articulosPrincipales').click(function(){
-                var iteration=$(this).data('iteration')||1
-                switch ( iteration) {
-                    case 1:
-                        $(this).animate({height: '500px'});
-                        $(".infoPrevia", this).animate({opacity: '0'});
-                        $(".infoCompleta", this).animate({opacity: '1'});
-                        break;
-
-                    case 2:
-                        $(this).animate({height: '200px'});
-                        $(".infoPrevia", this).animate({opacity: '1'});
-                        $(".infoCompleta", this).animate({opacity: '0'});
-                        break;
-                }
-                iteration++;
-                if (iteration>2) iteration=1
-                $(this).data('iteration',iteration)
-            })
-        });
-        $(function(){
-            $('.favoritos').click(function(){
-                var iteration=$(this).data('iteration')||1
-                switch ( iteration) {
-                    case 1:
-                        $(".panelFavoritos").animate({right: '0'});
-                        break;
-
-                    case 2:
-                    $(".panelFavoritos").animate({right: '-1000px'});
-                        break;
-                }
-                iteration++;
-                if (iteration>2) iteration=1
-                $(this).data('iteration',iteration)
-            })
-        });
-        $(function(){
-            $('.usuario').click(function(){
-                var iteration=$(this).data('iteration')||1
-                switch ( iteration) {
-                    case 1:
-                        $(".panelLogin").animate({right: '0'});
-                        break;
-
-                    case 2:
-                    $(".panelLogin").animate({right: '-1000px'});
-                        break;
-                }
-                iteration++;
-                if (iteration>2) iteration=1
-                $(this).data('iteration',iteration)
-            })
-        });
-        $(function(){
-            $('.info').click(function(){
-                var iteration=$(this).data('iteration')||1
-                switch ( iteration) {
-                    case 1:
-                        $(".panelInfo").animate({right: '0'});
-                        break;
-
-                    case 2:
-                    $(".panelInfo").animate({right: '-1000px'});
-                        break;
-                }
-                iteration++;
-                if (iteration>2) iteration=1
-                $(this).data('iteration',iteration)
-            })
-        });
-</script>
-
-<?php
-    if(isset($_POST['buscar'])){
-?>
-<style type="text/css">
-        nav.encabezado {
-            animation-name: none;
-        }
-        section.mapa {
-            animation-name: none;
-        }
-        form input.buscar {
-            animation-direction: reverse;
-            width: 0px;
-            background: none;
-        }
-        .seccionPrincipalArticulos {
-                display: block;
-        }
-        footer{
-          animation-name: trans-x2;
-          animation-duration: 2s;
-          left: 60%;
-        }
-</style>
-<?php
-}
-?>
+<script src="animations.js"></script>

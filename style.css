@@ -8,7 +8,7 @@
 }
 @keyframes trans-y {
     from {top: -100px}
-    to {top: 10px}
+    to {top: 20px}
 }
 @keyframes trans-y2 {
     from {margin-top: 1000px}
@@ -26,6 +26,7 @@ body {
     color: black;
     padding: 0;
     margin: 0;
+    scrollbar-width: none;
 }
 a {
     text-decoration: none;
@@ -36,7 +37,7 @@ header {
     position: relative;
     height: 30px;
     padding: 10px;
-    z-index: 100;
+    z-index: 1000000000000000000;
 }
 header h1 {
     color: rgba(104,128,131,1);
@@ -63,7 +64,7 @@ footer{
 nav.encabezado {
     position: fixed;
     right: 20px;
-    top: 10px;
+    top: 20px;
     animation-name: trans-y;
     animation-duration: 2s;
 }
@@ -82,7 +83,7 @@ form {
     position: fixed;
     top: 60px;
     left: 20px;
-    z-index: 50;
+    z-index: 1000000000000000000;
 }
 form input.buscar {
     font-family: monospace;
@@ -105,6 +106,18 @@ input::placeholder {
     color: black;
     opacity: 0.6;
 }
+nav.filtros {
+    margin-left: 10px;
+    font-size: 25px;
+    display: none;
+    animation-name: opac;
+    animation-duration: 4s;
+}
+nav.filtros img{
+    position: relative;
+    bottom: -2px;
+    height: 20px;
+}
 
 section.mapa {
     position: fixed;
@@ -119,12 +132,6 @@ section.mapa {
     animation-name: opac;
     animation-duration: 2s;
 }
-/* section.mapa img {
-    margin: 10px 2.5%;
-    width: 95%;
-    animation-name: opac;
-    animation-duration: 2s;
-} */
 
 .seccionPrincipalArticulos {
     display: none;
@@ -136,7 +143,7 @@ section.mapa {
 }
 .pestana {
     background-color: rgba(255,255,255,0.8);
-    text-transform: capitalize;
+    text-transform: uppercase;
     font-size: 20px;
     padding: 10px;
     text-align: right;
@@ -193,16 +200,28 @@ section.mapa {
     background-image: url("img/dept5.jpg");
 }
 
+.retorno {
+    height: 40px;
+    position: absolute;
+    top: 15px;
+    left: 100%;
+}
+.retorno:hover {
+    cursor: pointer;
+}
+
 .panelFavoritos {
     position: fixed;
     z-index: 61;
-    right: -1000px;
+    right: -500px;
     top: 0;
     height: 100vh;
     width: 100%;
-    background:#B3B5A7;
+    background:rgba(179,181,167,1);
     overflow: auto;
+    padding-top: 150px;
 }
+
 .articulosFavoritos {
     display: inline-block;
     width: 48%;
@@ -215,16 +234,15 @@ section.mapa {
 .panelLogin{
   position: fixed;
   z-index: 60;
-  right: -1000px;
+  right: -500px;
   top: 0;
   height: 100vh;
   width: 100%;
   background: rgba(149,143,121,1);
-  /*background:#958F79;*/
   overflow: auto;
+  padding-top: 110px;
 }
-
-.panelLogin img{
+.panelLogin .social{
   position: relative;
   width: 200px;
   left: 90px;
@@ -260,12 +278,13 @@ section.mapa {
 .panelInfo{
   position: fixed;
   z-index: 62;
-  right: -1000px;
+  right: -500px;
   top: 0;
   height: 100vh;
   width: 100%;
-  background: #F1B785;
+  background: rgba(241,183,133,1);
   overflow: auto;
+  padding-top: 60px;
 }
 
 .panelInfo div.preguntasFrecuentes{
@@ -316,11 +335,9 @@ input#search{
 }
 
 @media (min-width: 700px) {
-    nav.encabezado a img{
-        height: 30px;
-    }
+
     .seccionPrincipalArticulos {
-        width: 40%;
+        width: 50%;
     }
     .articulosPrincipales p {
         display: block;
@@ -328,12 +345,15 @@ input#search{
 
     .panelLogin {
         width: 28%;
+        padding-top: 50px;
     }
     .panelFavoritos {
-        width: 26%;
+        width: 28%;
+        padding-top: 80px;
     }
     .panelInfo{
-        width: 24%;
+        width: 28%;
+        padding-top: 0px;
     }
 
 }
