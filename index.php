@@ -34,7 +34,9 @@
         <section class="seccionPrincipalArticulos">
             <div class="pestana"></div>
             <article class="articulosPrincipales" id="dept1">
-                <nav class=""></nav>
+                <img class ="favorito" src="img/heart.png" alt="">
+                <img class="flecha flechaIzq" src="img/arrow.png" alt="">
+                <img class="flecha flechaDer" src="img/arrow.png" alt="">
                 <p class="infoPrevia">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
@@ -44,6 +46,9 @@
                 </p>
             </article>
             <article class="articulosPrincipales" id="dept2">
+                <img class ="favorito" src="img/heart.png" alt="">
+                <img class="flecha flechaIzq" src="img/arrow.png" alt="">
+                <img class="flecha flechaDer" src="img/arrow.png" alt="">
                 <p class="infoPrevia">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
@@ -53,6 +58,9 @@
                 </p>
             </article>
             <article class="articulosPrincipales" id="dept3">
+                <img class ="favorito" src="img/heart.png" alt="">
+                <img class="flecha flechaIzq" src="img/arrow.png" alt="">
+                <img class="flecha flechaDer" src="img/arrow.png" alt="">
                 <p class="infoPrevia">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
@@ -62,6 +70,9 @@
                 </p>
             </article>
             <article class="articulosPrincipales" id="dept4">
+                <img class ="favorito" src="img/heart.png" alt="">
+                <img class="flecha flechaIzq" src="img/arrow.png" alt="">
+                <img class="flecha flechaDer" src="img/arrow.png" alt="">
                 <p class="infoPrevia">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
@@ -71,6 +82,9 @@
                 </p>
             </article>
             <article class="articulosPrincipales" id="dept5">
+                <img class ="favorito" src="img/heart.png" alt="">
+                <img class="flecha flechaIzq" src="img/arrow.png" alt="">
+                <img class="flecha flechaDer" src="img/arrow.png" alt="">
                 <p class="infoPrevia">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>

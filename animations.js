@@ -7,12 +7,14 @@
                         $(this).animate({height: '500px'});
                         $(".infoPrevia", this).animate({opacity: '0'});
                         $(".infoCompleta", this).animate({opacity: '1'});
+                        $("img", this).animate({opacity: "1" });
                         break;
 
                     case 2:
                         $(this).animate({height: '200px'});
                         $(".infoPrevia", this).animate({opacity: '1'});
                         $(".infoCompleta", this).animate({opacity: '0'});
+                        $("img", this).animate({opacity: "0" });
                         break;
                 }
                 iteration++;
@@ -43,6 +45,21 @@
             $(".panelFavoritos").animate({right: '-500'},500);
             $(".panelLogin").animate({right: '-500'},500);
             $(".panelInfo").animate({right: '-500'},500);
+        });
+        var i = 1;
+        $(".flechaIzq").click(function(e){
+            e.stopPropagation();
+            $(this).parent().css("background-image","url(img/dept"+i+".jpg)");
+            i--;
+            if (i<1) i = 5;
+            return i;
+        });
+        $(".flechaDer").click(function(e){
+            e.stopPropagation();
+            $(this).parent().css("background-image","url(img/dept"+i+".jpg)");
+            i++;
+            if (i>5) i = 1;
+            return i;
         });
 /*          
         $(function(){
