@@ -1,0 +1,365 @@
+@keyframes trans-x {
+    from {width: 0px}
+    to {width: 300px}
+}
+@keyframes trans-x2 {
+  from {left: 7%}
+  to{left: 60%}
+}
+@keyframes trans-y {
+    from {top: -100px}
+    to {top: 20px}
+}
+@keyframes trans-y2 {
+    from {margin-top: 1000px}
+    to {margin-top: 100px}
+}
+@keyframes opac {
+    from {opacity: 0}
+    to {opacity: 1}
+}
+
+body {
+    background-color: white;
+    font-family:'Titillium Web', sans-serif;
+    color: black;
+    padding: 0;
+    margin: 0;
+    scrollbar-width: none;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+
+header {
+    position: relative;
+    height: 30px;
+    padding: 10px;
+    z-index: 2;
+}
+header h1 {
+    color: rgba(104,128,131,1);
+    font-family: 'Plaster', cursive;
+    font-size: 50px;
+    margin: 0;
+    position: fixed;
+    left: 20px;
+    line-height: 50px;
+}
+footer{
+  font-family: monospace;
+  color: black;
+  width: 500px;
+  height: 100px;
+  position: fixed;
+  top: 85%;
+  z-index: 2;
+  left: 2%;
+  animation-name: opac;
+  animation-duration: 4s;
+
+}
+nav.encabezado {
+    position: fixed;
+    right: 40px;
+    top: 20px;
+    animation-name: trans-y;
+    animation-duration: 2s;
+}
+nav.encabezado div {
+    display: inline-block;
+}
+nav.encabezado div:hover {
+    cursor: pointer;
+}
+nav.encabezado div img {
+    margin-left: 10px;
+    height: 30px;
+}
+
+#buscador {
+    position: fixed;
+    top: 60px;
+    left: 20px;
+    z-index: 3;
+}
+#buscador input.buscar {
+    font-family: monospace;
+    background: rgba(255, 255, 255, 0.5);
+    height: 60px;
+    width: 300px;
+    padding: 5px;
+    box-sizing: border-box;
+    border: none;
+    border-left: solid black 3px;
+    border-right: solid black 3px;
+    outline: none;
+    font-size: 30px;
+    border-radius: 0;
+    caret-color: black;
+    animation-name: trans-x;
+    animation-duration: 1s;
+}
+#buscador input::placeholder {
+    color: black;
+    opacity: 0.6;
+}
+#buscador nav.filtros {
+    margin-left: 10px;
+    font-size: 25px;
+    display: none;
+    animation-name: opac;
+    animation-duration: 4s;
+}
+#buscador nav.filtros img{
+    position: relative;
+    bottom: -2px;
+    height: 20px;
+}
+
+section.mapa {
+    position: fixed;
+    top: 0;
+    background-image: url("../img/map.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    width: 100%;
+    height: 100vh;
+    z-index: 0;
+    animation-name: opac;
+    animation-duration: 2s;
+}
+
+.columna-derecha{
+  position:fixed;
+  right:0;
+  top:0;
+  height:100vh;
+  max-width:380px;
+  padding-top: 60px;
+}
+
+.columna-izquierda{
+  position:fixed;
+  left:0;
+  top:0;
+  height:100vh;
+  max-width:500px;
+  padding-top:60px;
+}
+
+.seccionPrincipalArticulos {
+    display: none;
+    position: relative;
+    margin-top: 100px;
+    animation-name: trans-y2;
+    animation-duration: 2s;
+    z-index: 3;
+}
+.pestana {
+    background-color: rgba(255,255,255,0.8);
+    text-transform: uppercase;
+    font-size: 20px;
+    padding: 10px;
+    text-align: right;
+    margin-bottom: 3px;
+}
+.articulosPrincipales {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin-bottom: 3px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    z-index: 3;
+}
+.articulosPrincipales p {
+    box-sizing: border-box;
+    position: absolute;
+    padding: 10px;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.75)
+}
+.infoPrevia {
+    display: none;
+    transition: right 0.5s;
+    width: 30%;
+    height: 100%;
+    right: -100%;
+}
+.articulosPrincipales:hover {
+    cursor: pointer;
+}
+.articulosPrincipales:hover > p.infoPrevia {
+    right: 0;
+}
+.infoCompleta {
+    width: 100%;
+    opacity: 0;
+    bottom: 0;
+}
+#dept1 {
+    background-image: url("../img/dept1.jpg");
+}
+#dept2 {
+    background-image: url("../img/dept2.jpg");
+}
+#dept3 {
+    background-image: url("../img/dept3.jpg");
+}
+#dept4 {
+    background-image: url("../img/dept4.jpg");
+}
+#dept5 {
+    background-image: url("../img/dept5.jpg");
+}
+
+#btn_retorno {
+    position: relative;
+    top: -44px;
+    left: 10px;
+}
+#btn_retorno img{
+  height: 40px;
+}
+.retorno:hover {
+  cursor: pointer;
+}
+
+.panelFavoritos {
+    position: fixed;
+    z-index: 2;
+    right: -500px;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    background:rgba(179,181,167,1);
+    overflow: auto;
+    padding-top: 150px;
+}
+
+.articulosFavoritos {
+    display: inline-block;
+    width: 48%;
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 3px;
+}
+
+#panelLogin{
+  background: rgba(149,143,121,1);
+}
+#panelLogin .social{
+  position: relative;
+  width: 200px;
+  left: 90px;
+}
+
+#formRegistro{
+  background: rgba(255,255,255,0.5);
+  text-align: center;
+}
+#formRegistro input{
+  width: 90%;
+  left: 10px;
+  margin-bottom:5px;
+  font-family: 'Titillium web', cursive;
+  color: gray;
+}
+#formRegistro button{
+  width: 50%;
+  font-family: 'Titillium web', cursive;
+  color: gray;
+  bottom: 10px;
+}
+#formLogin{
+  background: rgba(255,255,255,0.5);
+  text-align: center;
+}
+#formLogin input{
+  width: 90%;
+  left: 10px;
+  margin-bottom:5px;
+  font-family: 'Titillium web', cursive;
+  color: gray;
+}
+#formLogin button{
+  width: 50%;
+  font-family: 'Titillium web', cursive;
+  color: gray;
+  bottom: 10px;
+}
+#formLogin .checkbox{
+  width:revert;
+}
+.formRecordar {
+  position: relative;
+  width: 50%;
+}
+
+#panelInfo{
+  background: rgba(241,183,133,1);
+  overflow: auto;
+}
+
+#preguntasFrecuentes input{
+  width:90%;
+  font-family: 'Titillium web', cursive;
+  color: gray;
+}
+#formInfo{
+  width: 100%;
+  text-align: center;
+  background: rgba(255,255,255,0.5);
+}
+#formInfo input{
+  width: 90%;
+  margin-bottom:5px;
+  font-family: 'Titillium web', cursive;
+  color: gray;
+}
+#formInfo textarea{
+  width: 90%;
+  margin-bottom:5px;
+  font-family: 'Titillium web', cursive;
+  color: gray;}
+
+#formInfo button{
+  width: 50%;
+  font-family: 'Titillium web', cursive;
+  color: gray;
+}
+.etiquetasVerticales{
+  position: absolute;
+  z-index: 2;
+  background: rgba(255,255,255,0.5);
+  color: #688083;
+}
+
+@media (min-width: 700px) {
+
+    .seccionPrincipalArticulos {
+        width: 50%;
+    }
+    .articulosPrincipales p {
+        display: block;
+    }
+
+    .panelLogin {
+        width: 28%;
+        padding-top: 50px;
+    }
+    .panelFavoritos {
+        width: 28%;
+        padding-top: 80px;
+    }
+    .panelInfo{
+        width: 28%;
+        padding-top: 0px;
+    }
+
+}

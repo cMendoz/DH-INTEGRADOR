@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/style.css">
+         <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
+         <link href="https://fonts.googleapis.com/css?family=Plaster&display=swap" rel="stylesheet">
+        <title>NOMADE</title>
+    </head>
+    <body>
+      <div class="container-fluid p-0">
+        <header>
+          <div id="logo">
+            <a href="index.php"><h1>NOMADE</h1></a>
+          </div>
+          <nav class="encabezado">
+              <div class="usuario" id="btn_usuario"><img src="img/user.png" alt=""></div>
+              <div class="favoritos" id="btn_favoritos"><img src="img/heart.png" alt=""></div>
+              <div class="info" id="btn_info"><img src="img/info.png" alt=""></div>
+          </nav>
+        </header>
+        <section class="mapa">
+        </section>
+        <section id="buscador">
+          <form action="" id="formBuscar" method="POST">
+              <input class="buscar" type="text" name="buscar" id="buscar" placeholder="¿A dónde vas?">
+              <nav class="filtros">2<img src="img/persona.png" alt=""> | 40m<sup>2</sup> | +2.000<img src="img/peso.png" ></nav>
+          </form>
+        </section>
+
+        <section class="columna-derecha m-0" id="panelLogin">
+          <div id="btn_retorno">
+            <img src="img/arrow.png" class="retorno" alt="">
+          </div>
+          <div class="row m-0" id="socialLogin">
+            <div class="col-sm-12">
+              <h2 class="text-center">REGISTRARSE</h2>
+            </div>
+            <div class="col-sm-12 mb-2">
+              <img class="social" src="img/loginFacebook.png" alt="Facebook">
+            </div>
+            <div class="col-sm-12 mb-2">
+              <img class="social" src="img/loginGoogle.png" alt="Google">
+            </div>
+            <div class="col-sm-12 m-0 p-3" id="formRegistro">
+              <form  action="html5-formularios.html" method="get">
+                <div class="col-sm-12">
+                  <input name="email" type="email" placeholder= "Dirección de correo electrónico">
+                </div>
+                <div class="col-sm-12">
+                  <input name="nombre" type="text" placeholder= "Nombre">
+                </div>
+                <div class="col-sm-12">
+                  <input name="apellido" type="text" placeholder= "Apellido">
+                </div>
+                <div class="col-sm-12">
+                  <input name="contrasena" type="password" placeholder= "Apellido">
+                </div>
+                <div class="col-sm-12 text-center">
+                  <button type="submit">REGISTRATE</button>
+                </div>
+              </form>
+            </div>
+            <div class="col-sm-12 p-0">
+              <div class="col-sm-12 mt-2">
+                <h5 align="center">¿Ya tienes una cuenta NOMADE?</h5>
+              </div>
+              <div class="col-sm-12">
+                <h2 align="center">LOGIN</h2>
+              </div>
+
+              <div class="col-sm-12 p-3" id="formLogin">
+                <div class="col-sm-12">
+                  <form action="html5-formularios.html" method="get">
+                  <input name="email" type="email" placeholder= "Dirección de correo electrónico">
+                </div>
+                <div class="col-sm-12">
+                  <input name="contraseña" type="password" placeholder="Contraseña">
+                </div>
+                <div class="col-sm-12">
+                  <button type="submit">INICIA SESIÓN</button>
+                </div>
+                <div class="col-sm-12">
+                  <label form="recordar">Recordarme</label>
+                  <input class="checkbox" name="recordar" type="checkbox">
+                  </form>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+      <footer>
+        <p>
+          "No existen torres hechas por el hombre que tengan la sorprendente
+          majestuosidad del macizo <b>Torres del Paine - Chile"</b>
+          <br><br>
+          <em>National Geografic - The world's most beautiful places.</em>
+        </p>
+      </footer>
+
+      </div>
+    </body>
+</html>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="js/animations.js"></script>
