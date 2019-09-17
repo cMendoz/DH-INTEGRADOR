@@ -1,3 +1,10 @@
+<?php
+
+    include "contenido.php";
+    include "funciones.php";
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,18 +17,19 @@
     <body>
         <header>
             <a href="index.php"><h1>NOMADE</h1></a>
+            <img src="img/arrow.png" class="retorno" alt="">
             <nav class="encabezado">
-
+                <div class="plus"><img src="img/plus.png" alt=""></div>
                 <div class="usuario"><img src="img/user.png" alt=""></div>
                 <div class="favoritos"><img src="img/heart.png" alt=""></div>
                 <div class="info"><img src="img/info.png" alt=""></div>
             </nav>
         </header>
         <section class="mapa">
-            <!-- <img src="img/map.png" alt=""> -->
         </section>
-        <form action="#" method="POST">
-            <input class="buscar" type="text" name="buscar" placeholder="Dónde vas?">
+        <form action="" id="formBuscar" method="POST">
+            <input class="buscar" type="text" name="buscar" id="buscar" placeholder="Dónde vas?">
+            <nav class="filtros">2<img src="img/persona.png" alt=""> | 40m<sup>2</sup> | +2.000<img src="img/peso.png" ></nav>
         </form>
         <footer>
           <p>
@@ -31,66 +39,33 @@
             <em>National Geografic - The world's most beautiful places.</em>
           </p>
         </footer>
+
         <section class="seccionPrincipalArticulos">
-            <div class="pestana"><?php echo $_POST["buscar"]." :" ?></div>
-            <article class="articulosPrincipales" id="dept1">
+            <div class="pestana"></div>
+
+        <?php
+            foreach ($deptos as $depto) {
+        ?>
+
+            <article class="articulosPrincipales" style="background-image:url('img/<?=$depto["foto"]?>');">
+                <img class ="favorito" src="img/heart.png" alt="">
+                <img class="flecha flechaIzq" src="img/arrow.png" alt="">
+                <img class="flecha flechaDer" src="img/arrow.png" alt="">
                 <p class="infoPrevia">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
+                    <?=$depto["nombre"]?>
                 </p>
                 <p class="infoCompleta">
-                    70m2 | 4 camas | <strong>2000ARS/día</strong>
+                   <?=$depto["superficie"]?> m<sup>2</sup> | <?=$depto["camas"]?> camas | <strong><?=$depto["precio"]?> ARS/día</strong>
                 </p>
             </article>
-            <article class="articulosPrincipales" id="dept2">
-                <p class="infoPrevia">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                </p>
-                <p class="infoCompleta">
-                    70m2 | 4 camas | <strong>2000ARS/día</strong>
-                </p>
-            </article>
-            <article class="articulosPrincipales" id="dept3">
-                <p class="infoPrevia">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                </p>
-                <p class="infoCompleta">
-                    70m2 | 4 camas | <strong>2000ARS/día</strong>
-                </p>
-            </article>
-            <article class="articulosPrincipales" id="dept4">
-                <p class="infoPrevia">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                </p>
-                <p class="infoCompleta">
-                    70m2 | 4 camas | <strong>2000ARS/día</strong>
-                </p>
-            </article>
-            <article class="articulosPrincipales" id="dept5">
-                <p class="infoPrevia">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                </p>
-                <p class="infoCompleta">
-                    70m2 | 4 camas | <strong>2000ARS/día</strong>
-                </p>
-            </article>
+
+        <?php
+            }
+        ?>
+
         </section>
+
         <section class="panelFavoritos">
-            <div class="etiquetasVerticales"><b>F<BR>A<BR>V<BR>O<BR>R<BR>I<BR>T<BR>O<BR>S</b></div>
             <article class="articulosFavoritos" id="dept1"></article>
             <article class="articulosFavoritos" id="dept2"></article>
             <article class="articulosFavoritos" id="dept3"></article>
@@ -113,12 +88,9 @@
             <article class="articulosFavoritos" id="dept5"></article>
         </section>
         <section class="panelLogin">
-          <div class="etiquetasVerticales"><b>L<BR>O<BR>G<BR>I<BR>N</b></div>
-          <br><br>
-          <div>
          <h2 align="center">REGISTRARSE:</h2>
-         <img src="img/loginFacebook.png" alt="Facebook">
-         <img src="img/loginGoogle.png" alt="Google">
+         <img class="social" src="img/loginFacebook.png" alt="Facebook">
+         <img class="social" src="img/loginGoogle.png" alt="Google">
              <form class="formLogin" action="html5-formularios.html" method="get">
              <label form="email"></label>
              <input name="email" type="email" placeholder= "Dirección de correo electrónico">
@@ -156,7 +128,6 @@
           </div>
         </section>
         <section class="panelInfo">
-           <div class="etiquetasVerticales"><b>I<BR>N<BR>F<BR>O</b></div>
            <div class="preguntasFrecuentes">
            <br><br>
            <h2 align="center">Preguntas Frecuentes:</h2>
@@ -189,115 +160,32 @@
            <br><br>
            <button type="submit">ENVIAR</button>
            </form>
-
          </div>
-
-
+        </section>
+        <section class="agregarDepto">
+            <section class="formularioAgregar">
+                <img src="img/cruz.png" class="cerrar" alt="">
+                <h1>AGREGAR PROPIEDAD</h1>
+                <form action="index.php" method="POST">
+                    <input type="text" name="nombre" placeholder="Escribí un título">
+                    <select name="foto">
+                        <option value="" selected disabled hidden>Seleccioná una foto</option>
+                        <option value="dept1.jpg">Foto 1</option>
+                        <option value="dept2.jpg">Foto 2</option>
+                        <option value="dept3.jpg">Foto 3</option>
+                        <option value="dept4.jpg">Foto 4</option>
+                        <option value="dept5.jpg">Foto 5</option>
+                    </select>
+                    <input type="text" name="superficie" placeholder="Cuántos m2?">
+                    <input type="text" name="camas" placeholder="Cuántas camas?">
+                    <input type="text" name="precio" placeholder="Cuánto por mes?">
+                    <input type="submit" value="Agregar" class="agregar">
+                </form>
+            </section>
         </section>
 
     </body>
 </html>
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript">
-        $(function(){
-            $('.articulosPrincipales').click(function(){
-                var iteration=$(this).data('iteration')||1
-                switch ( iteration) {
-                    case 1:
-                        $(this).animate({height: '500px'});
-                        $(".infoPrevia", this).animate({opacity: '0'});
-                        $(".infoCompleta", this).animate({opacity: '1'});
-                        break;
-
-                    case 2:
-                        $(this).animate({height: '200px'});
-                        $(".infoPrevia", this).animate({opacity: '1'});
-                        $(".infoCompleta", this).animate({opacity: '0'});
-                        break;
-                }
-                iteration++;
-                if (iteration>2) iteration=1
-                $(this).data('iteration',iteration)
-            })
-        });
-        $(function(){
-            $('.favoritos').click(function(){
-                var iteration=$(this).data('iteration')||1
-                switch ( iteration) {
-                    case 1:
-                        $(".panelFavoritos").animate({right: '0'});
-                        break;
-
-                    case 2:
-                    $(".panelFavoritos").animate({right: '-1000px'});
-                        break;
-                }
-                iteration++;
-                if (iteration>2) iteration=1
-                $(this).data('iteration',iteration)
-            })
-        });
-        $(function(){
-            $('.usuario').click(function(){
-                var iteration=$(this).data('iteration')||1
-                switch ( iteration) {
-                    case 1:
-                        $(".panelLogin").animate({right: '0'});
-                        break;
-
-                    case 2:
-                    $(".panelLogin").animate({right: '-1000px'});
-                        break;
-                }
-                iteration++;
-                if (iteration>2) iteration=1
-                $(this).data('iteration',iteration)
-            })
-        });
-        $(function(){
-            $('.info').click(function(){
-                var iteration=$(this).data('iteration')||1
-                switch ( iteration) {
-                    case 1:
-                        $(".panelInfo").animate({right: '0'});
-                        break;
-
-                    case 2:
-                    $(".panelInfo").animate({right: '-1000px'});
-                        break;
-                }
-                iteration++;
-                if (iteration>2) iteration=1
-                $(this).data('iteration',iteration)
-            })
-        });
-</script>
-
-<?php
-    if(isset($_POST['buscar'])){
-?>
-<style type="text/css">
-        nav.encabezado {
-            animation-name: none;
-        }
-        section.mapa {
-            animation-name: none;
-        }
-        form input.buscar {
-            animation-direction: reverse;
-            width: 0px;
-            background: none;
-        }
-        .seccionPrincipalArticulos {
-                display: block;
-        }
-        footer{
-          animation-name: trans-x2;
-          animation-duration: 2s;
-          left: 60%;
-        }
-</style>
-<?php
-}
-?>
+<script src="animations.js"></script>
