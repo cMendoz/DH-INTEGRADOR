@@ -25,12 +25,15 @@
                 <div class="info"><img src="img/info.png" alt=""></div>
             </nav>
         </header>
+
         <section class="mapa">
         </section>
+
         <form action="" id="formBuscar" method="POST">
             <input class="buscar" type="text" name="buscar" id="buscar" placeholder="Dónde vas?">
             <nav class="filtros">2<img src="img/persona.png" alt=""> | 40m<sup>2</sup> | +2.000<img src="img/peso.png" ></nav>
         </form>
+
         <footer>
           <p>
             "No existen torres hechas por el hombre que tengan la sorprendente
@@ -87,54 +90,92 @@
             <article class="articulosFavoritos" id="dept4"></article>
             <article class="articulosFavoritos" id="dept5"></article>
         </section>
-        <section class="panelLogin">
-         <h2 align="center">REGISTRARSE:</h2>
-         <img class="social" src="img/loginFacebook.png" alt="Facebook">
-         <img class="social" src="img/loginGoogle.png" alt="Google">
-             <form class="formLogin" action="html5-formularios.html" method="get">
-             <label form="email"></label>
-             <input name="email" type="email" placeholder= "Dirección de correo electrónico">
-             <br>
-             <label form="nombre"></label>
-             <input name="nombre" type="text" placeholder= "Nombre">
-             <br>
-             <label form="apellido"></label>
-             <input name="apellido" type="text" placeholder= "Apellido">
-             <br>
-             <label form="contraseña"></label>
-             <input name="contraseña" type="password" placeholder="Elige una contraseña">
-             <br><br>
-             <button type="submit">REGÍSTRATE</button>
-             </form>
-          </div>
-          <br><br><br>
-          <div>
-          <h5 align="center">¿Ya tienes una cuenta NOMADE?</h5>
-          <h2 align="center">LOGIN</h2>
-             <form class="formLogin" action="html5-formularios.html" method="get">
-             <label form="email"></label>
-             <input name="email" type="email" placeholder= "Dirección de correo electrónico">
-             <br>
-             <label form="contraseña"></label>
-             <input name="contraseña" type="password" placeholder="Contraseña">
-             <br><br>
-             <button type="submit">INICIA SESIÓN</button>
-             </form>
-             <form class="formRecordar" action="html5-formularios.html" method="get">
-             <label form="recordar">     Recordarme</label>
-             <input name="recordar" type="checkbox">
-             <br><br>
-             </form>
-          </div>
-        </section>
-        <section class="panelInfo">
-           <div class="preguntasFrecuentes">
-           <br><br>
-           <h2 align="center">Preguntas Frecuentes:</h2>
-           <h3>Búsqueda por palabra clave:</h3>
-           <span class="icon"><i class="fa fa-search"></i></span>
-           <input type="search" id="search" placeholder="Buscar..." />
 
+        <section class="panelLogin">
+
+        <?php
+            if(!$_COOKIE["usuario"]) {
+        ?>
+
+         <h2>REGISTRARSE</h2>
+         <img class="social" src="img/loginFacebook.png" alt="Facebook">
+         <img class="social" src="img/loginTwitter.png" alt="Twitter">
+         <img class="social" src="img/loginLinkedin.png" alt="LinkedIn">
+            <form class="formRegistro" action="" method="post">
+                <input name="email" type="email" placeholder= "E-mail">
+                <input name="usuario" type="text" placeholder= "Usuario">
+                <input name="contraseña" type="password" placeholder="Contraseña">
+                <input type="submit" value="Registrarse" class="aceptar">
+            </form>
+          <h5>¿Ya tenes una cuenta NOMADE?</h5>
+          <h2>LOGIN</h2>
+             <form class="formLogin" action="" method="POST">
+                <input name="usuario" type="text" placeholder= "Usuario">
+                <input name="contrasena" type="password" placeholder="Contraseña">
+                <input type="submit" value="Ingresar" class="aceptar botonLogin">
+             </form>
+
+        <?php
+            } elseif($_COOKIE["usuario"]) {
+        ?>
+
+        <h2><?=$_COOKIE["usuario"]?></h2>
+        <p class="formLogin">Moneda 
+            <select name="moneda">
+                <option value="ARS">ARS</option>
+                <option value="EUR">EUR</option>
+                <option value="USD">USD</option>
+            </select>
+        </p>
+        <p class="formLogin">Idioma
+            <select name="idioma">
+                <option value="espanol">Español (Argentina)</option>
+                <option value="frances">Français (France)</option>
+                <option value="ingles">English (US)</option>
+            </select>
+        </p>
+        <p class="formLogin">País de residencia
+            <select name="residencia">
+                <option value="residenciaArgentina">Argentina</option>
+                <option value="residenciaBolivia">Bolivia</option>
+                <option value="residenciaBrasil">Brasil</option>
+                <option value="residenciaChile">Chile</option>
+                <option value="residenciaParaguay">Paraguay</option>
+                <option value="residenciaUruguay">Uruguay</option>
+            </select>
+        </p>
+        <p class="formLogin">Destino preferido
+            <select name="destino">
+                <option value="budapest">Budapest (Hungría)</option>
+                <option value="moscu">Moscú (Rusia)</option>
+                <option value="sanFrancisco">San Francisco (Estados Unidos)</option>
+                <option value="tokyo">Tokyo (Japón)</option>
+                <option value="ushuaia">Ushuaia (Argentina)</option>
+            </select>
+        </p>
+        <p class="formLogin">Método de pago
+            <select name="metodoDePago">
+                <option value="americanExpress">American Express</option>
+                <option value="masterCard">Master Card</option>
+                <option value="visa">Visa</option>
+            </select>
+        </p>
+
+        <form action="" class="formLogin" method="POST">
+            <input type="submit" name="desconectarse" value="Desconectarse" class="aceptar">
+        </form>
+
+        <?php
+            };
+        ?>
+
+        </section>
+
+        <section class="panelInfo">
+           <h2>PREGUNTAS FRECUENTES</h2>
+           <form action="" class="formInfo">
+                <input type="search" placeholder="Buscar por palabra clave"/>
+           </form>
            <ul type="bullet">
              <li>¿Cómo creo una cuenta?</li>
              <li>¿Cómo restablezco mi contraseña?</li>
@@ -142,26 +183,16 @@
              <li>¿Qué comprenden las tarifas?</li>
              <li>¿Cuál es la politica de cancelación?</li>
            </ul>
-           <br>
-           <h3>¿No encuentras una solucion?</h3>
-           <h4> Escribinos: </h4>
-           <form class="formInfo" action="html5-formularios.html" method="get">
-           <label form="email"></label>
-           <input name="email" type="email" placeholder= "Dirección de correo electrónico">
-           <br>
-           <label form="nombre"></label>
-           <input name="nombre" type="text" placeholder= "Nombre">
-           <br>
-           <label form="apellido"></label>
-           <input name="apellido" type="text" placeholder= "Apellido">
-           <br>
-           <label form="comentarios"></label>
-           <textarea name="comentarios" rows="5">Escribe aquí....</textarea>
-           <br><br>
-           <button type="submit">ENVIAR</button>
+           <h5>¿No encontras una solución?</h5>
+           <h2>ESCRIBIR COMENTARIO</h2>
+           <form class="formInfo" action="" method="post">
+            <input name="email" type="email" placeholder= "E-mail">
+            <input name="usuario" type="text" placeholder= "Usuario">
+            <textarea name="comentarios" rows="5" placeholder="Escribí acá tu comentario"></textarea>
+            <input type="submit" value="Enviar" class="aceptar">
            </form>
-         </div>
         </section>
+
         <section class="agregarDepto">
             <section class="formularioAgregar">
                 <img src="img/cruz.png" class="cerrar" alt="">
@@ -179,7 +210,7 @@
                     <input type="text" name="superficie" placeholder="Cuántos m2?">
                     <input type="text" name="camas" placeholder="Cuántas camas?">
                     <input type="text" name="precio" placeholder="Cuánto por mes?">
-                    <input type="submit" value="Agregar" class="agregar">
+                    <input type="submit" value="Agregar" class="aceptar">
                 </form>
             </section>
         </section>

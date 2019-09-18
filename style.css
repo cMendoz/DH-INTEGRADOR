@@ -12,7 +12,7 @@
 }
 @keyframes trans-y2 {
     from {margin-top: 1000px}
-    to {margin-top: 150px}
+    to {margin-top: 200px}
 }
 @keyframes opac {
     from {opacity: 0}
@@ -32,6 +32,13 @@ a {
     text-decoration: none;
     color: black;
 }
+a:hover {
+    color: red;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
 
 header {
     position: fixed;
@@ -50,6 +57,34 @@ header h1 {
     line-height: 50px;
     z-index: 10000;
 }
+form input,select {
+    color: black;
+    height: 30px;
+    display: block;
+    margin: auto;
+    margin-bottom: 20px;
+    background: none;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid grey;
+    outline: none;
+    border-radius: 0;
+    padding: 0;
+    font-size: 15px;
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
+}
+form select {
+    color: grey;
+}
+
+form .aceptar {
+    text-align: left;
+    border: none;
+    font-size: 20px;
+}
+
 footer{
   font-family: monospace;
   color: black;
@@ -69,12 +104,11 @@ nav.encabezado {
     top: 20px;
     animation-name: trans-y;
     animation-duration: 2s;
+    display: flex;
+    flex-direction: column;
 }
 nav.encabezado div {
     display: inline-block;
-}
-nav.encabezado div:hover {
-    cursor: pointer;
 }
 nav.encabezado div img {
     margin-left: 10px;
@@ -88,6 +122,8 @@ form#formBuscar {
     z-index: 10000;
 }
 form input.buscar {
+    display: inline-block;
+    margin: 0;
     font-family: monospace;
     background: rgba(255, 255, 255, 0.5);
     height: 60px;
@@ -108,6 +144,11 @@ input::placeholder {
     color: black;
     opacity: 0.6;
 }
+textarea::placeholder {
+    color: black;
+    opacity: 0.6;
+}
+
 nav.filtros {
     margin-left: 10px;
     font-size: 25px;
@@ -138,7 +179,7 @@ section.mapa {
 .seccionPrincipalArticulos {
     display: none;
     position: relative;
-    margin-top: 150px;
+    margin-top:200px;
     animation-name: trans-y2;
     animation-duration: 2s;
     z-index: 20;
@@ -167,6 +208,8 @@ section.mapa {
     top: 10px;
     opacity: 0;
     height: 30px;
+    transition: opacity 0.5s;
+    z-index: 40;
 }
 .articulosPrincipales .flecha {
     position: absolute;
@@ -174,9 +217,6 @@ section.mapa {
     top: 45%;
     height: 40px;
     opacity: 0;
-}
-.articulosPrincipales .flecha:hover {
-    cursor: pointer;
 }
 .articulosPrincipales .flechaIzq {
     left: 0px;
@@ -200,9 +240,6 @@ section.mapa {
     width: 30%;
     height: 100%;
     right: -100%;
-}
-.articulosPrincipales:hover {
-    cursor: pointer;
 }
 .articulosPrincipales:hover > p.infoPrevia {
     right: 0;
@@ -229,14 +266,10 @@ section.mapa {
 }
 
 .retorno {
-    height: 40px;
+    height: 35px;
     position: fixed;
-    top: 15px;
+    top: 20px;
     left: 100%;
-}
-.retorno:hover {
-    cursor: pointer;
-    opacity: 0.5;
 }
 
 .panelFavoritos {
@@ -247,17 +280,22 @@ section.mapa {
     height: 100vh;
     width: 100%;
     background:rgba(179,181,167,1);
-    overflow: auto;
     padding-top: 150px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+    justify-content: flex-end;
 }
 
 .articulosFavoritos {
     display: inline-block;
-    width: 48%;
-    height: 150px;
+    width: 31%;
+    height: 100px;
     background-size: cover;
     background-position: center;
-    margin-bottom: 3px;
+    margin: 1% 1%;
+    border-radius: 50%;
+    transition: opacity 0.5s;
 }
 
 .panelLogin{
@@ -271,37 +309,32 @@ section.mapa {
   overflow: auto;
   padding-top: 110px;
 }
-.panelLogin .social{
-  position: relative;
-  width: 200px;
-  left: 90px;
+.panelLogin p {
+    margin-left: 20px;
 }
-
-.formLogin{
+.panelLogin h2,h5 {
+    margin-left: 20px;
+    text-transform: uppercase;
+}
+.panelLogin .social{
+    height: 40px;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+.formLogin, .formRegistro {
   position: relative;
-  left: 10px;
-  width: 360px;
-  background: rgba(255,255,255,0.5);
+  width: 100%;
   z-index: 500;
 }
-.formLogin input{
-  position: relative;
-  width: 90%;
-  left: 10px;
-  font-family: 'Titillium web', cursive;
-  color: gray;
+.formLogin input, .formRegistro input{
+    position: relative;
+    width: 90%;
+    margin-top: 20px;
 }
-.formLogin button{
-  position: relative;
-  width: 50%;
-  left: 25%;
-  font-family: 'Titillium web', cursive;
-  color: gray;
-  bottom: 10px;
-}
-.formRecordar {
-  position: relative;
-  width: 50%;
+.panelLogin ul {
+    padding-left: 20px;
 }
 
 .panelInfo{
@@ -313,55 +346,40 @@ section.mapa {
   width: 100%;
   background: rgba(241,183,133,1);
   overflow: auto;
-  padding-top: 60px;
+  padding-top: 110px;
 }
-
+.panelInfo h2,h5 {
+    margin-left: 20px;
+    text-transform: uppercase;
+}
 .panelInfo div.preguntasFrecuentes{
   position: relative;
   width: 85%;
   left: 20px;
 }
-input#search{
-  position: relative;
-  top: -20px;
-  font-family: 'Titillium web', cursive;
-  color: gray;
+.panelInfo ul {
+    padding-left: 20px;
 }
-.formInfo{
-  position: relative;
-  left: 10px;
-  width: 100%;
-  background: rgba(255,255,255,0.5);
-  z-index: 500;
+
+.formInfo {
+    position: relative;
+    width: 100%;
+    z-index: 500;
 }
-.formInfo input{
-  position: relative;
-  width: 90%;
-  left: 10px;
-  font-family: 'Titillium web', cursive;
-  color: gray;
+.formInfo input {
+    position: relative;
+    width: 90%;
+    margin-top: 20px;
 }
 .formInfo textarea{
-  position: relative;
-  width: 90%;
-  left: 10px;
-  font-family: 'Titillium web', cursive;
-  color: gray;}
+    background: none;
+    position: relative;
+    width: 90%;
+    left: 20px;
+    border: 1px solid grey;
+    outline: none;
+}
 
-.formInfo button{
-  position: relative;
-  width: 50%;
-  left: 25%;
-  font-family: 'Titillium web', cursive;
-  color: gray;
-  bottom: 10px;
-}
-.etiquetasVerticales{
-  position: absolute;
-  z-index: 1000;
-  background: rgba(255,255,255,0.5);
-  color: #688083;
-}
 section.agregarDepto {
     position: fixed;
     width: 100%;
@@ -376,56 +394,61 @@ section.agregarDepto h1 {
 }
 section.formularioAgregar {
     margin: auto;
-    width: 500px;
+    width: 100%;
     height: 100vh;
     background-color: rgba(255,255,255,0.8);
     padding-top: 20px;
 }
 section.formularioAgregar img {
-    height: 25px;
+    height: 30px;
     float: right;
     margin-right: 20px;
+    margin-top: 2px;
 }
-section.formularioAgregar .cerrar:hover {
-    cursor: pointer;
-    opacity: 0.5;
-}
+
 section.formularioAgregar form input,select {
-    color: grey;
     width: 400px;
-    height: 30px;
-    display: block;
-    margin: auto;
-    margin-bottom: 20px;
-    background: none;
-    box-sizing: border-box;
-    border: none;
-    border-bottom: 1px solid grey;
-    outline: none;
-    border-radius: 0;
-    padding: 0;
-    font-size: 15px;
-    -webkit-appearance: none;
-    -moz-appearance:    none;
-    appearance:         none;
-}
-section.formularioAgregar form .agregar {
-    text-align: left;
-    border: none;
-    font-size: 20px;
-}
-section.formularioAgregar form .agregar:hover {
-    cursor: pointer;
-    color: black;
 }
 
 @media (min-width: 700px) {
 
+    form .aceptar:hover {
+        cursor: pointer;
+        color: red;
+    }
+
+    nav.encabezado {
+        flex-direction: row;
+    }
+    nav.encabezado div:hover {
+        cursor: pointer;
+    }
+
     .seccionPrincipalArticulos {
         width: 50%;
     }
+    .articulosPrincipales .favorito:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
     .articulosPrincipales p {
         display: block;
+    }
+    .articulosPrincipales:hover {
+        cursor: pointer;
+    }
+    .articulosPrincipales .flecha:hover {
+        cursor: pointer;
+    }
+
+    .retorno:hover {
+        cursor: pointer;
+        opacity: 0.5;
+    }
+
+    .articulosFavoritos:hover {
+        cursor: pointer;
+        opacity: 0.5;
     }
 
     .panelLogin {
@@ -438,7 +461,15 @@ section.formularioAgregar form .agregar:hover {
     }
     .panelInfo{
         width: 28%;
-        padding-top: 0px;
+        padding-top: 50px;
+    }
+
+    section.formularioAgregar {
+        width: 500px;
+    }
+    section.formularioAgregar .cerrar:hover {
+        cursor: pointer;
+        opacity: 0.5;
     }
 
 }

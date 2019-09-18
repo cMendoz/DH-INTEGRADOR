@@ -32,21 +32,21 @@
         });
         $(".favoritos").click(function(){
             $(".panelFavoritos").animate({right: '0'},500);
-            clic = clic + 1000;
+            clic = clic + 100;
             $(".panelFavoritos").css("z-index",clic);
-            $(".retorno").stop().delay(300).animate({left:"72%"},200);
+            $(".retorno").stop().delay(300).animate({left:"73%"},200);
         });
         $(".usuario").click(function(){
             $(".panelLogin").animate({right: '0'},500);
-            clic = clic + 1000;
+            clic = clic + 100;
             $(".panelLogin").css("z-index",clic);
-            $(".retorno").stop().delay(300).animate({left:"72%"},200);
+            $(".retorno").stop().delay(300).animate({left:"73%"},200);
         });
         $(".info").click(function(){
             $(".panelInfo").animate({right: '0'},500);
-            clic = clic + 1000;
+            clic = clic + 100;
             $(".panelInfo").css("z-index",clic);
-            $(".retorno").stop().delay(300).animate({left:"72%"},200);
+            $(".retorno").stop().delay(300).animate({left:"73%"},200);
         });
         $(".retorno").click(function(){
             $(".retorno").animate({left:"100%"});
@@ -57,80 +57,19 @@
         var i = 1;
         $(".flechaIzq").click(function(e){
             e.stopPropagation();
-            $(this).parent().css("background-image","url(img/dept"+i+".jpg)");
             i--;
             if (i<1) i = 5;
+            $(this).parent().css("background-image","url(img/dept"+i+".jpg)");
             return i;
         });
         $(".flechaDer").click(function(e){
             e.stopPropagation();
-            $(this).parent().css("background-image","url(img/dept"+i+".jpg)");
             i++;
             if (i>5) i = 1;
+            $(this).parent().css("background-image","url(img/dept"+i+".jpg)");
             return i;
         });
-/*          
-        $(function(){
-            $('.favoritos').click(function(){
-                var iteration=$(this).data('iteration')||1
-                switch ( iteration) {
-                    case 1:
-                        $(".panelFavoritos").animate({right: '0'});
-                        clic = clic + 1000;
-                        $(".panelFavoritos").css("z-index",clic);
-                        break;
 
-                    case 2:
-                    $(".panelFavoritos").animate({right: '-1000px'});
-                        break;
-                }
-                iteration++;
-                if (iteration>2) iteration=1
-                $(this).data('iteration',iteration);
-                return clic;
-            })
-        });
-        $(function(){
-            $('.usuario').click(function(){
-                var iteration=$(this).data('iteration')||1
-                switch ( iteration) {
-                    case 1:
-                        $(".panelLogin").animate({right: '0'});
-                        clic = clic + 1000;
-                        $(".panelLogin").css("z-index",clic);
-                        break;
-
-                    case 2:
-                    $(".panelLogin").animate({right: '-1000px'});
-                        break;
-                }
-                iteration++;
-                if (iteration>2) iteration=1
-                $(this).data('iteration',iteration);
-                return clic;
-            })
-        });
-        $(function(){
-            $('.info').click(function(){
-                var iteration=$(this).data('iteration')||1
-                switch ( iteration) {
-                    case 1:
-                        $(".panelInfo").animate({right: '0'});
-                        clic = clic + 1000;
-                        $(".panelInfo").css("z-index",clic);
-                        break;
-
-                    case 2:
-                    $(".panelInfo").animate({right: '-1000px'});
-                        break;
-                }
-                iteration++;
-                if (iteration>2) iteration=1
-                $(this).data('iteration',iteration);
-                return clic;
-            })
-        });
-*/
         $('#formBuscar').submit(function(event){
             event.preventDefault();
             $('.pestana').text($('#buscar').val());
@@ -141,3 +80,12 @@
             $(".buscar").css("background","none");
             $("footer").animate({left:"60%"},1000);
         });
+        
+        function cuadrado (){
+            var width = $('.articulosFavoritos').outerWidth();
+            $('.articulosFavoritos').css('height', width);
+        }
+    
+        $(document).ready(function(){ cuadrado(); });
+    
+        $(window).resize(function(){ cuadrado(); });
