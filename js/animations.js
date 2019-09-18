@@ -21,18 +21,21 @@
             })
         });
         $("#btn_favoritos").click(function(){
+            window.location.replace("favoritos.html");
             $("#panelFavoritos").animate({right: '0'},500);
             clic = clic + 1000;
             $("#panelFavoritos").css("z-index",clic);
             $("#btn_retorno").stop().delay(300).animate({left:"72%"},200);
         });
         $("#btn_usuario").click(function(){
+            window.location.replace("login-registro.html");
             $("#panelLogin").animate({right: '0'},500);
             clic = clic + 1000;
             $("#panelLogin").css("z-index",clic);
             $("#btn_retorno").stop().delay(300).animate({left:"72%"},200);
         });
         $("#btn_info").click(function(){
+            window.location.replace("preguntas-frecuentes.html");
             $("#panelInfo").animate({right: '0'},500);
             clic = clic + 1000;
             $("#panelInfo").css("z-index",clic);
