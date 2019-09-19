@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/style.css">
+         <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
+         <link href="https://fonts.googleapis.com/css?family=Plaster&display=swap" rel="stylesheet">
+        <title>NOMADE</title>
+    </head>
+    <body>
+      <div class="container-fluid p-0">
+        <header>
+          <div id="logo">
+            <a href="home.html"><h1>NOMADE</h1></a>
+          </div>
+          <nav class="encabezado">
+              <div class="usuario" id="btn_usuario"><img src="img/user.png" alt=""></div>
+              <div class="favoritos" id="btn_favoritos"><img src="img/heart.png" alt=""></div>
+              <div class="info" id="btn_info"><img src="img/info.png" alt=""></div>
+          </nav>
+        </header>
+        <section class="mapa">
+        </section>
+        <section id="buscador">
+          <form action="busqueda.html" id="formBuscar" method="POST">
+              <input class="buscar" type="text" name="buscar" id="buscar" placeholder="¿A dónde vas?">
+          </form>
+        </section>
+
+        <section class="columna-derecha m-0" id="panelInfo">
+          <div id="btn_retorno">
+            <img src="img/arrow.png" class="retorno" alt="">
+          </div>
+          <div class="row m-0" id="preguntasFrecuentes">
+            <div class="col-sm-12">
+              <h2>PREGUNTAS FRECUENTES</h2>
+            </div>
+            <div class="col-sm-12">
+              <input class="float-left" type="search" id="search" placeholder="Buscar por palabra clave" />
+              <img src="img/magnifying-glass-2x.png" />
+            </div>
+            <div class="col-sm-12 mt-3">
+              <ul type="bullet">
+              <li>¿Cómo creo una cuenta?</li>
+              <li>¿Cómo restablezco mi contraseña?</li>
+              <li>¿Por qué debo pagar por NOMADE?</li>
+              <li>¿Qué comprenden las tarifas?</li>
+              <li>¿Cuál es la politica de cancelación?</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-sm-12 p-0" id="contacto">
+            <h5>¿No encontrás una solucion?</h5>
+            <h4> Escribinos: </h4>
+            <div class="col-sm-12 m-0 p-3" id="formInfo">
+              <form  action="html5-formularios.html" method="get">
+                <div class="col-sm-12">
+                  <input name="email" type="email" placeholder= "Dirección de correo electrónico">
+                </div>
+                <div class="col-sm-12">
+                  <input name="nombre" type="text" placeholder= "Nombre">
+                </div>
+                <div class="col-sm-12">
+                  <input name="apellido" type="text" placeholder= "Apellido">
+                </div>
+                <div class="col-sm-12">
+                  <textarea name="comentarios" rows="5">Escribe aquí....</textarea>
+                </div>
+                <div class="col-sm-12 text-center mb-3">
+                  <button type="submit">ENVIAR</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </section>
+        <footer>
+          <p>
+            "No existen torres hechas por el hombre que tengan la sorprendente
+            majestuosidad del macizo <b>Torres del Paine - Chile"</b>
+            <br><br>
+            <em>National Geografic - The world's most beautiful places.</em>
+          </p>
+        </footer>
+
+      </div>
+    </body>
+</html>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="js/animations.js"></script>
