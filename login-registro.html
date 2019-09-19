@@ -24,9 +24,8 @@
         <section class="mapa">
         </section>
         <section id="buscador">
-          <form action="" id="formBuscar" method="POST">
+          <form action="busqueda.html" id="formBuscar" method="POST">
               <input class="buscar" type="text" name="buscar" id="buscar" placeholder="¿A dónde vas?">
-              <nav class="filtros">2<img src="img/persona.png" alt=""> | 40m<sup>2</sup> | +2.000<img src="img/peso.png" ></nav>
           </form>
         </section>
 
@@ -36,57 +35,50 @@
           </div>
           <div class="row m-0" id="socialLogin">
             <div class="col-sm-12">
-              <h2 class="text-center">REGISTRARSE</h2>
+              <h2>REGISTRARSE</h2>
             </div>
-            <div class="col-sm-12 mb-2 text-center">
+            <div class="col-sm-12 text-center">
               <img class="social" src="img/loginFacebook.png" alt="Facebook">
+              <img class="social" src="img/loginTwitter.png" alt="Twitter">
+              <img class="social" src="img/loginLinkedin.png" alt="LinkedIn">
             </div>
-            <div class="col-sm-12 mb-2 text-center">
-              <img class="social" src="img/loginGoogle.png" alt="Google">
-            </div>
+
             <div class="col-sm-12 m-0 p-3" id="formRegistro">
-              <form  action="html5-formularios.html" method="get">
+              <form action="perfil.html" method="get">
                 <div class="col-sm-12">
-                  <input name="email" type="email" placeholder= "Dirección de correo electrónico">
+                  <input name="email" type="email" placeholder= "E-mail">
                 </div>
                 <div class="col-sm-12">
-                  <input name="nombre" type="text" placeholder= "Nombre">
+                  <input name="nombre" type="text" placeholder= "Usuario">
                 </div>
                 <div class="col-sm-12">
-                  <input name="apellido" type="text" placeholder= "Apellido">
-                </div>
-                <div class="col-sm-12">
-                  <input name="contrasena" type="password" placeholder= "Apellido">
+                  <input name="contrasena" type="password" placeholder= "Contraseña">
                 </div>
                 <div class="col-sm-12 text-center">
-                  <button type="submit">REGISTRATE</button>
+                  <input type="submit" value="Registrarse" class="aceptar">
                 </div>
               </form>
             </div>
             <div class="col-sm-12 p-0">
               <div class="col-sm-12 mt-2">
-                <h5 align="center">¿Ya tienes una cuenta NOMADE?</h5>
+                <h5>¿YA TENÉS UNA CUENTA NOMADE?</h5>
               </div>
               <div class="col-sm-12">
-                <h2 align="center">LOGIN</h2>
+                <h3>LOGIN</h3>
               </div>
 
               <div class="col-sm-12 p-3" id="formLogin">
+                <form action="perfil.html" method="get">
                 <div class="col-sm-12">
-                  <form action="html5-formularios.html" method="get">
-                  <input name="email" type="email" placeholder= "Dirección de correo electrónico">
+                  <input name="email" type="email" placeholder="Usuario">
                 </div>
                 <div class="col-sm-12">
-                  <input name="contraseña" type="password" placeholder="Contraseña">
+                  <input name="contrasena" type="password" placeholder="Contraseña">
                 </div>
                 <div class="col-sm-12">
-                  <button type="submit">INICIA SESIÓN</button>
+                  <input type="submit" value="Ingresar" class="aceptar">
                 </div>
-                <div class="col-sm-12">
-                  <label form="recordar">Recordarme</label>
-                  <input class="checkbox" name="recordar" type="checkbox">
-                  </form>
-                </div>
+              </form>
               </div>
 
             </div>

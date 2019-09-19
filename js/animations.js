@@ -1,18 +1,20 @@
         var clic = 0;
         $(function(){
-            $('#articulosPrincipales').click(function(){
+            $('.articulosPrincipales').click(function(){
                 var iteration=$(this).data('iteration')||1
                 switch ( iteration) {
                     case 1:
                         $(this).animate({height: '500px'});
                         $(".infoPrevia", this).animate({opacity: '0'});
                         $(".infoCompleta", this).animate({opacity: '1'});
+                        $("img", this).animate({opacity: "1" });
                         break;
 
                     case 2:
                         $(this).animate({height: '200px'});
                         $(".infoPrevia", this).animate({opacity: '1'});
                         $(".infoCompleta", this).animate({opacity: '0'});
+                        $("img", this).animate({opacity: "0" });
                         break;
                 }
                 iteration++;
@@ -42,75 +44,41 @@
             $("#btn_retorno").stop().delay(300).animate({left:"72%"},200);
         });
         $("#btn_retorno").click(function(){
+            window.location.replace("home.html");
             $("#btn_retorno").animate({left:"100%"});
             $("#panelFavoritos").animate({right: '-500'},500);
             $("#panelLogin").animate({right: '-500'},500);
             $("#panelInfo").animate({right: '-500'},500);
+            $("#panelLogin").animate({right: '-500'},500);
         });
-/*
-        $(function(){
-            $('.favoritos').click(function(){
-                var iteration=$(this).data('iteration')||1
-                switch ( iteration) {
-                    case 1:
-                        $(".panelFavoritos").animate({right: '0'});
-                        clic = clic + 1000;
-                        $(".panelFavoritos").css("z-index",clic);
-                        break;
 
-                    case 2:
-                    $(".panelFavoritos").animate({right: '-1000px'});
-                        break;
-                }
-                iteration++;
-                if (iteration>2) iteration=1
-                $(this).data('iteration',iteration);
-                return clic;
-            })
+        var i = 1;
+        $(".flechaIzq").click(function(e){
+            e.stopPropagation();
+            i--;
+            if (i<1) i = 5;
+            $(this).parent().css("background-image","url(img/dept"+i+".jpg)");
+            return i;
         });
-        $(function(){
-            $('.usuario').click(function(){
-                var iteration=$(this).data('iteration')||1
-                switch ( iteration) {
-                    case 1:
-                        $(".panelLogin").animate({right: '0'});
-                        clic = clic + 1000;
-                        $(".panelLogin").css("z-index",clic);
-                        break;
+        $(".flechaDer").click(function(e){
+            e.stopPropagation();
+            i++;
+            if (i>5) i = 1;
+            $(this).parent().css("background-image","url(img/dept"+i+".jpg)");
+            return i;
+        });
 
-                    case 2:
-                    $(".panelLogin").animate({right: '-1000px'});
-                        break;
-                }
-                iteration++;
-                if (iteration>2) iteration=1
-                $(this).data('iteration',iteration);
-                return clic;
-            })
-        });
-        $(function(){
-            $('.info').click(function(){
-                var iteration=$(this).data('iteration')||1
-                switch ( iteration) {
-                    case 1:
-                        $(".panelInfo").animate({right: '0'});
-                        clic = clic + 1000;
-                        $(".panelInfo").css("z-index",clic);
-                        break;
+        function cuadrado (){
+            var width = $('.articulosFavoritos').outerWidth();
+            $('.articulosFavoritos').css('height', width);
+        }
 
-                    case 2:
-                    $(".panelInfo").animate({right: '-1000px'});
-                        break;
-                }
-                iteration++;
-                if (iteration>2) iteration=1
-                $(this).data('iteration',iteration);
-                return clic;
-            })
-        });
-*/
+        $(document).ready(function(){ cuadrado(); });
+
+        $(window).resize(function(){ cuadrado(); });
+
         $('#formBuscar').submit(function(event){
-            event.preventDefault();
+            //event.preventDefault();
             $('.pestana').text($('#buscar').val());
             $('.seccionPrincipalArticulos').show();
             $(".filtros").css("display","inline-block");
