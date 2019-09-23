@@ -8,11 +8,11 @@
 }
 @keyframes trans-y {
     from {top: -100px}
-    to {top: 10px}
+    to {top: 20px}
 }
 @keyframes trans-y2 {
     from {margin-top: 1000px}
-    to {margin-top: 100px}
+    to {margin-top: 200px}
 }
 @keyframes opac {
     from {opacity: 0}
@@ -26,17 +26,28 @@ body {
     color: black;
     padding: 0;
     margin: 0;
+    scrollbar-width: none;
 }
 a {
     text-decoration: none;
     color: black;
 }
+a:hover {
+    color: red;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+h5 {
+    font-size: 15px;
+}
 
 header {
-    position: relative;
+    position: fixed;
     height: 30px;
     padding: 10px;
-    z-index: 100;
+    z-index: 10000;
 }
 header h1 {
     color: rgba(104,128,131,1);
@@ -44,9 +55,40 @@ header h1 {
     font-size: 50px;
     margin: 0;
     position: fixed;
+    top: 10px;
     left: 20px;
     line-height: 50px;
+    z-index: 10000;
 }
+form input,select {
+    color: black;
+    height: 30px;
+    width: 100%;
+    display: block;
+    margin: auto;
+    margin-bottom: 20px;
+    background: none;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid grey;
+    outline: none;
+    border-radius: 0;
+    padding: 0;
+    font-size: 15px;
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
+}
+.agregarDepto form select {
+    color: grey;
+}
+
+form .aceptar {
+    text-align: left;
+    border: none;
+    font-size: 20px;
+}
+
 footer{
   font-family: monospace;
   color: black;
@@ -63,28 +105,33 @@ footer{
 nav.encabezado {
     position: fixed;
     right: 20px;
-    top: 10px;
+    top: 20px;
     animation-name: trans-y;
     animation-duration: 2s;
+    display: flex;
+    flex-direction: column;
 }
 nav.encabezado div {
     display: inline-block;
-}
-nav.encabezado div:hover {
-    cursor: pointer;
 }
 nav.encabezado div img {
     margin-left: 10px;
     height: 30px;
 }
+#fotoDeUsuario {
+    width: 30px;
+    border-radius: 15px;
+}
 
-form {
+form#formBuscar {
     position: fixed;
     top: 60px;
     left: 20px;
-    z-index: 50;
+    z-index: 10000;
 }
 form input.buscar {
+    display: inline-block;
+    margin: 0;
     font-family: monospace;
     background: rgba(255, 255, 255, 0.5);
     height: 60px;
@@ -105,6 +152,23 @@ input::placeholder {
     color: black;
     opacity: 0.6;
 }
+textarea::placeholder {
+    color: black;
+    opacity: 0.6;
+}
+
+nav.filtros {
+    margin-left: 10px;
+    font-size: 25px;
+    display: none;
+    animation-name: opac;
+    animation-duration: 4s;
+}
+nav.filtros img{
+    position: relative;
+    bottom: -2px;
+    height: 20px;
+}
 
 section.mapa {
     position: fixed;
@@ -115,32 +179,30 @@ section.mapa {
     background-position: top center;
     width: 100%;
     height: 100vh;
-    z-index: 10;
+    z-index: -1;
     animation-name: opac;
     animation-duration: 2s;
 }
-/* section.mapa img {
-    margin: 10px 2.5%;
-    width: 95%;
-    animation-name: opac;
-    animation-duration: 2s;
-} */
 
 .seccionPrincipalArticulos {
     display: none;
     position: relative;
-    margin-top: 100px;
+    margin-top:200px;
     animation-name: trans-y2;
     animation-duration: 2s;
     z-index: 20;
 }
 .pestana {
     background-color: rgba(255,255,255,0.8);
-    text-transform: capitalize;
+    text-transform: uppercase;
     font-size: 20px;
     padding: 10px;
     text-align: right;
     margin-bottom: 3px;
+}
+.pestana:hover {
+    cursor: pointer;
+    background-color: white;
 }
 .articulosPrincipales {
     position: relative;
@@ -152,22 +214,44 @@ section.mapa {
     overflow: hidden;
     z-index: 25;
 }
+.articulosPrincipales .favorito {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    opacity: 0;
+    height: 30px;
+    transition: opacity 0.5s;
+    z-index: 40;
+}
+.articulosPrincipales .flecha {
+    position: absolute;
+    z-index: 35;
+    top: 45%;
+    height: 40px;
+    opacity: 0;
+}
+.articulosPrincipales .flechaIzq {
+    left: 0px;
+    transform: rotate(180deg);
+}
+.articulosPrincipales .flechaDer {
+    right: 0px;
+}
 .articulosPrincipales p {
     box-sizing: border-box;
     position: absolute;
     padding: 10px;
     margin: 0;
-    background-color: rgba(255, 255, 255, 0.75)
+    background-color: rgba(255, 255, 255, 0.75);
 }
 .infoPrevia {
+    position: relative;
+    z-index: 30;
     display: none;
     transition: right 0.5s;
     width: 30%;
     height: 100%;
     right: -100%;
-}
-.articulosPrincipales:hover {
-    cursor: pointer;
 }
 .articulosPrincipales:hover > p.infoPrevia {
     right: 0;
@@ -193,147 +277,241 @@ section.mapa {
     background-image: url("img/dept5.jpg");
 }
 
-.panelFavoritos {
+.retorno {
+    height: 35px;
     position: fixed;
-    z-index: 61;
-    right: -1000px;
+    top: 18px;
+    left: 100%;
+}
+
+.panel {
+    position: fixed;
+    right: -100%;
     top: 0;
     height: 100vh;
     width: 100%;
-    background:#B3B5A7;
     overflow: auto;
+    padding-top: 110px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
 }
+
+.panelFavoritos {
+    background:rgba(179,181,167,1);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding-top: 150px;
+    padding-left: 10px;
+    padding-right: 10px
+}
+
 .articulosFavoritos {
     display: inline-block;
-    width: 48%;
-    height: 150px;
+    width: 31%;
+    height: 100px;
     background-size: cover;
     background-position: center;
-    margin-bottom: 3px;
+    margin: 1% 1%;
+    border-radius: 50%;
+    transition: opacity 0.5s;
 }
 
 .panelLogin{
-  position: fixed;
-  z-index: 60;
-  right: -1000px;
-  top: 0;
-  height: 100vh;
-  width: 100%;
   background: rgba(149,143,121,1);
-  /*background:#958F79;*/
-  overflow: auto;
 }
 
-.panelLogin img{
-  position: relative;
-  width: 200px;
-  left: 90px;
+label.file {
+    border-bottom: 1px solid grey;
+    padding-bottom: 5px;
+    display: inline-block;
+    width: 100%;
 }
-
-.formLogin{
+label.file:hover {
+    cursor: pointer;
+    color: red;
+}
+input.file {
+    display: none;
+}
+.panelLogin select {
+    width: 100%;
+}
+.panelLogin h2,h5 {
+    text-transform: uppercase;
+}
+.panelLogin .social{
+    height: 40px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+.formLogin, .formRegistro {
   position: relative;
-  left: 10px;
-  width: 360px;
-  background: rgba(255,255,255,0.5);
+  width: 100%;
   z-index: 500;
 }
-.formLogin input{
-  position: relative;
-  width: 90%;
-  left: 10px;
-  font-family: 'Titillium web', cursive;
-  color: gray;
+.formLogin input, .formRegistro input{
+    position: relative;
+    margin-top: 20px;
 }
-.formLogin button{
-  position: relative;
-  width: 50%;
-  left: 25%;
-  font-family: 'Titillium web', cursive;
-  color: gray;
-  bottom: 10px;
+.panel .alertaContrasena {
+    color: red;
+    font-size: 12px;
+    font-weight: bold;
 }
-.formRecordar {
-  position: relative;
-  width: 50%;
+
+.panelLogin .olvide:hover {
+    cursor: pointer;
+    color: red;
+}
+.panelLogin .emailOlvide {
+    opacity: 0;
+    display: none;
 }
 
 .panelInfo{
-  position: fixed;
-  z-index: 62;
-  right: -1000px;
-  top: 0;
-  height: 100vh;
-  width: 100%;
-  background: #F1B785;
-  overflow: auto;
+  background: rgba(241,183,133,1);
 }
-
+.panelInfo h2,h5 {
+    text-transform: uppercase;
+}
 .panelInfo div.preguntasFrecuentes{
   position: relative;
   width: 85%;
   left: 20px;
 }
-input#search{
-  position: relative;
-  top: -20px;
-  font-family: 'Titillium web', cursive;
-  color: gray;
+
+
+.panelInfo ul .pregunta {
+    font-weight: bold;
 }
-.formInfo{
-  position: relative;
-  left: 10px;
-  width: 100%;
-  background: rgba(255,255,255,0.5);
-  z-index: 500;
+.panelInfo ul .pregunta:hover {
+    cursor: pointer;
 }
-.formInfo input{
-  position: relative;
-  width: 90%;
-  left: 10px;
-  font-family: 'Titillium web', cursive;
-  color: gray;
+
+.panelInfo ul .respuesta {
+    opacity: 0;
+    display: none;
+    font-weight: normal;
+}
+
+.formInfo {
+    position: relative;
+    width: 100%;
+    z-index: 500;
+}
+.formInfo input {
+    position: relative;
+    margin-top: 20px;
 }
 .formInfo textarea{
-  position: relative;
-  width: 90%;
-  left: 10px;
-  font-family: 'Titillium web', cursive;
-  color: gray;}
-
-.formInfo button{
-  position: relative;
-  width: 50%;
-  left: 25%;
-  font-family: 'Titillium web', cursive;
-  color: gray;
-  bottom: 10px;
+    background: none;
+    position: relative;
+    width: 90%;
+    border: 1px solid grey;
+    outline: none;
 }
-.etiquetasVerticales{
-  position: absolute;
-  z-index: 1000;
-  background: rgba(255,255,255,0.5);
-  color: #688083;
+
+section.agregarDepto {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(255,255,255,0.5);
+    z-index: -10;
+    opacity: 0;
+}
+section.agregarDepto h1 {
+    margin-left: 50px;
+    font-size: 25px;
+}
+section.formularioAgregar {
+    margin: auto;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(255,255,255,0.8);
+    padding-top: 20px;
+}
+section.formularioAgregar img {
+    height: 30px;
+    float: right;
+    margin-right: 20px;
+    margin-top: 2px;
+}
+
+section.formularioAgregar form input,section.formularioAgregar form select {
+    width: 400px;
 }
 
 @media (min-width: 700px) {
-    nav.encabezado a img{
-        height: 30px;
+
+    form .aceptar:hover {
+        cursor: pointer;
+        color: red;
     }
+
+    nav.encabezado {
+        flex-direction: row;
+    }
+    nav.encabezado div:hover {
+        cursor: pointer;
+    }
+
     .seccionPrincipalArticulos {
-        width: 40%;
+        width: 50%;
+    }
+    .articulosPrincipales .favorito:hover {
+        cursor: pointer;
+        transform: scale(1.1);
     }
     .articulosPrincipales p {
         display: block;
     }
+    .articulosPrincipales:hover {
+        cursor: pointer;
+    }
+    .articulosPrincipales .flecha:hover {
+        cursor: pointer;
+    }
+
+    .retorno:hover {
+        cursor: pointer;
+        opacity: 0.5;
+    }
+
+    .articulosFavoritos:hover {
+        cursor: pointer;
+        opacity: 0.5;
+    }
 
     .panelLogin {
         width: 28%;
+        padding-top: 50px;
+        right: -30%;
     }
     .panelFavoritos {
-        width: 26%;
+        width: 28%;
+        padding-top: 80px;
+        right: -30%;
     }
     .panelInfo{
-        width: 24%;
+        width: 28%;
+        padding-top: 50px;
+        right: -30%;
+    }
+
+    section.formularioAgregar {
+        width: 500px;
+    }
+    section.formularioAgregar .cerrar:hover {
+        cursor: pointer;
+        opacity: 0.5;
+    }
+    .panelInfo .conectarse:hover {
+        cursor: pointer;
+        color: red;
     }
 
 }

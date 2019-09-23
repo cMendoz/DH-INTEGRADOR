@@ -1,8 +1,15 @@
+<?php
+
+    include "contenido.php";
+    include "funciones.php";
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="<?=$css?>">
          <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
          <link href="https://fonts.googleapis.com/css?family=Plaster&display=swap" rel="stylesheet">
         <title>NOMADE</title>
@@ -10,19 +17,23 @@
     <body>
         <header>
             <a href="index.php"><h1>NOMADE</h1></a>
+            <img src="<?=$carpeta?>/arrow.png" class="retorno" alt="">
             <nav class="encabezado">
-
-                <div class="usuario"><img src="img/user.png" alt=""></div>
-                <div class="favoritos"><img src="img/heart.png" alt=""></div>
-                <div class="info"><img src="img/info.png" alt=""></div>
+                <div class="usuario"><img src="<?=$foto?>" id="fotoDeUsuario" alt=""></div>
+                <div class="favoritos"><img src="<?=$carpeta?>/heart.png" alt=""></div>
+                <div class="plus"><img src="<?=$carpeta?>/plus.png" alt=""></div>
+                <div class="info"><img src="<?=$carpeta?>/info.png" alt=""></div>
             </nav>
         </header>
+
         <section class="mapa">
-            <!-- <img src="img/map.png" alt=""> -->
         </section>
-        <form action="#" method="POST">
-            <input class="buscar" type="text" name="buscar" placeholder="Dónde vas?">
+
+        <form action="" id="formBuscar" method="POST">
+            <input class="buscar" type="text" name="buscar" id="buscar" placeholder="Dónde vas?">
+            <nav class="filtros">2<img src="<?=$carpeta?>/persona.png" alt=""> | 40m<sup>2</sup> | +2.000<img src="<?=$carpeta?>/peso.png" ></nav>
         </form>
+
         <footer>
           <p>
             "No existen torres hechas por el hombre que tengan la sorprendente
@@ -31,273 +42,228 @@
             <em>National Geografic - The world's most beautiful places.</em>
           </p>
         </footer>
+
         <section class="seccionPrincipalArticulos">
-            <div class="pestana"><?php echo $_POST["buscar"]." :" ?></div>
-            <article class="articulosPrincipales" id="dept1">
-                <p class="infoPrevia">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                </p>
-                <p class="infoCompleta">
-                    70m2 | 4 camas | <strong>2000ARS/día</strong>
-                </p>
-            </article>
-            <article class="articulosPrincipales" id="dept2">
-                <p class="infoPrevia">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                </p>
-                <p class="infoCompleta">
-                    70m2 | 4 camas | <strong>2000ARS/día</strong>
-                </p>
-            </article>
-            <article class="articulosPrincipales" id="dept3">
-                <p class="infoPrevia">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                </p>
-                <p class="infoCompleta">
-                    70m2 | 4 camas | <strong>2000ARS/día</strong>
-                </p>
-            </article>
-            <article class="articulosPrincipales" id="dept4">
-                <p class="infoPrevia">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                </p>
-                <p class="infoCompleta">
-                    70m2 | 4 camas | <strong>2000ARS/día</strong>
-                </p>
-            </article>
-            <article class="articulosPrincipales" id="dept5">
-                <p class="infoPrevia">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.<br><br>
-                </p>
-                <p class="infoCompleta">
-                    70m2 | 4 camas | <strong>2000ARS/día</strong>
-                </p>
-            </article>
-        </section>
-        <section class="panelFavoritos">
-            <div class="etiquetasVerticales"><b>F<BR>A<BR>V<BR>O<BR>R<BR>I<BR>T<BR>O<BR>S</b></div>
-            <article class="articulosFavoritos" id="dept1"></article>
-            <article class="articulosFavoritos" id="dept2"></article>
-            <article class="articulosFavoritos" id="dept3"></article>
-            <article class="articulosFavoritos" id="dept4"></article>
-            <article class="articulosFavoritos" id="dept5"></article>
-            <article class="articulosFavoritos" id="dept1"></article>
-            <article class="articulosFavoritos" id="dept2"></article>
-            <article class="articulosFavoritos" id="dept3"></article>
-            <article class="articulosFavoritos" id="dept4"></article>
-            <article class="articulosFavoritos" id="dept5"></article>
-            <article class="articulosFavoritos" id="dept1"></article>
-            <article class="articulosFavoritos" id="dept2"></article>
-            <article class="articulosFavoritos" id="dept3"></article>
-            <article class="articulosFavoritos" id="dept4"></article>
-            <article class="articulosFavoritos" id="dept5"></article>
-            <article class="articulosFavoritos" id="dept1"></article>
-            <article class="articulosFavoritos" id="dept2"></article>
-            <article class="articulosFavoritos" id="dept3"></article>
-            <article class="articulosFavoritos" id="dept4"></article>
-            <article class="articulosFavoritos" id="dept5"></article>
-        </section>
-        <section class="panelLogin">
-          <div class="etiquetasVerticales"><b>L<BR>O<BR>G<BR>I<BR>N</b></div>
-          <br><br>
-          <div>
-         <h2 align="center">REGISTRARSE:</h2>
-         <img src="img/loginFacebook.png" alt="Facebook">
-         <img src="img/loginGoogle.png" alt="Google">
-             <form class="formLogin" action="html5-formularios.html" method="get">
-             <label form="email"></label>
-             <input name="email" type="email" placeholder= "Dirección de correo electrónico">
-             <br>
-             <label form="nombre"></label>
-             <input name="nombre" type="text" placeholder= "Nombre">
-             <br>
-             <label form="apellido"></label>
-             <input name="apellido" type="text" placeholder= "Apellido">
-             <br>
-             <label form="contraseña"></label>
-             <input name="contraseña" type="password" placeholder="Elige una contraseña">
-             <br><br>
-             <button type="submit">REGÍSTRATE</button>
-             </form>
-          </div>
-          <br><br><br>
-          <div>
-          <h5 align="center">¿Ya tienes una cuenta NOMADE?</h5>
-          <h2 align="center">LOGIN</h2>
-             <form class="formLogin" action="html5-formularios.html" method="get">
-             <label form="email"></label>
-             <input name="email" type="email" placeholder= "Dirección de correo electrónico">
-             <br>
-             <label form="contraseña"></label>
-             <input name="contraseña" type="password" placeholder="Contraseña">
-             <br><br>
-             <button type="submit">INICIA SESIÓN</button>
-             </form>
-             <form class="formRecordar" action="html5-formularios.html" method="get">
-             <label form="recordar">     Recordarme</label>
-             <input name="recordar" type="checkbox">
-             <br><br>
-             </form>
-          </div>
-        </section>
-        <section class="panelInfo">
-           <div class="etiquetasVerticales"><b>I<BR>N<BR>F<BR>O</b></div>
-           <div class="preguntasFrecuentes">
-           <br><br>
-           <h2 align="center">Preguntas Frecuentes:</h2>
-           <h3>Búsqueda por palabra clave:</h3>
-           <span class="icon"><i class="fa fa-search"></i></span>
-           <input type="search" id="search" placeholder="Buscar..." />
+            <div class="pestana"></div>
 
-           <ul type="bullet">
-             <li>¿Cómo creo una cuenta?</li>
-             <li>¿Cómo restablezco mi contraseña?</li>
-             <li>¿Por qué debo pagar por NOMADE?</li>
-             <li>¿Qué comprenden las tarifas?</li>
-             <li>¿Cuál es la politica de cancelación?</li>
-           </ul>
-           <br>
-           <h3>¿No encuentras una solucion?</h3>
-           <h4> Escribinos: </h4>
-           <form class="formInfo" action="html5-formularios.html" method="get">
-           <label form="email"></label>
-           <input name="email" type="email" placeholder= "Dirección de correo electrónico">
-           <br>
-           <label form="nombre"></label>
-           <input name="nombre" type="text" placeholder= "Nombre">
-           <br>
-           <label form="apellido"></label>
-           <input name="apellido" type="text" placeholder= "Apellido">
-           <br>
-           <label form="comentarios"></label>
-           <textarea name="comentarios" rows="5">Escribe aquí....</textarea>
-           <br><br>
-           <button type="submit">ENVIAR</button>
+        <?php
+            foreach ($deptos as $depto) {
+        ?>
+
+            <article class="articulosPrincipales" style="background-image:url('img/<?=$depto["foto"]?>');">
+                <img class ="favorito" src="img/heart.png" alt="">
+                <img class="flecha flechaIzq" src="img/arrow.png" alt="">
+                <img class="flecha flechaDer" src="img/arrow.png" alt="">
+                <p class="infoPrevia">
+                    <?=$depto["nombre"]?>
+                </p>
+                <p class="infoCompleta">
+                   <?=$depto["superficie"]?> m<sup>2</sup> | <?=$depto["camas"]?> camas | <strong><?=$depto["precio"]?> ARS/día</strong>
+                </p>
+            </article>
+
+        <?php
+            }
+        ?>
+
+        </section>
+
+        <section class="panel panelFavoritos">
+            <article class="articulosFavoritos" id="dept1"></article>
+            <article class="articulosFavoritos" id="dept2"></article>
+            <article class="articulosFavoritos" id="dept3"></article>
+            <article class="articulosFavoritos" id="dept4"></article>
+            <article class="articulosFavoritos" id="dept5"></article>
+            <article class="articulosFavoritos" id="dept1"></article>
+            <article class="articulosFavoritos" id="dept2"></article>
+            <article class="articulosFavoritos" id="dept3"></article>
+            <article class="articulosFavoritos" id="dept4"></article>
+            <article class="articulosFavoritos" id="dept5"></article>
+            <article class="articulosFavoritos" id="dept1"></article>
+            <article class="articulosFavoritos" id="dept2"></article>
+            <article class="articulosFavoritos" id="dept3"></article>
+            <article class="articulosFavoritos" id="dept4"></article>
+            <article class="articulosFavoritos" id="dept5"></article>
+            <article class="articulosFavoritos" id="dept1"></article>
+            <article class="articulosFavoritos" id="dept2"></article>
+            <article class="articulosFavoritos" id="dept3"></article>
+            <article class="articulosFavoritos" id="dept4"></article>
+            <article class="articulosFavoritos" id="dept5"></article>
+        </section>
+
+        <section class="panel panelLogin">
+
+        <?php
+            if(!$_COOKIE["usuario"] && !$usuarioValido) {
+        ?>
+
+         <h2>SIGN IN</h2>
+         <img class="social" src="<?=$carpeta?>/loginFacebook.png" alt="Facebook">
+         <img class="social" src="<?=$carpeta?>/loginTwitter.png" alt="Twitter">
+         <img class="social" src="<?=$carpeta?>/loginLinkedin.png" alt="LinkedIn">
+
+            <form class="formRegistro" action="" method="post">
+                <input name="email" type="email" placeholder= "E-mail" value=<?=$_POST["email"]?>>
+                <input name="usuarioNuevo" type="text" placeholder= "Usuario" value=<?=$_POST["usuarioNuevo"]?>>
+                <input name="contrasenaNueva" type="password" placeholder="Contraseña" value=<?=$_POST["contrasenaNueva"]?>>
+                <input name="contrasenaNueva2" type="password" placeholder="Confirmar contraseña" value=<?=$_POST["contrasenaNueva2"]?>>
+                <span class="alertaContrasena"><?=$alertContrasena?></span>
+                <input type="submit" name="registrarse" value="Registrarse" class="aceptar">
+            </form>
+            
+            <h5>¿Ya tenes una cuenta NOMADE?</h5>
+            <h2>LOGIN</h2>
+            <form class="formLogin" action="" method="POST">
+                <input name="usuario" type="text" placeholder= "Usuario">
+                <input name="contrasena" type="password" placeholder="Contraseña">
+                <span class="alertaContrasena"><?=$alertConexion?></span>
+                <input type="submit" value="Ingresar" class="aceptar botonLogin">
+            </form>
+            <p class="olvide">Olvidé mi contraseña</p>
+            <form action="" method="POST" class="formLogin">
+                <input type="email" placeholder="Ingresa tu e-mail" class="emailOlvide">
+            </form>
+
+        <?php
+            } elseif($_COOKIE["usuario"] || $usuarioValido) {
+        ?>
+
+        <h2><?=$_COOKIE["usuario"]?></h2>
+
+        <form action="" method="POST" enctype="multipart/form-data">
+        <label for="foto" class="file formLogin">Cargar una foto de perfil</label>
+            <input type="file" id="foto" class="file" name="fotoDePerfil">
+            <input type="submit" value="Subir" class="aceptar">
+        </form>
+        <p class="formLogin">Moneda 
+            <select name="moneda">
+                <option value="ARS">ARS</option>
+                <option value="EUR">EUR</option>
+                <option value="USD">USD</option>
+            </select>
+        </p>
+        <p class="formLogin">Idioma
+            <select name="idioma">
+                <option value="espanol">Español (Argentina)</option>
+                <option value="frances">Français (France)</option>
+                <option value="ingles">English (US)</option>
+            </select>
+        </p>
+        <p class="formLogin">País de residencia
+            <select name="residencia">
+                <option value="residenciaArgentina">Argentina</option>
+                <option value="residenciaBolivia">Bolivia</option>
+                <option value="residenciaBrasil">Brasil</option>
+                <option value="residenciaChile">Chile</option>
+                <option value="residenciaParaguay">Paraguay</option>
+                <option value="residenciaUruguay">Uruguay</option>
+            </select>
+        </p>
+        <p class="formLogin">Destino preferido
+            <select name="destino">
+                <option value="budapest">Budapest (Hungría)</option>
+                <option value="moscu">Moscú (Rusia)</option>
+                <option value="sanFrancisco">San Francisco (Estados Unidos)</option>
+                <option value="tokyo">Tokyo (Japón)</option>
+                <option value="ushuaia">Ushuaia (Argentina)</option>
+            </select>
+        </p>
+        <p class="formLogin">Método de pago
+            <select name="metodoDePago">
+                <option value="americanExpress">American Express</option>
+                <option value="masterCard">Master Card</option>
+                <option value="visa">Visa</option>
+            </select>
+        </p>
+
+        <form action="" class="formLogin" id="formTheme" method="POST">
+            <label for="theme" class="formLogin">Estilo visual</label>
+            <select name="theme" id="theme" onchange='this.form.submit()'>
+                <option <?=$selectedThemeClaro?> value="claro">Claro</option>
+                <option <?=$selectedThemeOscuro?> value="oscuro">Oscuro</option>
+            </select>
+        </form>
+
+        <form action="" class="formLogin" method="POST">
+            <input type="submit" name="desconectarse" value="Desconectarse" class="aceptar">
+        </form>
+
+        <?php
+            };
+        ?>
+
+        </section>
+
+        <section class="panel panelInfo">
+           <h2>PREGUNTAS FRECUENTES</h2>
+           <form action="" class="formInfo">
+                <input type="search" placeholder="Buscar por palabra clave"/>
            </form>
+           <ul type="bullet">
+             <li class="pregunta">¿Cómo creo una cuenta?<p class="respuesta">Haga clic en el icono <img src="img/user.png" style="height:10px" alt=""> y llene el formulario de registro.</p></li> 
+             <li class="pregunta">¿Cómo restablezco mi contraseña?<p class="respuesta">En el formulario de ingreso, haga clic en "Olvidé mi contraseña" y siga los pasos indicados</p></li> 
+             <li class="pregunta">¿Por qué debo pagar por NOMADE?<p class="respuesta">Efectuar una transacción por Nomade le brinda al inquilino la seguridad de que su pago no se finalizará hasta que este confirme que el propietario cumplió con todos los requisitos.</p></li>
+             <li class="pregunta">¿Qué comprenden las tarifas?<p class="respuesta">Las tarifas corresponden, por un lado a la comisión de Nomade, y por otro lado a los gastos que el propietario debe enfrentar para preparar el hogar y recibirlo de la mejor manera.</p></li> 
+             <li class="pregunta">¿Cuál es la politica de cancelación?<p class="respuesta">Cada dueño es libre de optar por las políticas de cancelación que desee, mientras respete el plazo mínimo de 24 horas para cancelar sin costos.</p></li> 
+           </ul>
+           <h5>¿No encontras una solución?</h5>
+           <h2>ESCRIBIR COMENTARIO</h2>
+           <form class="formInfo" action="" method="post">
+            <h5>
+                <?php
 
-         </div>
+                if($_COOKIE["usuario"]) {
+                    echo $_COOKIE["usuario"];
+                }else { 
+                ?>
+                <span class="conectarse">Conectarse</span>
+                <?php 
+                }
+                ?>
+            </h5>
+            <?php
+                if(!$_COOKIE["usuario"]) {
+            ?>
+            <style>
+                #areaComentario {
+                    display:none;
+                }
+                #aceptarComentario {
+                    display:none;
+                }
+            </style>
+            <?php
+                };
+            ?>
+            <textarea name="comentarios" rows="5" placeholder="Escribí acá tu comentario" id="areaComentario"></textarea>
+            <input type="submit" value="Enviar" class="aceptar" id="aceptarComentario">
+           </form>
+        </section>
 
-
+        <section class="agregarDepto">
+            <section class="formularioAgregar">
+                <img src="<?=$carpeta?>/cruz.png" class="cerrar" alt="">
+                <h1>AGREGAR PROPIEDAD</h1>
+                <form action="index.php" method="POST">
+                    <input type="text" name="nombre" placeholder="Escribí un título">
+                    <select name="foto">
+                        <option value="" selected disabled hidden>Seleccioná una foto</option>
+                        <option value="dept1.jpg">Foto 1</option>
+                        <option value="dept2.jpg">Foto 2</option>
+                        <option value="dept3.jpg">Foto 3</option>
+                        <option value="dept4.jpg">Foto 4</option>
+                        <option value="dept5.jpg">Foto 5</option>
+                    </select>
+                    <input type="text" name="superficie" placeholder="Cuántos m2?">
+                    <input type="text" name="camas" placeholder="Cuántas camas?">
+                    <input type="text" name="precio" placeholder="Cuánto por mes?">
+                    <input type="submit" value="Agregar" class="aceptar">
+                </form>
+            </section>
         </section>
 
     </body>
 </html>
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript">
-        $(function(){
-            $('.articulosPrincipales').click(function(){
-                var iteration=$(this).data('iteration')||1
-                switch ( iteration) {
-                    case 1:
-                        $(this).animate({height: '500px'});
-                        $(".infoPrevia", this).animate({opacity: '0'});
-                        $(".infoCompleta", this).animate({opacity: '1'});
-                        break;
-
-                    case 2:
-                        $(this).animate({height: '200px'});
-                        $(".infoPrevia", this).animate({opacity: '1'});
-                        $(".infoCompleta", this).animate({opacity: '0'});
-                        break;
-                }
-                iteration++;
-                if (iteration>2) iteration=1
-                $(this).data('iteration',iteration)
-            })
-        });
-        $(function(){
-            $('.favoritos').click(function(){
-                var iteration=$(this).data('iteration')||1
-                switch ( iteration) {
-                    case 1:
-                        $(".panelFavoritos").animate({right: '0'});
-                        break;
-
-                    case 2:
-                    $(".panelFavoritos").animate({right: '-1000px'});
-                        break;
-                }
-                iteration++;
-                if (iteration>2) iteration=1
-                $(this).data('iteration',iteration)
-            })
-        });
-        $(function(){
-            $('.usuario').click(function(){
-                var iteration=$(this).data('iteration')||1
-                switch ( iteration) {
-                    case 1:
-                        $(".panelLogin").animate({right: '0'});
-                        break;
-
-                    case 2:
-                    $(".panelLogin").animate({right: '-1000px'});
-                        break;
-                }
-                iteration++;
-                if (iteration>2) iteration=1
-                $(this).data('iteration',iteration)
-            })
-        });
-        $(function(){
-            $('.info').click(function(){
-                var iteration=$(this).data('iteration')||1
-                switch ( iteration) {
-                    case 1:
-                        $(".panelInfo").animate({right: '0'});
-                        break;
-
-                    case 2:
-                    $(".panelInfo").animate({right: '-1000px'});
-                        break;
-                }
-                iteration++;
-                if (iteration>2) iteration=1
-                $(this).data('iteration',iteration)
-            })
-        });
-</script>
-
-<?php
-    if(isset($_POST['buscar'])){
-?>
-<style type="text/css">
-        nav.encabezado {
-            animation-name: none;
-        }
-        section.mapa {
-            animation-name: none;
-        }
-        form input.buscar {
-            animation-direction: reverse;
-            width: 0px;
-            background: none;
-        }
-        .seccionPrincipalArticulos {
-                display: block;
-        }
-        footer{
-          animation-name: trans-x2;
-          animation-duration: 2s;
-          left: 60%;
-        }
-</style>
-<?php
-}
-?>
+<script src="animations.js"></script>
