@@ -1,6 +1,6 @@
 @keyframes trans-x {
     from {width: 0px}
-    to {width: 300px}
+    to {width: 270px}
 }
 @keyframes trans-x2 {
   from {left: 7%}
@@ -69,12 +69,33 @@ form input,select {
     border-radius: 0;
     padding: 0;
     font-size: 15px;
-    -webkit-appearance: none;
-    -moz-appearance:    none;
-    appearance:         none;
 }
+
+#panelLogin select {
+  -webkit-appearance: none;
+  -moz-appearance:    none;
+  appearance:         none;
+}
+
+#cartel-frente{
+  position: absolute;
+  z-index: 200;
+  margin: 50vh auto;
+  width: 100%;
+  background: white;
+  font-size: 33px;
+  text-align: center;
+}
+
 .agregarDepto form select {
     color: grey;
+}
+
+.check-recordarme{
+  float: left;
+  width: auto;
+  height: auto;
+  margin: 6px !important;
 }
 
 form .aceptar {
@@ -84,7 +105,7 @@ form .aceptar {
 }
 
 footer{
-  font-family: monospace;
+  font-family: 'monospace', 'Montserrat', sans-serif;
   width: 95%;
   height: 100px;
   position: fixed;
@@ -119,6 +140,7 @@ nav.encabezado div img {
 
 form#formBuscar {
     position: fixed;
+    white-space: nowrap;
     top: 60px;
     left: 20px;
     z-index: 10000;
@@ -126,7 +148,7 @@ form#formBuscar {
 form input.buscar {
     display: inline-block;
     margin: 0;
-    font-family: monospace;
+    font-family: 'monospace', 'Montserrat', sans-serif;
     height: 60px;
     width: 300px;
     padding: 5px;
@@ -150,10 +172,8 @@ textarea::placeholder {
 
 nav.filtros {
     margin-left: 10px;
-    font-size: 25px;
-    display: none;
-    animation-name: opac;
-    animation-duration: 4s;
+    font-size: 15px;
+    display: inline-block;
 }
 nav.filtros input {
     display: inline-block;
@@ -190,9 +210,8 @@ section.mapa {
 .seccionPrincipalArticulos {
     display: none;
     position: relative;
-    margin-top:200px;
-    animation-name: trans-y2;
-    animation-duration: 2s;
+    top:800px;
+    opacity:0;
     z-index: 20;
 }
 .pestana {
@@ -258,19 +277,19 @@ section.mapa {
     bottom: 0;
 }
 #dept1 {
-    background-image: url("img_deptos/dept1.jpg");
+    background-image: url("../img/img_deptos/dept1.jpg");
 }
 #dept2 {
-    background-image: url("img_deptos/dept2.jpg");
+    background-image: url("../img/img_deptos/dept2.jpg");
 }
 #dept3 {
-    background-image: url("img_deptos/dept3.jpg");
+    background-image: url("../img/img_deptos/dept3.jpg");
 }
 #dept4 {
-    background-image: url("img_deptos/dept4.jpg");
+    background-image: url("../img/img_deptos/dept4.jpg");
 }
 #dept5 {
-    background-image: url("img_deptos/dept5.jpg");
+    background-image: url("../img/img_deptos/dept5.jpg");
 }
 
 .retorno {
@@ -278,6 +297,18 @@ section.mapa {
     position: fixed;
     top: 18px;
     left: 100%;
+}
+
+.btn-cerrar{
+  float:right;
+}
+
+.btn-cerrar:hover{
+  cursor:pointer;
+}
+
+.pestana img{
+  width:30px;
 }
 
 .panel {
@@ -339,7 +370,18 @@ label.file:hover {
     cursor: pointer;
 }
 input.file {
-    display: none;
+  display: inline;
+  float: left;
+  width: 90%;
+}
+
+.foto-perfil{
+  text-align:center;
+}
+
+.foto-perfil img{
+  width:200px;
+  height:initial!important;
 }
 .panelLogin input.subir {
     display: none;
@@ -468,7 +510,10 @@ section.formularioAgregar form input,section.formularioAgregar form select {
     font-size: 10px;
 }
 
-@media (min-width: 700px) {
+@media (min-width: 768px) {
+    nav.filtros {
+        font-size: 25px;
+    }
 
     form .lupa:hover {
         cursor: pointer;

@@ -1,4 +1,5 @@
          var clic = 0;
+         var show_resultados = false;
 
         $(".activarMapa").click(function(){
             $(".mapa").css("background", "none");
@@ -33,23 +34,15 @@
 
         $(function(){
             $(".pestana").click(function(){
-                var iteration=$(this).data("iteration")||1;
-                switch(iteration) {
-                    case 1:
-                        $(".articulosPrincipales").animate({height:"0px"});
-                        $(".infoPrevia").animate({opacity: '1'});
-                        $(".infoCompleta").animate({opacity: '0'});
-                        $(".favorito").css("opacity", "0");
-                        $(".flecha").css("display", "none");
-                        break;
+              if (show_resultados){
+                event.preventDefault();
+                $('.seccionPrincipalArticulos').animate({top:"800px", opacity:"0"}, 1000, function(){$('.seccionPrincipalArticulos').hide()});
+                $(".filtros").fadeOut(1000);
+                $(".buscar").animate({width:"270px"},1000);
+                $("footer").animate({left:"2%"},1000);
 
-                    case 2:
-                        $('.articulosPrincipales').animate({height:"200px"});
-                        break;
-                }
-                iteration++;
-                if(iteration>2) iteration=1
-                $(this).data("iteration",iteration)
+                show_resultados = false;
+              }
             })
         });
         $(".plus").click(function(){
@@ -108,24 +101,47 @@
         });
 
         $('#formBuscar').submit(function(event){
-            event.preventDefault();
-            $('.pestana').text($('#buscar').val());
+          event.preventDefault();
+
+          if ($('#buscar').val() == ''){
+            alert ("completar");
+
+            return;
+          }
+
+          if (!show_resultados){
+            $('#pestana-busqueda').text($('#buscar').val());
             $('.seccionPrincipalArticulos').show();
-            $(".filtros").css("display","inline-block");
-            $(".filtros").show();
+            $('.seccionPrincipalArticulos').animate({top:"150px", opacity:"1"}, 1500);
+            $(".filtros").fadeIn(1000);
             $(".buscar").animate({width:"0px"},1000);
             $(".buscar").css("background","none");
             $("footer").animate({left:"60%"},1000);
             $busqueda = $('#buscar').val();
+
+            show_resultados = true;
+          }
         });
-        
+
+        $('#buscar').click(function(){
+          if (show_resultados){
+            event.preventDefault();
+            $('.seccionPrincipalArticulos').animate({top:"800px", opacity:"0"}, 1000, function(){$('.seccionPrincipalArticulos').hide()});
+            $(".filtros").fadeOut(1000);
+            $(".buscar").animate({width:"270px"},1000);
+            $("footer").animate({left:"2%"},1000);
+
+            show_resultados = false;
+          }
+        });
+
         function cuadrado (){
             var width = $('.articulosFavoritos').outerWidth();
             $('.articulosFavoritos').css('height', width);
         }
-    
+
         $(document).ready(function(){ cuadrado(); });
-    
+
         $(window).resize(function(){ cuadrado(); });
 
         $(".pregunta").click(function(){
@@ -172,7 +188,7 @@
                 $(this).data('iteration',iteration)
             })
         });
-                
+
         $(function(){
             $(".preguntasFrecuentesH2").click(function(){
                 var iteration=$(this).data('iteration')||1
@@ -223,4 +239,10 @@
                 if (iteration>2) iteration=1
                 $(this).data('iteration',iteration)
             })
+        });
+
+        $(document).ready(function(){
+          setTimeout(function(){
+            $('#cartel-frente').fadeOut(1000);
+          }, 5000);
         });

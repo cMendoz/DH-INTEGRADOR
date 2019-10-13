@@ -27,7 +27,7 @@ textarea::placeholder {
     color: black;
 }
 section.mapa {
-    background-image: url("img/map.jpeg");
+    background-image: url("../img/map.jpeg");
 }
 
 .pestana {

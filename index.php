@@ -1,18 +1,19 @@
 <?php
+session_start();
 
-    // include "contenido.php";
-    include "funciones.php";
+require_once "funciones.php";
 
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="<?=$css?>">
+
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/<?=$css?>">
         <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Plaster&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
         <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.js'></script>
         <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.css' rel='stylesheet' />
         <title>NOMADE</title>
@@ -21,7 +22,7 @@
         <header>
             <a href="index.php"><h1>NOMADE</h1></a>
             <!-- flecha retorno (desaprece) -->
-            <img src="<?=$carpeta?>/arrow.png" class="retorno" id="retorno" alt="">
+            <img src="<?=$carpeta?>/arrow-right.png" class="retorno" id="retorno" alt="">
             <nav class="encabezado">
             <!-- íconos de menú cabecera -->
                 <div class="fotoUsuario"><img src="<?=$foto?>" id="fotoDeUsuario" alt=""></div>
@@ -35,8 +36,9 @@
         </section>
         <!-- formulario de búsqueda -->
         <form action="" id="formBuscar" method="POST">
-            <input class="buscar" type="text" name="buscar" id="buscar" placeholder="Dónde vas?">
-            <nav class="filtros">
+            <input class="buscar" type="text" name="buscar" id="buscar" placeholder="¿A dónde vas?" required>
+
+            <nav class="filtros" style="display:none">
                 <input name="personas" type="text" id="cantidadDePersonas"> <img src="<?=$carpeta?>/persona.png" alt=""> | <input type="text" name="superficie" id="cantidadDeM2"> m<sup>2</sup> | MAX <input type="text" name="precio" id="quePrecio"> <img src="<?=$carpeta?>/peso.png" >
                 <label for="enviarBusqueda"><img src="<?=$carpeta?>/buscar.png" class="lupa" alt=""></label>
                 <input type="submit" id="enviarBusqueda" style="display:none;">
@@ -54,16 +56,20 @@
         </footer>
         <!-- caja que contiene los deptos -->
         <section class="seccionPrincipalArticulos">
-            <div class="pestana"></div>
+            <div class="pestana">
+              <span id="pestana-busqueda"></span>
+              <div class="btn-cerrar flechaIzq" onclick="cerrar-panel('seccionPrincipalArticulos');">
+                <img src="img/arrow-left.png" >
+              </div>
+            </div>
 
         <?php
             foreach ($deptos as $depto) {
         ?>
             <!-- El esqueleto en el que se inserta $depto -->
-            <article class="articulosPrincipales" style="background-image:url('img_deptos/<?=$depto["foto"]?>');">
-                <img class ="favorito" src="img/heart.png" alt="">
-                <img class="flecha flechaIzq" src="img/arrow.png" alt="">
-                <img class="flecha flechaDer" src="img/arrow.png" alt="">
+            <article class="articulosPrincipales" style="background-image:url('img/img_deptos/<?=$depto["foto"]?>');">
+              <img class ="favorito" src="img/heart.png" alt="">
+
                 <p class="infoPrevia">
                     <?=$depto["nombre"]?>
                 </p>
@@ -91,25 +97,38 @@
             <article class="articulosFavoritos favOpac" id="dept4"></article>
             <article class="articulosFavoritos favOpac" id="dept5"></article>
             <article class="articulosFavoritos favOpac" id="dept1"></article>
-            <!-- revisa si existen deptos propios, si los hay los muestra -->
-            <?php if(isset($misDeptos) && sizeof($misDeptos) > 0) { ?><h2>MIS PROPIEDADES</h2><?php };?>
-            <?php if ($misDeptos){
-                foreach($misDeptos as $miDepto) { ?>
-                <article class="articulosFavoritos favOpac" style="background-image:url('img_deptos/<?=$miDepto["foto"]?>');">
-                    <img class="flecha flechaIzq" src="img/arrow.png" alt="">
-                    <img class="flecha flechaDer" src="img/arrow.png" alt="">
-                    <p class="infoFavoritos">
-                        <?=$miDepto["nombre"]?>
-                    </p>
-                </article>
-            <?php };
-          };?>
+            <h2>MIS PROPIEDADES</h2>
+          <?php
+          if(isset($misDeptos) && sizeof($misDeptos) > 0) {
+            foreach($misDeptos as $miDepto) { ?>
+              <article class="articulosFavoritos favOpac" style="background-image:url('img/img_deptos/<?=$miDepto["foto"];?>');">
+                <?php
+                if (count($misDeptos) > 1){
+                  ?>
+                  <img class="flecha flechaIzq" src="img/arrow-right.png" alt="">
+                  <img class="flecha flechaDer" src="img/arrow-right.png" alt="">
+                  <?php
+                }
+                 ?>
+                  <p class="infoFavoritos">
+                      <?=$miDepto["nombre"]?>
+                  </p>
+              </article>
+            <?php
+            }
+          }else{
+            ?>
+            <h3>Aún no publicaste ninguna propiedad</h3>
+          <?php
+          }
+           ?>
         </section>
 
         <section class="panel panelLogin" id="panelLogin">
 
         <?php
-            if(!isset($_COOKIE["usuario"]) && !isset($usuarioValido)) {
+            // SI no hay ninguna sesión iniciada
+            if(!isset($_SESSION["usuario_logeado"])) {
         ?>
           <!-- si no hay cookie de conexión -->
          <h2>SIGN IN</h2>
@@ -118,20 +137,28 @@
          <img class="social" src="<?=$carpeta?>/loginLinkedin.png" alt="LinkedIn">
 
             <form class="formRegistro" action="" method="post">
-                <input name="email" type="email" placeholder= "E-mail" value=<?=isset($_POST["email"])?>>
-                <input name="usuarioNuevo" type="text" placeholder= "Usuario" value=<?=isset($_POST["usuarioNuevo"])?>>
-                <input name="contrasenaNueva" type="password" placeholder="Contraseña" value=<?=isset($_POST["contrasenaNueva"])?>>
-                <input name="contrasenaNueva2" type="password" placeholder="Confirmar contraseña" value=<?=isset($_POST["contrasenaNueva2"])?>>
-                <span class="alertaContrasena"><?=isset($alertContrasena)?></span>
+                <input name="email" type="email" placeholder= "E-mail" value="<?=$email?>" required>
+                <input name="usuarioNuevo" type="text" placeholder= "Usuario" value="<?=$usuarioNuevo?>" required>
+                <input name="contrasenaNueva" type="password" placeholder="Contraseña" value="<?=$contrasenaNueva?>" required>
+                <input name="contrasenaNueva2" type="password" placeholder="Confirmar contraseña" value="<?=$contrasenaNueva2?>" required>
+                <p>
+                <input class="check-recordarme" type="checkbox" id="recordarme" name="recordarme">
+                <label for="recordarme">Recordarme</label>
+                </p>
+                <?=$alertContrasena?>
                 <input type="submit" name="registrarse" value="Registrarse" class="aceptar">
             </form>
 
             <h5>¿Ya tenes una cuenta NOMADE?</h5>
             <h2>LOGIN</h2>
             <form class="formLogin" action="" method="POST">
-                <input name="usuario" type="text" placeholder= "Usuario" value=<?=isset($_POST["usuario"])?>>
-                <input name="contrasena" type="password" placeholder="Contraseña">
-                <span class="alertaContrasena"><?=isset($alertConexion)?></span>
+                <input name="usuario" type="text" placeholder= "Usuario" value="<?=$usuario?>" required>
+                <input name="contrasena" type="password" placeholder="Contraseña" required>
+                <p>
+                <input class="check-recordarme" type="checkbox" id="recordarme" name="recordarme">
+                <label for="recordarme">Recordarme</label>
+                </p>
+                <?=$alertConexion?>
                 <input name="login" type="submit" value="Ingresar" class="aceptar botonLogin">
             </form>
             <p class="olvide">Olvidé mi contraseña</p>
@@ -140,13 +167,30 @@
             </form>
 
         <?php
-            } else if($_COOKIE["usuario"]) {
-        ?>
-        <!-- si HAY cookie de conexión -->
-        <h2><?=$_COOKIE["usuario"]?></h2>
+      // Si la sesión está iniciada
+      }else{
 
+        ?>
+        <h2><?=$_SESSION['usuario_logeado']['usuario']?></h2>
         <form action="" method="POST" enctype="multipart/form-data">
+
+        <?php
+        if ($_SESSION['usuario_logeado']['foto'] != ""){
+
+          ?>
+            <div class="foto-perfil">
+              <img src="img/foto_de_perfil/<?=$_SESSION['usuario_logeado']['foto']?>" alt="Foto de perfil">
+
+              <label for="foto" class="file formLogin">Cambiar foto de perfil</label>
+            </div>
+          <?php
+        }else{
+          ?>
             <label for="foto" class="file formLogin">Elegir una foto de perfil</label>
+          <?php
+
+        }
+         ?>
             <input type="file" id="foto" class="file" name="fotoDePerfil">
             <label for="subir"><img src="<?=$carpeta?>/upload.png" alt=""></label>
             <input type="submit" id="subir" class="subir" value="Subir" class="aceptar">
@@ -160,9 +204,9 @@
         </p>
         <p class="formLogin">Idioma
             <select name="idioma">
-                <option value="espanol">Español (Argentina)</option>
-                <option value="frances">Français (France)</option>
-                <option value="ingles">English (US)</option>
+                <option value="es">Español (Argentina)</option>
+                <option value="fr">Français (France)</option>
+                <option value="en">English (US)</option>
             </select>
         </p>
         <p class="formLogin">País de residencia
@@ -191,14 +235,13 @@
             </select>
         </form>
 
-        <p class="aceptar activarMapa">Activar mapa</p>
-        <!-- destruccion cookie usuario -->
+        <!-- Cerrar sesión -->
         <form action="" class="formLogin" method="POST">
             <input type="submit" name="desconectarse" value="Desconectarse" class="aceptar">
         </form>
 
         <?php
-            };
+            }
         ?>
 
         </section>
@@ -217,8 +260,8 @@
             <h5>
                 <?php
                 // Si el usuario está conectado abre un formulario, si no, pide conexión.
-                if(isset($_COOKIE["usuario"])) {
-                    echo $_COOKIE["usuario"];
+                if(isset($_SESSION["usuario_logeado"])) {
+                    echo $_SESSION["usuario_logeado"]['usuario'];
                 }else {
                 ?>
                 <span class="conectarse">Conectarse</span>
@@ -227,7 +270,7 @@
                 ?>
             </h5>
             <?php
-                if(!isset($_COOKIE["usuario"])) {
+                if(!isset($_SESSION["usuario_logeado"])) {
             ?>
             <style>
                 #areaComentario {
@@ -238,9 +281,9 @@
                 }
             </style>
             <?php
-                };
+                }
             ?>
-            <textarea name="comentario" rows="5" placeholder="Escribí acá tu comentario" id="areaComentario"></textarea>
+            <textarea name="comentario" rows="5" placeholder="Escribí acá tu comentario" id="areaComentario" required></textarea>
             <input type="submit" value="Enviar" class="aceptar" id="aceptarComentario">
            </form>
            <h2 class="aceptar forumH2">COMENTARIOS DE USUARIOS</h2>
@@ -291,4 +334,4 @@
 </html>
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="animations.js"></script>
+<script src="js/animations.js"></script>
