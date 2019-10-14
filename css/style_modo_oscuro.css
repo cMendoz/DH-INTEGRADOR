@@ -29,6 +29,7 @@ textarea::placeholder {
 section.mapa {
     background-image: url("../img_modo_oscuro/map.png");
 }
+
 .pestana {
     background-color: rgba(0,0,0,0.8);
 }

@@ -25,7 +25,7 @@ require_once "funciones.php";
             <img src="<?=$carpeta?>/arrow-right.png" class="retorno" id="retorno" alt="">
             <nav class="encabezado">
             <!-- íconos de menú cabecera -->
-                <div class="fotoUsuario"><img src="<?=$carpeta?>/user.png" id="fotoDeUsuario" alt=""></div>
+                <div class="fotoUsuario"><img src="<?=$foto?>" id="fotoDeUsuario" alt=""></div>
                 <div class="favoritos"><img src="<?=$carpeta?>/heart.png" alt=""></div>
                 <div class="plus"><img src="<?=$carpeta?>/plus.png" alt=""></div>
                 <div class="info"><img src="<?=$carpeta?>/info.png" alt=""></div>
@@ -186,10 +186,7 @@ require_once "funciones.php";
           <?php
         }else{
           ?>
-          <div class="foto-perfil">
-            <img src="<?=$carpeta?>/user.png" alt="Sin foto de perfil">
             <label for="foto" class="file formLogin">Elegir una foto de perfil</label>
-          </div>
           <?php
 
         }

@@ -83,6 +83,7 @@ form input,select {
   margin: 50vh auto;
   width: 100%;
   background: white;
+  color:black;
   font-size: 33px;
   text-align: center;
 }
