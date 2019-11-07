@@ -1,5 +1,5 @@
 <?php
-
+/*
 function iniciar_sesion($usuario){
   $rutaUsuario = "usuarios/".$usuario.".json";
 
@@ -36,12 +36,14 @@ if (isset($_SESSION['usuario_logeado'])){
     iniciar_sesion($_SESSION['usuario_logeado']['usuario']);
   }
 }
+*/
 // Conexión a la base de datos
 $deptos = json_decode(file_get_contents("deptos.json"),true);
 $comentarios = json_decode(file_get_contents("comentarios.json"),true);
 
 // Declaro carpetas y estilos para modo claro (default)
 $carpeta = "img";
+$foto = $carpeta."/user.png";
 $css = "style_modo_claro.css";
 $selectedThemeClaro = "selected";
 $selectedThemeOscuro = "";
@@ -55,12 +57,21 @@ $usuario = '';
 $alertConexion = '';
 $alertContrasena = '';
 
-/*
- * Chequeo la sesión
- */
+$append_head = '';
+$append_body = '';
+
+$respuesta = [
+  'error' => 0,
+  'alertContrasena' => '',
+  'alertConexion' => '',
+];
+
+/* LLamado a funciones de usuario */
+$usuario = new Usuario;
+
 // Recordar usuario
 if (isset($_COOKIE['usuario'])){
-  iniciar_sesion($_COOKIE['usuario']);
+  $respuesta = $usuario = iniciarSesion($_COOKIE['usuario']);
 }
 
 // Si se eligió un theme se almacena en una cookie
@@ -89,9 +100,65 @@ if(isset($themeCambio)) {
   }
 }
 
+if(isset($_POST["registrarse"])) {
+  $respuesta = $usuario->crearCuenta();
+
+  if ($respuesta['error'] == 0){
+    $append_body .= '<div id="cartel-frente">
+            Gracias por registrarte, '.$usuario->getNombre().'
+          </div>';
+  }elseif($respuesta['error'] == 1){
+    $append_head .='<style>
+
+      #panelLogin {
+        right:0%;
+      }
+      #retorno {
+        left: 73%;
+      }
+
+    </style>';
+  }
+}
+
+if(isset($_POST["login"])) {
+  $respuesta = $usuario->login();
+
+  if ($respuesta['error'] == 0){
+    $append_body .= '<div id="cartel-frente">
+            Bienvenido, '.$usuario->getNombre().'
+          </div>';
+  }elseif($respuesta['error'] == 1){
+    $append_head .='<style>
+
+      #panelLogin {
+        right:0%;
+      }
+      #retorno {
+        left: 73%;
+      }
+
+    </style>';
+  }
+
+}
+
+if(isset($_POST["desconectarse"])) {
+  $respuesta = $usuario->cerrarSesion();
+}
+
+if(isset($_FILES["fotoDePerfil"]) && $_FILES["fotoDePerfil"]["error"] == 0) {
+  $respuesta = $usuario->editarPerfil();
+}
+
+if(isset($caracteristicasUsuario["foto"])){
+  $respuesta = $usuario->editarPerfil();
+}
+
 /*
  * Registrar cuenta
  */
+/*
 //si la variable registrarse está definida..
 if(isset($_POST["registrarse"])) {
   // Valido
@@ -203,6 +270,7 @@ if(isset($_POST["registrarse"])) {
 /*
  * Login
  */
+/*
 if(isset($_POST["login"])) {
   //para logearse verifica que los dos campos esten llenos:
   if(!isset($_POST["usuario"]) || !isset($_POST["contrasena"])) {
@@ -291,6 +359,7 @@ if(isset($_POST["login"])) {
 /*
  * Cerrar sesión
  */
+/*
 if(isset($_POST["desconectarse"])) {
   unset($_SESSION['usuario_logeado']);
   session_destroy();
@@ -300,6 +369,7 @@ if(isset($_POST["desconectarse"])) {
 /*
  * Editar perfil
  */
+/*
 //obtener, cambiar nombre y guardar foto de perfil
 if(isset($_FILES["fotoDePerfil"]) && $_FILES["fotoDePerfil"]["error"] == 0) {
   if(isset($_SESSION['usuario_logeado'])){
@@ -347,7 +417,7 @@ if(isset($caracteristicasUsuario["foto"])){
     <?php
   }
 }
-
+*/
 /*
  * Agregar departamento
  */

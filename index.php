@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+require_once "clases/Usuario.php";
 require_once "funciones.php";
 
 ?>
@@ -17,8 +18,11 @@ require_once "funciones.php";
         <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.js'></script>
         <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.css' rel='stylesheet' />
         <title>NOMADE</title>
+
+        <?=$append_head?>
     </head>
     <body>
+        <?=$append_body?>
         <header>
             <a href="index.php"><h1>NOMADE</h1></a>
             <!-- flecha retorno (desaprece) -->
@@ -145,20 +149,20 @@ require_once "funciones.php";
                 <input class="check-recordarme" type="checkbox" id="recordarme" name="recordarme">
                 <label for="recordarme">Recordarme</label>
                 </p>
-                <?=$alertContrasena?>
+                <?=$respuesta['alertContrasena']?>
                 <input type="submit" name="registrarse" value="Registrarse" class="aceptar">
             </form>
 
             <h5>¿Ya tenes una cuenta NOMADE?</h5>
             <h2>LOGIN</h2>
             <form class="formLogin" action="" method="POST">
-                <input name="usuario" type="text" placeholder= "Usuario" value="<?=$usuario?>" required>
+                <input name="usuario" type="text" placeholder= "Usuario" value="<?=$usuario->getNombre()?>" required>
                 <input name="contrasena" type="password" placeholder="Contraseña" required>
                 <p>
                 <input class="check-recordarme" type="checkbox" id="recordarme" name="recordarme">
                 <label for="recordarme">Recordarme</label>
                 </p>
-                <?=$alertConexion?>
+                <?=$respuesta['alertConexion']?>
                 <input name="login" type="submit" value="Ingresar" class="aceptar botonLogin">
             </form>
             <p class="olvide">Olvidé mi contraseña</p>
