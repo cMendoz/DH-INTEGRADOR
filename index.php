@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+require_once "conexion.php";
 require_once "clases/Usuario.php";
 require_once "funciones.php";
 
@@ -31,7 +32,13 @@ require_once "funciones.php";
             <!-- íconos de menú cabecera -->
                 <div class="fotoUsuario"><img src="<?=$foto?>" id="fotoDeUsuario" alt=""></div>
                 <div class="favoritos"><img src="<?=$carpeta?>/heart.png" alt=""></div>
-                <div class="plus"><img src="<?=$carpeta?>/plus.png" alt=""></div>
+                <?php
+                  if (isset($_SESSION['usuario_logeado'])){
+                    ?>
+                    <div class="plus"><img src="<?=$carpeta?>/plus.png" alt=""></div>
+                    <?php
+                  }
+                 ?>
                 <div class="info"><img src="<?=$carpeta?>/info.png" alt=""></div>
             </nav>
         </header>
@@ -156,7 +163,7 @@ require_once "funciones.php";
             <h5>¿Ya tenes una cuenta NOMADE?</h5>
             <h2>LOGIN</h2>
             <form class="formLogin" action="" method="POST">
-                <input name="usuario" type="text" placeholder= "Usuario" value="<?=$usuario->getNombre()?>" required>
+                <input name="usuario" type="text" placeholder= "Usuario" value="<?=$usuario?>" required>
                 <input name="contrasena" type="password" placeholder="Contraseña" required>
                 <p>
                 <input class="check-recordarme" type="checkbox" id="recordarme" name="recordarme">

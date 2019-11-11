@@ -48,12 +48,12 @@ $css = "style_modo_claro.css";
 $selectedThemeClaro = "selected";
 $selectedThemeOscuro = "";
 
-$usuario = '';
-$email = '';
-$usuarioNuevo = '';
+$usuario = isset($_POST['usuario']) ? $_POST['usuario'] : '';
+$email = isset($_POST['email']) ? $_POST['email'] : '';
+$usuarioNuevo = isset($_POST['usuarioNuevo']) ? $_POST['usuarioNuevo'] : '';
 $contrasenaNueva = '';
 $contrasenaNueva2 = '';
-$usuario = '';
+//$usuario = '';
 $alertConexion = '';
 $alertContrasena = '';
 
@@ -67,11 +67,11 @@ $respuesta = [
 ];
 
 /* LLamado a funciones de usuario */
-$usuario = new Usuario;
+$usuarioLogeado = new Usuario;
 
 // Recordar usuario
 if (isset($_COOKIE['usuario'])){
-  $respuesta = $usuario = iniciarSesion($_COOKIE['usuario']);
+  $respuesta = $usuarioLogeado->iniciarSesion($_COOKIE['usuario']);
 }
 
 // Si se eligió un theme se almacena en una cookie
@@ -101,11 +101,11 @@ if(isset($themeCambio)) {
 }
 
 if(isset($_POST["registrarse"])) {
-  $respuesta = $usuario->crearCuenta();
+  $respuesta = $usuarioLogeado->crearCuenta();
 
   if ($respuesta['error'] == 0){
     $append_body .= '<div id="cartel-frente">
-            Gracias por registrarte, '.$usuario->getNombre().'
+            Gracias por registrarte, '.$usuarioLogeado->getNombre().'
           </div>';
   }elseif($respuesta['error'] == 1){
     $append_head .='<style>
@@ -122,11 +122,11 @@ if(isset($_POST["registrarse"])) {
 }
 
 if(isset($_POST["login"])) {
-  $respuesta = $usuario->login();
+  $respuesta = $usuarioLogeado->login();
 
   if ($respuesta['error'] == 0){
     $append_body .= '<div id="cartel-frente">
-            Bienvenido, '.$usuario->getNombre().'
+            Bienvenido, '.$usuarioLogeado->getNombre().'
           </div>';
   }elseif($respuesta['error'] == 1){
     $append_head .='<style>
@@ -144,15 +144,15 @@ if(isset($_POST["login"])) {
 }
 
 if(isset($_POST["desconectarse"])) {
-  $respuesta = $usuario->cerrarSesion();
+  $respuesta = $usuarioLogeado->cerrarSesion();
 }
 
 if(isset($_FILES["fotoDePerfil"]) && $_FILES["fotoDePerfil"]["error"] == 0) {
-  $respuesta = $usuario->editarPerfil();
+  $respuesta = $usuarioLogeado->editarPerfil();
 }
 
 if(isset($caracteristicasUsuario["foto"])){
-  $respuesta = $usuario->editarPerfil();
+  $respuesta = $usuarioLogeado->editarPerfil();
 }
 
 /*

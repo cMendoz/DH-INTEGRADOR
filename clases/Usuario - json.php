@@ -2,7 +2,7 @@
 
 /* Clase Usuario */
 
-class Usuario{
+class Usuario {
 
 			/* CARACTERÍSTICAS */
 
@@ -122,14 +122,10 @@ class Usuario{
 					/* RESPONSABILIDADES */
 
 	public function crearCuenta(){
-		include 'conexion.php';
-
 		// Valido
 		// verifica si todos los campos estan llenos..
 		if (isset($_POST["email"])){$email = $_POST["email"];}
 		if (isset($_POST["usuarioNuevo"])){$usuarioNuevo = $_POST["usuarioNuevo"];}
-		if (isset($_POST["nombre"])){$nombre = $_POST["nombre"];}
-		if (isset($_POST["apellido"])){$apellido = $_POST["apellido"];}
 		if (isset($_POST["contrasenaNueva"])){$contrasenaNueva = $_POST["contrasenaNueva"];}
 		if (isset($_POST["contrasenaNueva2"])){$contrasenaNueva2 = $_POST["contrasenaNueva2"];}
 
@@ -153,6 +149,18 @@ class Usuario{
 
 		} elseif (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
 
+			//verifica en base de datos si el nombre de ususario está disponible:
+			$usuario = $_POST["usuarioNuevo"];
+			$rutaUsuario = "usuarios/".$usuario.".json";
+
+			// Si el usuario ya fue registrado previamente en la base de datos
+			if(file_exists($rutaUsuario)) {
+
+				$error = 1;
+				$alertContrasena = '<span class="alertaContrasena">El usuario ya está registrado. Por favor, iniciá sesión.</span>';
+
+			} else {
+
 				// Si todo lo anterior fue chequeado y el usuario no existe en la base de datos
 				// Cifro la contraseñarray
 				$contrasenaNueva = password_hash($_POST['contrasenaNueva'], PASSWORD_DEFAULT);
@@ -169,13 +177,9 @@ class Usuario{
 				"theme" => "claro",
 				];//creo el json del usuario
 
-				$usuario = $_POST['usuarioNuevo'];
-				$email = $_POST['email'];
-				$contrasena = $contrasenaNueva;
-
 				$usuarioValido = $_POST["usuarioNuevo"];
-
-				$bbdd->registrarCuenta($usuario,$nombre, $apellido, $email, $contrasena);
+				$json = json_encode($datosUsuario);
+				file_put_contents("usuarios/".$usuarioValido.".json",$json);
 
 				$this->iniciarSesion($usuarioValido);
 
@@ -189,7 +193,7 @@ class Usuario{
 				$error = 0;
 				$alertContrasena = '';
 			}
-
+		}
 
 		$respuesta = [
 			'error' => $error,
