@@ -260,11 +260,11 @@ class Usuario{
 
 	public function iniciarSesion($usuario){
 
-				$_SESSION['usuario_logeado'] = [
+		$_SESSION['usuario_logeado'] = [
 	        'usuario' => $this->getNombre(),
 	        'email' => $this->getEmail(),
 	        'foto' => $this->getFoto(),
-	      ];
+	    ];
 
 	    // Leo propiedades del usuario
 	    //$propietario = $bd->getPropiedades();
@@ -281,7 +281,9 @@ class Usuario{
 	          $misDeptos[] = $depto;
 	        }
 	      }
-			}
+		}
+
+		return 'ok';
     }
 /*
 	if (isset($_SESSION['usuario_logeado'])){

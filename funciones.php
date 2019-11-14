@@ -162,11 +162,16 @@ if(isset($_POST["login"])) {
 
     if($bd->verificarContrasena($_POST['usuario'], $_POST['contrasena'])){
 
-      $usuarioLogeado->iniciarSesion($_POST['usuario']);
+      $usuarioLogeado->setNombre($login['usuario']);
+      $usuarioLogeado->setEmail($login['email']);
+      $usuarioLogeado->setFoto($login['foto']);
 
-      $append_body .= '<div id="cartel-frente">
-      Bienvenido, '.$usuarioLogeado->getNombre().'
-      </div>';
+      if( $usuarioLogeado->iniciarSesion($_POST['usuario']) == 'ok'){
+        $append_body .= '<div id="cartel-frente">
+        Bienvenido, '.$usuarioLogeado->getNombre().'
+        </div>';
+      }
+
 
       // recordarme
       if (isset($_POST['recordarme'])){
