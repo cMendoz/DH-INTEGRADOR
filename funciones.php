@@ -1,5 +1,5 @@
 <?php
-
+/*
 function iniciar_sesion($usuario){
   $rutaUsuario = "usuarios/".$usuario.".json";
 
@@ -36,31 +36,42 @@ if (isset($_SESSION['usuario_logeado'])){
     iniciar_sesion($_SESSION['usuario_logeado']['usuario']);
   }
 }
+*/
 // Conexión a la base de datos
 $deptos = json_decode(file_get_contents("deptos.json"),true);
 $comentarios = json_decode(file_get_contents("comentarios.json"),true);
 
 // Declaro carpetas y estilos para modo claro (default)
 $carpeta = "img";
+$foto = $carpeta."/user.png";
 $css = "style_modo_claro.css";
 $selectedThemeClaro = "selected";
 $selectedThemeOscuro = "";
 
-$usuario = '';
-$email = '';
-$usuarioNuevo = '';
+$usuario = isset($_POST['usuario']) ? $_POST['usuario'] : '';
+$email = isset($_POST['email']) ? $_POST['email'] : '';
+$usuarioNuevo = isset($_POST['usuarioNuevo']) ? $_POST['usuarioNuevo'] : '';
 $contrasenaNueva = '';
 $contrasenaNueva2 = '';
-$usuario = '';
+//$usuario = '';
 $alertConexion = '';
 $alertContrasena = '';
 
-/*
- * Chequeo la sesión
- */
+$append_head = '';
+$append_body = '';
+
+$respuesta = [
+  'error' => 0,
+  'alertContrasena' => '',
+  'alertConexion' => '',
+];
+
+/* LLamado a funciones de usuario */
+$usuarioLogeado = new Usuario;
+
 // Recordar usuario
 if (isset($_COOKIE['usuario'])){
-  iniciar_sesion($_COOKIE['usuario']);
+  $respuesta = $usuarioLogeado->iniciarSesion($_COOKIE['usuario']);
 }
 
 // Si se eligió un theme se almacena en una cookie
@@ -89,9 +100,134 @@ if(isset($themeCambio)) {
   }
 }
 
+if(isset($_POST["registrarse"])) {
+  require_once 'clases/Validador.php';
+  $validador = new Validador;
+
+  //$respuesta = $usuarioLogeado->crearCuenta();
+  $validoUsuario = $validador->full_name($_POST['usuarioNuevo']);
+  $validoEmail = $validador->email($_POST["email"]);
+  $validoContrasena = $validador->contrasenias($_POST["contrasenaNueva"],$_POST["contrasenaNueva2"]);
+
+  if ($validoUsuario == "ok" && $validoEmail == "ok" && $validoContrasena == "ok"){
+
+    if ($bd->registrarCuenta($_POST['usuarioNuevo'], $_POST['email'], $_POST['contrasenaNueva'])){
+
+      $usuarioLogeado->setNombre($_POST['usuarioNuevo']);
+      $usuarioLogeado->setEmail($_POST['email']);
+      $usuarioLogeado->setFoto("");
+
+      $usuarioLogeado->iniciarSesion($_POST['usuarioNuevo']);
+
+      // recordarme
+      if (isset($_POST['recordarme'])){
+        setcookie("usuario",$_POST['usuarioNuevo'],time()+60*60*24*30);
+      }
+
+      $append_body .= '<div id="cartel-frente">
+      Gracias por registrarte, '.$usuarioLogeado->getNombre().'
+      </div>';
+
+    }
+  }else{
+    $append_head .='<style>
+
+      #panelLogin {
+        right:0%;
+      }
+      #retorno {
+        left: 73%;
+      }
+
+    </style>';
+
+    $respuesta['error'] = 1;
+
+    if ($validoUsuario != "ok"){
+      $respuesta['alertContrasena'] = '<span style="color:red">'.$validoUsuario.'</span>';
+    }elseif($validoEmail != "ok"){
+      $respuesta['alertContrasena'] = '<span style="color:red">'.$validoEmail.'</span>';
+    }elseif($validoContrasena != "ok"){
+      $respuesta['alertContrasena'] = '<span style="color:red">'.$validoContrasena.'</span>';
+    }
+  }
+}
+
+if(isset($_POST["login"])) {
+  $login = $bd->traerUsuario($_POST['usuario']);
+
+  if (count($login) > 0){
+    require_once 'clases/Validador.php';
+    $validador = new Validador;
+
+    if($bd->verificarContrasena($_POST['usuario'], $_POST['contrasena'])){
+
+      $usuarioLogeado->setNombre($login['usuario']);
+      $usuarioLogeado->setEmail($login['email']);
+      $usuarioLogeado->setFoto($login['foto']);
+
+      if( $usuarioLogeado->iniciarSesion($_POST['usuario']) == 'ok'){
+        $append_body .= '<div id="cartel-frente">
+        Bienvenido, '.$usuarioLogeado->getNombre().'
+        </div>';
+      }
+
+
+      // recordarme
+      if (isset($_POST['recordarme'])){
+        setcookie("usuario",$_POST['usuario'],time()+60*60*24*30);
+      }
+
+    }else{
+      $respuesta['error'] = 1;
+      $respuesta['alertConexion'] = '<span style="color:red">Contraseña incorrecta</span>';
+      $usuario = $_POST['usuario'];
+
+      $append_head .='<style>
+
+        #panelLogin {
+          right:0%;
+        }
+        #retorno {
+          left: 73%;
+        }
+
+      </style>';
+    }
+
+  }else{
+    $respuesta['error'] = 1;
+    $respuesta['alertConexion'] = '<span style="color:red">No existe el usuario</span>';
+
+    $append_head .='<style>
+
+      #panelLogin {
+        right:0%;
+      }
+      #retorno {
+        left: 73%;
+      }
+
+    </style>';
+  }
+}
+
+if(isset($_POST["desconectarse"])) {
+  $respuesta = $usuarioLogeado->cerrarSesion();
+}
+
+if(isset($_FILES["fotoDePerfil"]) && $_FILES["fotoDePerfil"]["error"] == 0) {
+  $respuesta = $usuarioLogeado->editarPerfil();
+}
+
+if(isset($caracteristicasUsuario["foto"])){
+  $respuesta = $usuarioLogeado->editarPerfil();
+}
+
 /*
  * Registrar cuenta
  */
+/*
 //si la variable registrarse está definida..
 if(isset($_POST["registrarse"])) {
   // Valido
@@ -203,6 +339,7 @@ if(isset($_POST["registrarse"])) {
 /*
  * Login
  */
+/*
 if(isset($_POST["login"])) {
   //para logearse verifica que los dos campos esten llenos:
   if(!isset($_POST["usuario"]) || !isset($_POST["contrasena"])) {
@@ -291,6 +428,7 @@ if(isset($_POST["login"])) {
 /*
  * Cerrar sesión
  */
+/*
 if(isset($_POST["desconectarse"])) {
   unset($_SESSION['usuario_logeado']);
   session_destroy();
@@ -300,6 +438,7 @@ if(isset($_POST["desconectarse"])) {
 /*
  * Editar perfil
  */
+/*
 //obtener, cambiar nombre y guardar foto de perfil
 if(isset($_FILES["fotoDePerfil"]) && $_FILES["fotoDePerfil"]["error"] == 0) {
   if(isset($_SESSION['usuario_logeado'])){
@@ -347,7 +486,7 @@ if(isset($caracteristicasUsuario["foto"])){
     <?php
   }
 }
-
+*/
 /*
  * Agregar departamento
  */

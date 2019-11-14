@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+require_once "conexion.php";
+require_once "clases/Usuario.php";
 require_once "funciones.php";
 
 ?>
@@ -17,8 +19,11 @@ require_once "funciones.php";
         <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.js'></script>
         <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.css' rel='stylesheet' />
         <title>NOMADE</title>
+
+        <?=$append_head?>
     </head>
     <body>
+        <?=$append_body?>
         <header>
             <a href="index.php"><h1>NOMADE</h1></a>
             <!-- flecha retorno (desaprece) -->
@@ -27,7 +32,13 @@ require_once "funciones.php";
             <!-- íconos de menú cabecera -->
                 <div class="fotoUsuario"><img src="<?=$foto?>" id="fotoDeUsuario" alt=""></div>
                 <div class="favoritos"><img src="<?=$carpeta?>/heart.png" alt=""></div>
-                <div class="plus"><img src="<?=$carpeta?>/plus.png" alt=""></div>
+                <?php
+                  if (isset($_SESSION['usuario_logeado'])){
+                    ?>
+                    <div class="plus"><img src="<?=$carpeta?>/plus.png" alt=""></div>
+                    <?php
+                  }
+                 ?>
                 <div class="info"><img src="<?=$carpeta?>/info.png" alt=""></div>
             </nav>
         </header>
@@ -145,7 +156,7 @@ require_once "funciones.php";
                 <input class="check-recordarme" type="checkbox" id="recordarme" name="recordarme">
                 <label for="recordarme">Recordarme</label>
                 </p>
-                <?=$alertContrasena?>
+                <?=$respuesta['alertContrasena']?>
                 <input type="submit" name="registrarse" value="Registrarse" class="aceptar">
             </form>
 
@@ -158,7 +169,7 @@ require_once "funciones.php";
                 <input class="check-recordarme" type="checkbox" id="recordarme" name="recordarme">
                 <label for="recordarme">Recordarme</label>
                 </p>
-                <?=$alertConexion?>
+                <?=$respuesta['alertConexion']?>
                 <input name="login" type="submit" value="Ingresar" class="aceptar botonLogin">
             </form>
             <p class="olvide">Olvidé mi contraseña</p>
