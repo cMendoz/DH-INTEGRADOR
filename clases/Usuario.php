@@ -175,8 +175,6 @@ class Usuario{
 
 				$usuarioValido = $_POST["usuarioNuevo"];
 
-				$bbdd->registrarCuenta($usuario,$nombre, $apellido, $email, $contrasena);
-
 				$this->iniciarSesion($usuarioValido);
 
 				// recordarme
@@ -230,12 +228,7 @@ class Usuario{
 
 					$this->iniciarSesion($usuarioValido);
 
-				// recordarme
-				if (isset($_POST['recordarme'])){
 
-					setcookie("usuario",$usuarioValido,time()+60*60*24*30);
-
-				}
 
 				// si la contraseña no es correcta
 				} else {
@@ -266,27 +259,21 @@ class Usuario{
 	}
 
 	public function iniciarSesion($usuario){
-	  $rutaUsuario = "usuarios/".$usuario.".json";
 
-	  if(file_exists($rutaUsuario)){
-	    $usuarioEnBaseDeDatos = json_decode(file_get_contents($rutaUsuario),true);
-
-	    $this->setNombre($usuarioEnBaseDeDatos['usuario']);
-	    $this->setEmail($usuarioEnBaseDeDatos['email']);
-	    $this->setFoto($usuarioEnBaseDeDatos['foto']);
-
-	    $_SESSION['usuario_logeado'] = [
-	        'usuario' => $usuarioEnBaseDeDatos['usuario'],
-	        'email' => $usuarioEnBaseDeDatos['email'],
-	        'foto' => $usuarioEnBaseDeDatos['foto'],
+				$_SESSION['usuario_logeado'] = [
+	        'usuario' => $this->getNombre(),
+	        'email' => $this->getEmail(),
+	        'foto' => $this->getFoto(),
 	      ];
 
 	    // Leo propiedades del usuario
-	    $propietario = strtolower($_SESSION["usuario_logeado"]["usuario"]);
+	    //$propietario = $bd->getPropiedades();
+			$propietario = "";
 
 	    $rutaDeptos = 'deptos.json';
 	    global $misDeptos;
 	    $misDeptos = [];
+
 	    if(file_exists($rutaDeptos)){
 	      $deptos = json_decode(file_get_contents($rutaDeptos),true);
 	      foreach($deptos as $depto) {
@@ -294,12 +281,8 @@ class Usuario{
 	          $misDeptos[] = $depto;
 	        }
 	      }
-	    }
-	  }else{
-	    unset($_SESSION['usuario_logeado']);
-	    session_destroy();
-	  }
-	}
+			}
+    }
 /*
 	if (isset($_SESSION['usuario_logeado'])){
 	  if (isset($_SESSION['usuario_logeado']['usuario'])){

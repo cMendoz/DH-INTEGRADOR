@@ -101,13 +101,35 @@ if(isset($themeCambio)) {
 }
 
 if(isset($_POST["registrarse"])) {
-  $respuesta = $usuarioLogeado->crearCuenta();
+  require_once 'clases/Validador.php';
+  $validador = new Validador;
 
-  if ($respuesta['error'] == 0){
-    $append_body .= '<div id="cartel-frente">
-            Gracias por registrarte, '.$usuarioLogeado->getNombre().'
-          </div>';
-  }elseif($respuesta['error'] == 1){
+  //$respuesta = $usuarioLogeado->crearCuenta();
+  $validoUsuario = $validador->full_name($_POST['usuarioNuevo']);
+  $validoEmail = $validador->email($_POST["email"]);
+  $validoContrasena = $validador->contrasenias($_POST["contrasenaNueva"],$_POST["contrasenaNueva2"]);
+
+  if ($validoUsuario == "ok" && $validoEmail == "ok" && $validoContrasena == "ok"){
+
+    if ($bd->registrarCuenta($_POST['usuarioNuevo'], $_POST['email'], $_POST['contrasenaNueva'])){
+
+      $usuarioLogeado->setNombre($_POST['usuarioNuevo']);
+      $usuarioLogeado->setEmail($_POST['email']);
+      $usuarioLogeado->setFoto("");
+
+      $usuarioLogeado->iniciarSesion($_POST['usuarioNuevo']);
+
+      // recordarme
+      if (isset($_POST['recordarme'])){
+        setcookie("usuario",$_POST['usuarioNuevo'],time()+60*60*24*30);
+      }
+
+      $append_body .= '<div id="cartel-frente">
+      Gracias por registrarte, '.$usuarioLogeado->getNombre().'
+      </div>';
+
+    }
+  }else{
     $append_head .='<style>
 
       #panelLogin {
@@ -118,17 +140,60 @@ if(isset($_POST["registrarse"])) {
       }
 
     </style>';
+
+    $respuesta['error'] = 1;
+
+    if ($validoUsuario != "ok"){
+      $respuesta['alertContrasena'] = '<span style="color:red">'.$validoUsuario.'</span>';
+    }elseif($validoEmail != "ok"){
+      $respuesta['alertContrasena'] = '<span style="color:red">'.$validoEmail.'</span>';
+    }elseif($validoContrasena != "ok"){
+      $respuesta['alertContrasena'] = '<span style="color:red">'.$validoContrasena.'</span>';
+    }
   }
 }
 
 if(isset($_POST["login"])) {
-  $respuesta = $usuarioLogeado->login();
+  $login = $bd->traerUsuario($_POST['usuario']);
 
-  if ($respuesta['error'] == 0){
-    $append_body .= '<div id="cartel-frente">
-            Bienvenido, '.$usuarioLogeado->getNombre().'
-          </div>';
-  }elseif($respuesta['error'] == 1){
+  if (count($login) > 0){
+    require_once 'clases/Validador.php';
+    $validador = new Validador;
+
+    if($bd->verificarContrasena($_POST['usuario'], $_POST['contrasena'])){
+
+      $usuarioLogeado->iniciarSesion($_POST['usuario']);
+
+      $append_body .= '<div id="cartel-frente">
+      Bienvenido, '.$usuarioLogeado->getNombre().'
+      </div>';
+
+      // recordarme
+      if (isset($_POST['recordarme'])){
+        setcookie("usuario",$_POST['usuario'],time()+60*60*24*30);
+      }
+
+    }else{
+      $respuesta['error'] = 1;
+      $respuesta['alertConexion'] = '<span style="color:red">Contraseña incorrecta</span>';
+      $usuario = $_POST['usuario'];
+
+      $append_head .='<style>
+
+        #panelLogin {
+          right:0%;
+        }
+        #retorno {
+          left: 73%;
+        }
+
+      </style>';
+    }
+
+  }else{
+    $respuesta['error'] = 1;
+    $respuesta['alertConexion'] = '<span style="color:red">No existe el usuario</span>';
+
     $append_head .='<style>
 
       #panelLogin {
@@ -140,7 +205,6 @@ if(isset($_POST["login"])) {
 
     </style>';
   }
-
 }
 
 if(isset($_POST["desconectarse"])) {
