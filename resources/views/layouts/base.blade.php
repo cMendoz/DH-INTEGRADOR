@@ -16,7 +16,9 @@
       @include('layouts.header')
     </header>
 
-    <main class="mapa">
+    <main>
+      <section class="mapa"></section>
+      
       @yield('contenido')
     </main>
 
@@ -27,4 +29,8 @@
 
   <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
   <script src="js/animations.js"></script>
+
+  @if (isset($script))
+    {!! $script !!}
+  @endif
 </html>

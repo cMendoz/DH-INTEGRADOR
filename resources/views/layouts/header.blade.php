@@ -19,7 +19,8 @@ if (isset($_SESSION['usuario_logeado'])){
 </nav>
 
 <!-- formulario de búsqueda -->
-<form action="" id="formBuscar" method="POST">
+<form action="{{route('busqueda')}}" id="formBuscar" method="POST">
+  @csrf
     <input class="buscar" type="text" name="buscar" id="buscar" placeholder="¿A dónde vas?" required>
 
     <nav class="filtros" style="display:none">

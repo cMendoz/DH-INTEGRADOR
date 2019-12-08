@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -48,11 +48,21 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+      $rules = [
+          'name' => ['required', 'string', 'min:3', 'max:255', 'unique:users'],
+          'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+          'password' => ['required', 'string', 'min:8', 'confirmed'],
+      ];
+
+      $messages = [
+        'required' => 'El campo <b>:attribute</b> es obligatorio',
+        'min' => 'El campo <b>:attribute</b> debe tener al menos <b>:min</b> caracteres',
+        'email' => 'Ingrese un email válido',
+        'unique' => 'El :attribute que estás intentando registrar ya existe',
+        'confirmed' => 'Las contraseñas deben coincidir'
+      ];
+
+        return Validator::make($data, $rules, $messages);
     }
 
     /**

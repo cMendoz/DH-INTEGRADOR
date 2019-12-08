@@ -99,18 +99,26 @@
             $(this).parent().css("background-image","url(img_deptos/dept"+i+".jpg)");
             return i;
         });
-
+/*
         $('#formBuscar').submit(function(event){
-          event.preventDefault();
 
-          if ($('#buscar').val() == ''){
-            alert ("completar");
+            event.preventDefault();
 
-            return;
-          }
+            var busqueda = $('#buscar').val();
+            $.post( "/busqueda", { buscar: busqueda })
+            .done(function( data ) {
+              mostrarResultadosBusqueda(busqueda);
+            });
 
+        });
+*/
+        function mostrarResultadosBusqueda(busqueda){
           if (!show_resultados){
-            $('#pestana-busqueda').text($('#buscar').val());
+
+            if ($('#buscar').val() == '')
+              $('#buscar').val(busqueda);
+
+            $('#pestana-busqueda').text(busqueda);
             $('.seccionPrincipalArticulos').show();
             $('.seccionPrincipalArticulos').animate({top:"150px", opacity:"1"}, 1500);
             $(".filtros").fadeIn(1000);
@@ -121,7 +129,7 @@
 
             show_resultados = true;
           }
-        });
+        }
 
         $('#buscar').click(function(){
           if (show_resultados){

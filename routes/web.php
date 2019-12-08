@@ -11,10 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    $css = "style_modo_claro.css";
-    $carpeta = "img";
-    $foto = $carpeta."/user.png";
+Route::get('/', 'HomeController@index');
 
-    return view('pages.inicio.index', compact('css', 'carpeta', 'foto'));
-});
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('/busqueda', 'HomeController@buscar')->name('busqueda');
+
+Route::post('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');

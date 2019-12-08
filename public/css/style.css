@@ -100,8 +100,11 @@ form input,select {
 }
 
 form .aceptar {
-    text-align: left;
-    border: none;
+    height:auto;
+    border:solid 1px #333;
+    border-radius:15px;
+    padding: 5px;
+    text-align: center;
     font-size: 20px;
 }
 
@@ -195,7 +198,7 @@ nav.filtros img{
     height: 20px;
 }
 
-main.mapa {
+section.mapa {
     position: fixed;
     top: 0;
     background-size: cover;
@@ -373,7 +376,6 @@ label.file:hover {
 input.file {
   display: inline;
   float: left;
-  width: 90%;
 }
 
 .foto-perfil{
