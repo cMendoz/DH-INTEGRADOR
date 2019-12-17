@@ -36,7 +36,7 @@ if($language == "es") {
     $styleVisuel = "Tema";
     $clair = "Claro";
     $fonce = "Oscuro";
-    $pays = "Selecciona tu país";
+    $pays = "País";
     $deconexion = "Desconectarse";
 
     $questionsFrequentes = "PREGUNTAS FRECUENTES";
@@ -95,7 +95,7 @@ if($language == "fr") {
     $styleVisuel = "Thème";
     $clair = "Clair";
     $fonce = "Foncé";
-    $pays = "Sélectionnez votre pays";
+    $pays = "Pays";
     $deconexion = "Se deconnecter";
 
     $questionsFrequentes = "QUESTIONS FRÉQUENTES";
@@ -154,7 +154,7 @@ if($language == "en") {
     $styleVisuel = "Theme";
     $clair = "Light";
     $fonce = "Dark";
-    $pays = "Select your country";
+    $pays = "Country";
     $deconexion = "Logout";
 
     $questionsFrequentes = "";

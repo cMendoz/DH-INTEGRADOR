@@ -1,8 +1,34 @@
 var clic = 0;
 var show_resultados = false;
 
+if(language == "es") {
+    var personnes = "persona(s)" ;
+    var jour = "día";
+    var erreur_filtre = "Estás siendo demasiado exigente...";
+    var erreur_filtre2 = "Acordate que eliminaste todos los resultados...";
+    var publie = "Aún no publicaste propiedades";
+    var favoris = "Aún no agregaste favoritos";
+    var reserver = "RESERVAR";
+} else if (language == "fr") {
+    var personnes = "personne(s)" ;
+    var jour = "jour";
+    var erreur_filtre = "Il semblerait que vous êtes beaucoup trop exigeant...";
+    var erreur_filtre2 = "Notez que vous avez éliminé tous les résultats...";
+    var publie = "Vous n'avez pas encore publié de propriétés";
+    var favoris = "Vous n'avez pas encore ajouté de favoris";
+    var reserver = "RÉSERVER";
+} else if (language == "en") {
+    var personnes = "people" ;
+    var jour = "day";
+    var erreur_filtre = "You are being overly stringent...";
+    var erreur_filtre2 = "Remember you've cleared all the results...";
+    var publie = "You have not published any property yet";
+    var favoris = "You have not added any favorites yet";
+    var reserver = "BOOK";
+}
+
 $(document).ready(function() {
-    cambiarPais();
+    countrySelect();
 });
 
 $(".activarMapa").click(function(){
@@ -58,12 +84,14 @@ $(function(){
     })
 });
 $(".plus").click(function(){
-    $(".agregarDepto").animate({opacity: '1'},500);
-    $(".agregarDepto").css("z-index", "100000");
+    $("#agregarDepto").animate({opacity: '1'},500);
+    $("#agregarDepto").css("z-index", "100000");
 });
 $(".cerrar").click(function(){
-    $(".agregarDepto").animate({opacity: '0'},500);
-    $(".agregarDepto").css("z-index", "-10");
+    $("#agregarDepto").animate({opacity: '0'},500);
+    $("#agregarDepto").css("z-index", "-10");
+    $("#bookPropForm").animate({opacity: '0'},500);
+    $("#bookPropForm").css("z-index", "-10");
 });
 $(".favoritos").click(function(){
     $(".panelFavoritos").animate({right: '0'},500);
@@ -96,6 +124,8 @@ $(".retorno").click(function(){
         $(".panelInfo").animate({right: '-30%'},500);
     }
 });
+
+
 $(function(){
     $("#rememberMe").click(function(){
         var iteration=$(this).data("iteration")||1;
@@ -127,6 +157,7 @@ function searchAgain() {
 $('#formBuscar').submit(function search(event){
     event.preventDefault();
     $('.seccionPrincipalArticulos').show();
+    $('.seccionPrincipalArticulos').children('h2').remove();
     $(".filtros").css("display","inline-block");
     $(".filtros").show();
     $(".buscar").animate({width:"0px"},1000);
@@ -136,7 +167,7 @@ $('#formBuscar').submit(function search(event){
     
     properties.forEach(function(property){
         if(property.location == $busqueda) {
-            $('.seccionPrincipalArticulos').prepend('<div id="'+property.id+'" class="articleContainer" style="margin: 0; padding: 0; border: noneM background-color: rgba(125,125,125,0.8);"><article id="'+property.id+'" data-picture="'+property.main_picture+'" class="articulosPrincipales '+property.price+'price '+property.area+'area '+property.beds+'beds '+property.location.split(' ').join('_')+'" style="background-image: url(\'/storage/'+property.main_picture+'\'); height: 200px; border:none;"><img id="favorito" class="favorito" src="/img/light_mode/heart2.png" alt="" style="opacity: 0"><img id="flechaIzq" class="flecha flechaIzq" src="/img/light_mode/arrow2.png" alt="" style="display: none"><img id="flechaDer" class="flecha flechaDer" src="/img/light_mode/arrow2.png" alt="" style="display: none"><p class="infoPrevia" style="opacity: 1">'+property.title+'</p><p class="infoCompleta" style="opacity: 0">'+property.area+' m<sup>2</sup> | '+property.beds+' personas | <strong>'+property.price+' ARS/día</strong></p></article></div>')
+            $('.seccionPrincipalArticulos').prepend('<div id="'+property.id+'" class="articleContainer" style="margin: 0; padding: 0; border: noneM background-color: rgba(125,125,125,0.8);"><article id="'+property.id+'" data-picture="'+property.main_picture+'" class="articulosPrincipales '+multiplier*property.price+'price '+property.area+'area '+property.beds+'beds '+property.location.split(' ').join('_')+'" style="background-image: url(\'/storage/'+property.main_picture+'\'); height: 200px; border:none;"><img id="favorito" class="favorito" src="/img/light_mode/heart2.png" alt="" style="opacity: 0"><img id="flechaIzq" class="flecha flechaIzq" src="/img/light_mode/arrow2.png" alt="" style="display: none"><img id="flechaDer" class="flecha flechaDer" src="/img/light_mode/arrow2.png" alt="" style="display: none"><p class="infoPrevia" style="opacity: 1">'+property.title+'</p><p class="infoCompleta" style="opacity: 0">'+property.area+' m<sup>2</sup> | '+property.beds+' '+personnes+' | <strong>'+Math.round(multiplier*property.price)+' '+symbol+'/'+jour+'</strong><span id="bookButton">'+reserver+'</span></p></article></div>')
             sameLocationProperties.push(property);
         }
     });
@@ -158,12 +189,14 @@ function filter() {
         $('.seccionPrincipalArticulos').empty();
 
         var e = 0;
+        var k = 0;
 
         $.each(searchedProperties, function(loc, sameLocationProperties) {
             var i = 0;
+            k++;
             sameLocationProperties.forEach(function(filteredProperty) {
                 if(filteredProperty.area >= area && filteredProperty.price <= price && (beds == "N" || beds == filteredProperty.beds)) {
-                    $('.seccionPrincipalArticulos').prepend('<div id="'+filteredProperty.id+'" class="articleContainer" style="margin: 0; padding: 0; border: none; background-color: rgba(125,125,125,0.8);"><article id="'+filteredProperty.id+'" data-picture="'+filteredProperty.main_picture+'" class="articulosPrincipales '+filteredProperty.price+'price '+filteredProperty.area+'area '+filteredProperty.beds+'beds '+filteredProperty.location.split(' ').join('_')+'" style="background-image: url(\'/storage/'+filteredProperty.main_picture+'\'); height: 200px; border: none;"><img id="favorito" class="favorito" src="/img/light_mode/heart2.png" alt="" style="opacity: 0"><img id="flechaIzq" class="flecha flechaIzq" src="/img/light_mode/arrow2.png" alt="" style="display: none"><img id="flechaDer" class="flecha flechaDer" src="/img/light_mode/arrow2.png" alt="" style="display: none"><p class="infoPrevia" style="opacity: 1">'+filteredProperty.title+'</p><p class="infoCompleta" style="opacity: 0">'+filteredProperty.area+' m<sup>2</sup> | '+filteredProperty.beds+' personas | <strong>'+filteredProperty.price+' ARS/día</strong></p></article></div>')
+                    $('.seccionPrincipalArticulos').prepend('<div id="'+filteredProperty.id+'" class="articleContainer" style="margin: 0; padding: 0; border: none; background-color: rgba(125,125,125,0.8);"><article id="'+filteredProperty.id+'" data-picture="'+filteredProperty.main_picture+'" class="articulosPrincipales '+multiplier*filteredProperty.price+'price '+filteredProperty.area+'area '+filteredProperty.beds+'beds '+filteredProperty.location.split(' ').join('_')+'" style="background-image: url(\'/storage/'+filteredProperty.main_picture+'\'); height: 200px; border: none;"><img id="favorito" class="favorito" src="/img/light_mode/heart2.png" alt="" style="opacity: 0"><img id="flechaIzq" class="flecha flechaIzq" src="/img/light_mode/arrow2.png" alt="" style="display: none"><img id="flechaDer" class="flecha flechaDer" src="/img/light_mode/arrow2.png" alt="" style="display: none"><p class="infoPrevia" style="opacity: 1">'+filteredProperty.title+'</p><p class="infoCompleta" style="opacity: 0">'+filteredProperty.area+' m<sup>2</sup> | '+filteredProperty.beds+' '+personnes+' | <strong>'+Math.round(multiplier*filteredProperty.price)+' '+symbol+'/'+jour+'</strong><span id="bookButton">'+reserver+'</span></p></article></div>')
                     i++;
                     e++;
                 }
@@ -176,8 +209,12 @@ function filter() {
             }
         });
 
-        if(e==0) {
-            $('.seccionPrincipalArticulos').prepend("<h2 style='margin-left: 20px;'>Estás siendo demasiado exigente...</h2>");
+        if(e==0 && k>0) {
+            $('.seccionPrincipalArticulos').prepend("<h2 style='margin-left: 20px;'>"+erreur_filtre+"</h2>");
+        } else if(e==0 && k==0) {
+            $('.seccionPrincipalArticulos').prepend("<h2 style='margin-left: 20px;'>"+erreur_filtre2+"</h2>");
+        } else {
+            $('.seccionPrincipalArticulos').children('h2').remove();
         }
     }
 }
@@ -223,13 +260,6 @@ $(document).on("click", ".pestana", function(event) {
 var favoritesAmount = 0;
 var pictureIndex = 0;
 
-$(document).on("click", ".pestana", function(event) {
-    
-    var className = $(this).attr('id').split(' ').join('_');
-
-    
-});
-
 $(document).on("click",".articulosPrincipales", function (event) {
 
     var target = $(event.target);
@@ -243,6 +273,15 @@ $(document).on("click",".articulosPrincipales", function (event) {
             pictures.push(picture.img);
         }
     });
+
+
+    if(target.attr("id") == "bookButton") {
+        $("#bookPropForm").animate({opacity: '1'},500);
+        $("#bookPropForm").css("z-index", "100000");
+        console.log("hola");
+
+        return;
+    }
 
     if(target.attr("id") == "favorito") {
         var iteration2=$(this).children(".favorito").data("iteration")||1;
@@ -339,8 +378,8 @@ properties.forEach(function(property) {
     })
     
 });
-if (myPropertiesIndex == 0) {$("#myProperties").prepend('<h3>Aún no publicaste ninguna propiedad</h3>')}
-if (myFavoritesIndex == 0) {$("#myFavorites").prepend('<h3>Aún no agregaste ningún favorito</h3>')}
+if (myPropertiesIndex == 0) {$("#myProperties").prepend(publie)}
+if (myFavoritesIndex == 0) {$("#myFavorites").prepend(favoris)}
 
 function cuadrado (){
     var width = $('.articulosFavoritos').outerWidth();
@@ -448,7 +487,7 @@ $(function(){
     })
 });
 
-function cambiarPais() {
+function countrySelect() {
     fetch("https://restcountries.eu/rest/v2/all")
     .then(function(response){
       return response.json();
@@ -479,5 +518,4 @@ function cambiarPais() {
       console.log('Ocurrió un error: ' + error);
     });
 }
-
     

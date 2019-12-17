@@ -53,6 +53,9 @@ section.agregarDepto {
 section.formularioAgregar {
     background-color: rgba(0,0,0,0.9);
 }
+#bookButton {
+    background-color: rgba(0, 0, 0, 0.8);
+}
 
 @media (min-width: 700px) {
     a:hover {

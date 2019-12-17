@@ -54,17 +54,34 @@ if(Auth::check()) {
     $selectedFr = "";
     $selectedEn = "";
 
-    if(isset($_POST["language"])) {
-        $language = $_POST["language"];
-        $_COOKIE["language"] = $language;
-        setcookie("language",$language,time()+60*60*24*30);
-    };
-
-    if(isset($_COOKIE["language"])) {
-        $language = $_COOKIE["language"];
+    if(Auth::check()) {
+        $language = Auth::user()->language;    
     };
 
     include(app_path().'/php/translate.php');
+
+    // CHEQUEO DEL PAIS
+
+    $country = "argentina";
+
+    if(Auth::check()) {
+        $country = Auth::user()->country;    
+    };
+
+    // CHEQUEO DE LA MONEDA
+
+    $currency = "ARS";
+    $selectedARS = "selected";
+    $selectedEUR = "";
+    $selectedUSD = "";
+
+    if(Auth::check()) {
+        $currency = Auth::user()->currency;
+    }
+
+    if($currency == "ARS") {$selectedARS = "selected"; $multiplier = 1; $symbol = 'AR$';}
+    if($currency == "EUR") {$selectedEUR = "selected"; $multiplier = 0.015; $symbol = '€';}
+    if($currency == "USD") {$selectedUSD = "selected"; $multiplier = 0.017; $symbol = 'U$';}
 
     // CHEQUEO DEL AVATAR
 
@@ -224,16 +241,21 @@ if(Auth::check()) {
                 <input type="submit" id="subir" class="subir" value="Subir" class="aceptar">
             </form>
 
-            <!-- OPCIONES -->
+            <!-- MONEDA -->
 
-            <p class="formLogin"><?=$devise?> 
-                <select name="moneda">
-                    <option value="ARS">ARS</option>
-                    <option value="EUR">EUR</option>
-                    <option value="USD">USD</option>
+            <form action="/changeCurrency" class="formLogin" id="formCurrency" method="POST">
+            @csrf
+            <label for="currency" class="formLogin"><?=$devise?></label>
+                <select name="currency" id="currency" onchange='this.form.submit()'>
+                    <option <?=$selectedARS?> value="ARS">ARS</option>
+                    <option <?=$selectedEUR?> value="EUR">EUR</option>
+                    <option <?=$selectedUSD?> value="USD">USD</option>
                 </select>
-            </p>
-            <form action="/" class="formLogin" id="formLanguage" method="POST">
+            </form>
+
+            <!-- IDIOMA -->
+
+            <form action="/changeLanguage" class="formLogin" id="formLanguage" method="POST">
             @csrf
                 <label for="language" class="formLogin"><?=$langue?></label>
                 <select name="language" id="language" onchange='this.form.submit()'>
@@ -242,6 +264,9 @@ if(Auth::check()) {
                     <option <?=$selectedEn?> value="en">English (US)</option>
                 </select>
             </form>
+
+            <!-- PAIS -->
+
             <form action="/changeCountry" class="formLogin" id="formCountry" method="POST">
             @csrf
                 <label for="country" class="formLogin"><?=$pays?></label>
@@ -300,11 +325,11 @@ if(Auth::check()) {
 
         <!-- ---------------------------------- AGREGAR PROPIEDAD -------------------------------------- -->
 
-        <section class="agregarDepto">
+        <section class="agregarDepto" id="agregarDepto">
             <section class="formularioAgregar">
                 <img src="<?=$carpeta?>/cruz.png" class="cerrar" alt="">
                 <h1>AGREGAR PROPIEDAD</h1>
-                <form action="/addProperty" method="POST" enctype="multipart/form-data">>
+                <form action="/addProperty" method="POST" enctype="multipart/form-data">
                 @csrf
                     <input type="text" name="title" placeholder="Escribí un título">
 
@@ -333,6 +358,20 @@ if(Auth::check()) {
             </section>
         </section>
 
+
+        <!------------------------------------RESERVAR PROPIEDAD--------------------------------------->
+
+        <section class="agregarDepto" id="bookPropForm">
+            <section class="formularioAgregar">
+                <img src="<?=$carpeta?>/cruz.png" class="cerrar" alt="">
+                <h1>RESERVAR PROPIEDAD</h1>
+                <form action="/bookProperty" method="POST">
+                @csrf
+                   
+                </form>
+            </section>
+        </section>
+
     </body>
 </html>
 
@@ -342,11 +381,17 @@ if(Auth::check()) {
     var properties = <?php echo json_encode($properties) ?>;
     var myFavorites = <?php echo json_encode($myFavorites) ?>;
     var propertyPictures = <?php echo json_encode($pictures) ?>;
-    var country = "<?php echo Auth::user()->country; ?>";
+    var country = "<?php echo $country; ?>";
+    var language = "<?php echo $language ?>";
+    var multiplier = <?php echo $multiplier ?>;
+    var symbol = "<?php echo $symbol ?>";
     var userID = <?php echo $userID ?>;
     console.log(myFavorites);
     console.log(propertyPictures);
     console.log(country);
+    console.log(language);
+    console.log(multiplier);
+    console.log(symbol);
     console.log(userID);
 </script>
 
