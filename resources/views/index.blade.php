@@ -342,9 +342,11 @@ if(Auth::check()) {
     var properties = <?php echo json_encode($properties) ?>;
     var myFavorites = <?php echo json_encode($myFavorites) ?>;
     var propertyPictures = <?php echo json_encode($pictures) ?>;
+    var country = "<?php echo Auth::user()->country; ?>";
     var userID = <?php echo $userID ?>;
     console.log(myFavorites);
     console.log(propertyPictures);
+    console.log(country);
     console.log(userID);
 </script>
 

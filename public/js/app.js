@@ -458,7 +458,12 @@ function cambiarPais() {
       var completarHtml = '<select name="country" onchange="this.form.submit()">';
 
       for (var i = 0; i < data.length; i++){
-        completarHtml += '<option value="' + data[i].name + '">';
+            if(data[i].name.toLowerCase() == country) {
+                completarHtml += '<option selected value="' + data[i].name + '">';
+            } else {
+            completarHtml += '<option value="' + data[i].name + '">';
+            }
+        
         completarHtml += data[i].name;
         completarHtml += '</option>';
       }
