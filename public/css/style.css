@@ -1,0 +1,591 @@
+@keyframes trans-x {
+    from {width: 0px}
+    to {width: 400px}
+}
+@keyframes trans-x2 {
+  from {left: 7%}
+  to{left: 60%}
+}
+@keyframes trans-y {
+    from {top: -100px}
+    to {top: 20px}
+}
+@keyframes trans-y2 {
+    from {margin-top: 1000px}
+    to {margin-top: 200px}
+}
+@keyframes opac {
+    from {opacity: 0}
+    to {opacity: 1}
+}
+@keyframes slide {
+    from {height: 0px; opacity: 0}
+    to {height: 200px; opacity: 1}
+}
+@keyframes slide-2 {
+    from {height: 0px; opacity: 0}
+    to {height: 30px; opacity: 1}
+}
+
+
+body {
+    font-family:'Titillium Web', sans-serif;
+    padding: 0;
+    margin: 0;
+    scrollbar-width: none;
+}
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+h5 {
+    font-size: 15px;
+}
+
+header {
+    position: fixed;
+    height: 30px;
+    padding: 10px;
+    z-index: 10000;
+}
+header h1 {
+    color: rgba(104,128,131,1);
+    font-family: 'Plaster', cursive;
+    font-size: 50px;
+    margin: 0;
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    line-height: 50px;
+    z-index: 10000;
+}
+form input,select {
+    font-family:'Titillium Web', sans-serif;
+    height: 30px;
+    width: 100%;
+    display: block;
+    margin: auto;
+    margin-bottom: 20px;
+    background: none;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid grey;
+    outline: none;
+    border-radius: 0;
+    padding: 0;
+    font-size: 15px;
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
+}
+#sendAvatar {
+    border: none;
+}
+.agregarDepto form select {
+    color: grey;
+}
+
+form .aceptar {
+    text-align: left;
+    border: none;
+    font-size: 20px;
+}
+
+footer{
+  font-family: monospace;
+  width: 95%;
+  height: 100px;
+  position: fixed;
+  top: 85%;
+  z-index: 11;
+  left: 2%;
+  animation-name: opac;
+  animation-duration: 4s;
+
+}
+nav.encabezado {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    animation-name: trans-y;
+    animation-duration: 2s;
+    display: flex;
+    flex-direction: column;
+}
+nav.encabezado div {
+    margin-left: 10px;
+    display: inline-block;
+}
+nav.encabezado div img {
+    margin-bottom: 10px;
+    height: 30px;
+}
+#fotoDeUsuario {
+    width: 30px;
+    border-radius: 15px;
+}
+
+form#formBuscar {
+    position: fixed;
+    top: 60px;
+    left: 20px;
+    z-index: 10000;
+}
+form input.buscar {
+    display: inline-block;
+    margin: 0;
+    font-family: monospace;
+    height: 60px;
+    width: 400px;
+    padding: 5px;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    font-size: 30px;
+    border-radius: 0;
+    animation-name: trans-x;
+    animation-duration: 1s;
+}
+form #lupa {
+    margin-left: 10px;
+    height: 30px;
+}
+input::placeholder {
+    opacity: 0.6;
+}
+textarea::placeholder {
+    opacity: 0.6;
+}
+
+nav.filtros {
+    margin-left: 10px;
+    font-size: 25px;
+    font-family: monospace;
+    display: none;
+    animation-name: opac;
+    animation-duration: 4s;
+}
+nav.filtros input {
+    display: inline-block;
+    font-size: 22px;
+    font-family: monospace;
+    text-align: right;
+}
+#cantidadDePersonas {
+    width: 20px;
+}
+#cantidadDeM2 {
+    width: 50px;
+}
+#quePrecio {
+    width: 75px;
+}
+
+nav.filtros img{
+    position: relative;
+    bottom: -2px;
+    height: 20px;
+}
+
+section.mapa {
+    position: fixed;
+    top: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    animation-name: opac;
+    animation-duration: 2s;
+}
+
+.seccionPrincipalArticulos {
+    display: none;
+    position: relative;
+    margin-top:200px;
+    animation-name: trans-y2;
+    animation-duration: 2s;
+    z-index: 20;
+}
+.pestana {
+    text-transform: uppercase;
+    font-size: 20px;
+    padding: 10px;
+    text-align: right;
+    margin-bottom: 3px;
+    animation-name: slide-2;
+    animation-duration: 0.5s;
+}
+.pestana:hover {
+    cursor: pointer;
+}
+.closeTab {
+    margin-left: 5px;
+    display: inline-block;
+    font-size: 35px;
+    line-height: 20px;
+    transform: translateY(2px);
+}
+.closeTab:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.articulosPrincipales {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin-bottom: 3px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    animation-name: slide;
+    animation-duration: 0.5s;
+    z-index: 25;
+}
+.articulosPrincipales .favorito {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    opacity: 0;
+    height: 30px;
+    transition: opacity 0.5s;
+    z-index: 40;
+}
+.flecha {
+    position: absolute;
+    z-index: 35;
+    top: 45%;
+    height: 40px;
+    display: none;
+}
+.flechaIzq {
+    left: 0px;
+    transform: rotate(180deg);
+}
+.flechaDer {
+    right: 0px;
+}
+.articulosPrincipales p {
+    box-sizing: border-box;
+    position: absolute;
+    padding: 10px;
+    margin: 0;
+}
+.infoPrevia {
+    position: relative;
+    z-index: 30;
+    transition: right 0.5s;
+    width: 30%;
+    height: 100%;
+    right: -100%;
+}
+.infoCompleta {
+    width: 100%;
+    opacity: 0;
+    bottom: 0;
+}
+
+.retorno {
+    height: 35px;
+    position: fixed;
+    top: 18px;
+    left: 100%;
+}
+
+.panel {
+    position: fixed;
+    right: -100%;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: auto;
+    padding-top: 110px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+}
+
+.panelFavoritos {
+    padding-top: 110px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.articulosFavoritos {
+    position: relative;
+    display: inline-block;
+    width: 30%;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    margin: 1% 1%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.favOpac {
+    transition: opacity 0.5s;
+}
+.infoFavoritos {
+    display: none;
+    position: relative;
+    z-index: 30;
+    margin-top: 70%;
+    padding-top: 5px;
+    text-align: center;
+    width: 100%;
+    height: 30%;
+    opacity: 1;
+    box-sizing: border-box;
+}
+.articulosFavoritos:hover > .infoFavoritos {
+    opacity: 0;
+}
+
+label.file, label.checkbox {
+    font-size: 15px;
+    border-bottom: 1px solid grey;
+    padding-bottom: 3px;
+    display: block;
+    width: 100%;
+}
+label.file {
+    margin: auto;
+}
+label.file:hover, label.checkbox:hover {
+    cursor: pointer;
+}
+input.file {
+    display: none;
+}
+input.subir {
+    display: none;
+}
+.panelLogin form img {
+    height: 15px;
+    margin-top: 5px;
+}
+.panelLogin select {
+    width: 100%;
+}
+.panelLogin h2,h5 {
+    text-transform: uppercase;
+}
+.panelLogin .social{
+    height: 40px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+.formLogin, .formRegistro {
+  position: relative;
+  width: 100%;
+  z-index: 500;
+}
+.formLogin input, .formRegistro input{
+    position: relative;
+    margin-top: 20px;
+}
+.panel .alertaContrasena {
+    color: red;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.panelLogin .olvide:hover {
+    cursor: pointer;
+}
+.panelLogin .emailOlvide {
+    opacity: 0;
+    display: none;
+}
+
+.panelInfo h2,h5 {
+    text-transform: uppercase;
+}
+.panelInfo div.preguntasFrecuentes{
+  position: relative;
+  width: 85%;
+  left: 20px;
+}
+
+.panelInfo ul .pregunta {
+    font-weight: bold;
+}
+.panelInfo ul .pregunta:hover {
+    cursor: pointer;
+}
+
+.panelInfo ul .respuesta {
+    opacity: 0;
+    display: none;
+    font-weight: normal;
+}
+
+.formInfo {
+    position: relative;
+    width: 100%;
+    z-index: 500;
+}
+.formInfo input {
+    position: relative;
+    margin-top: 20px;
+}
+.formInfo textarea{
+    background: none;
+    position: relative;
+    width: 90%;
+    border: 1px solid grey;
+    outline: none;
+}
+
+section.agregarDepto {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -10;
+    opacity: 0;
+}
+section.agregarDepto h1 {
+    margin-left: 50px;
+    font-size: 25px;
+}
+section.formularioAgregar {
+    margin: auto;
+    width: 100%;
+    height: 100vh;
+    padding-top: 20px;
+}
+section.formularioAgregar img {
+    height: 30px;
+    float: right;
+    margin-right: 20px;
+    margin-top: 2px;
+}
+
+section.formularioAgregar form input,section.formularioAgregar form select,section.formularioAgregar form label {
+    width: 400px;
+}
+section.formularioAgregar form label {
+    margin-bottom: 18px;
+}
+
+.forum {
+    border-bottom: solid grey 1px;
+}
+.comentario {
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+.autorComentario {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+.fechaComentario {
+    margin-top: 0;
+    font-size: 10px;
+}
+
+@media (min-width: 700px) {
+
+    form #lupa:hover {
+        cursor: pointer;
+    }
+
+    .aceptar:hover {
+        cursor: pointer;
+    }
+
+    nav.encabezado {
+        flex-direction: row;
+    }
+    nav.encabezado div:hover {
+        cursor: pointer;
+        opacity: 0.5;
+    }
+
+    nav.encabezado div img {
+        margin-bottom: 0;
+    }
+
+    footer {
+        width: 500px;
+    }
+
+    .pestana:hover {
+        cursor: pointer;
+    }
+    .seccionPrincipalArticulos {
+        width: 50%;
+    }
+    .articulosPrincipales .favorito:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+    .articulosPrincipales .favorito:active {
+        transform: scale(1.0);
+    }
+
+    .articulosPrincipales p {
+        display: block;
+    }
+    .articulosPrincipales:hover {
+        cursor: pointer;
+    }
+    .articulosPrincipales .flecha:hover {
+        cursor: pointer;
+    }
+    .articulosPrincipales:hover > p.infoPrevia {
+        right: 0;
+    }
+
+    .retorno:hover {
+        cursor: pointer;
+        opacity: 0.5;
+    }
+
+    .articulosFavoritos:hover {
+        cursor: pointer;
+    }
+    .favOpac:hover {
+        opacity: 0.5;
+    }
+
+    .panelLogin {
+        width: 28%;
+        padding-top: 50px;
+        right: -30%;
+    }
+    .panelLogin form img:hover {
+        cursor: pointer;
+        opacity: 0.5;
+    }
+    .panelFavoritos {
+        width: 28%;
+        padding-top: 50px;
+        right: -30%;
+    }
+    .panelInfo{
+        width: 28%;
+        padding-top: 50px;
+        right: -30%;
+    }
+
+    section.formularioAgregar {
+        width: 500px;
+    }
+    section.formularioAgregar .cerrar:hover {
+        cursor: pointer;
+        opacity: 0.5;
+    }
+    .panelInfo .conectarse:hover {
+        cursor: pointer;
+    }
+
+}
