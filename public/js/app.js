@@ -455,17 +455,17 @@ function cambiarPais() {
     })
     .then(function(data){
       //console.log(data);
-      var completarHtml = '<select name="paisDeResidencia">';
+      var completarHtml = '<select name="country" onchange="this.form.submit()">';
 
       for (var i = 0; i < data.length; i++){
-        completarHtml += '<option value="' + data[i].alpha3Code + '">';
+        completarHtml += '<option value="' + data[i].name + '">';
         completarHtml += data[i].name;
         completarHtml += '</option>';
       }
 
       completarHtml += '</select>';
 
-      elDiv = document.querySelector('#losPaises');
+      elDiv = document.querySelector('#country');
 
       elDiv.innerHTML = completarHtml;
 

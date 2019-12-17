@@ -242,9 +242,10 @@ if(Auth::check()) {
                     <option <?=$selectedEn?> value="en">English (US)</option>
                 </select>
             </form>
-            <form action="/" class="formLogin" id="formCountry" method="POST">
+            <form action="/changeCountry" class="formLogin" id="formCountry" method="POST">
             @csrf
-                <div id="losPaises"></div>
+                <label for="country" class="formLogin"><?=$pays?></label>
+                <div id="country"></div>
             </form>
 
             <!-- TEMA -->

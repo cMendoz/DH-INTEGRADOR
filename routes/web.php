@@ -28,3 +28,5 @@ Route::post('/uploadAvatar', 'AvatarController@store');
 Route::post('/addProperty', 'PropertyController@add');
 
 Route::post('/addFavorites', 'PropertyController@favorites');
+
+Route::post('/changeCountry', 'CountryController@change');
