@@ -114,7 +114,7 @@ $(function(){
     })
 });
 
-var searchedProperties = [];
+var searchedProperties = {};
 
 function searchAgain() {
     var alreadySearched = 1;
@@ -140,8 +140,7 @@ $('#formBuscar').submit(function search(event){
             sameLocationProperties.push(property);
         }
     });
-    searchedProperties.push(sameLocationProperties);
-    console.log(searchedProperties);
+    searchedProperties[$busqueda] = sameLocationProperties;
     $('.seccionPrincipalArticulos').prepend('<div class="pestana" id="'+$busqueda+'">'+$('#buscar').val()+'<span class="closeTab"> &#215;</span></div>');
 });
 
@@ -160,7 +159,7 @@ function filter() {
 
         var e = 0;
 
-        searchedProperties.forEach(function(sameLocationProperties) {
+        $.each(searchedProperties, function(loc, sameLocationProperties) {
             var i = 0;
             sameLocationProperties.forEach(function(filteredProperty) {
                 if(filteredProperty.area >= area && filteredProperty.price <= price && (beds == "N" || beds == filteredProperty.beds)) {
@@ -188,8 +187,6 @@ $(document).on("click", ".pestana", function(event) {
     var iteration=$(this).data("iteration")||1;
     var target = $(event.target);
 
-    console.log(searchedProperties);
-
     if(target.attr("class") == "closeTab") {
         $(".articulosPrincipales."+className).animate({height:"0px"});
         $(".articulosPrincipales."+className).css("margin-bottom", "0");
@@ -199,18 +196,7 @@ $(document).on("click", ".pestana", function(event) {
         $(".flecha."+className).css("display", "none");
         target.parent().delay(300).fadeOut('fast');
 
-        searchedProperties.forEach(function(sameLocationProperties) {
-            var i = 0;
-            sameLocationProperties.forEach(function(filteredProperty) {
-                if(filteredProperty.location == className) {
-                    console.log(sameLocationProperty.i);
-                    i++;
-                }
-            });
-        });
-
-        console.log(searchedProperties);
-
+        delete searchedProperties[className];
         
         return;
     }
@@ -301,7 +287,6 @@ $(document).on("click",".articulosPrincipales", function (event) {
             $(this).css("background-image","url(/storage/"+pictures[pictureIndex]+")");
         }).fadeTo(100, 1);
 
-        console.log(pictureIndex);
         return;
     }
     if(target.attr("id") == "flechaDer") {
@@ -312,7 +297,6 @@ $(document).on("click",".articulosPrincipales", function (event) {
             $(this).css("background-image","url(/storage/"+pictures[pictureIndex]+")");
         }).fadeTo(100, 1);
 
-        console.log(pictureIndex);
         return;
     }
 
