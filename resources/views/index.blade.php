@@ -367,6 +367,8 @@ if(Auth::check()) {
                 <h1>RESERVAR PROPIEDAD</h1>
                 <form action="/bookProperty" method="POST">
                 @csrf
+                
+
                    
                 </form>
             </section>
