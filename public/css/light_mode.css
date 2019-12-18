@@ -57,6 +57,16 @@ section.formularioAgregar {
 #bookButton {
     background-color: rgba(255, 255, 255, 0.8);
 }
+.qs-datepicker-container {
+    background: rgba(0,0,0,0.1) !important;
+    color: black !important;
+}
+.qs-datepicker .qs-square.qs-active {
+    background: rgba(0,0,0,0.3) !important;
+}
+.qs-datepicker .qs-square.qs-range-date-middle {
+    background: rgba(0,0,0,0.2) !important;
+}
 
 @media (min-width: 700px) {
 

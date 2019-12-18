@@ -94,7 +94,7 @@ if(Auth::check()) {
     // PROPIEDADES, FAVORITOS, FOTOS
 
     $properties = Property::all()->toArray();
-    $myFavorites = Favorite::where('user_id', '=', $userID)->get('property_id')->toArray();
+    $myFavorites = Favorite::where('user_id', '=', $userID)->where('favorite', '=', 1)->get('property_id')->toArray();
     $pictures = Photo::all()->toArray();
 
 ?>
@@ -109,6 +109,7 @@ if(Auth::check()) {
         <link href="https://fonts.googleapis.com/css?family=Plaster&display=swap" rel="stylesheet">
         <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.js'></script>
         <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.css' rel='stylesheet' />
+        <link rel="stylesheet" href="/calendar/dist/datepicker.min.css">
         <title>NOMADE</title>
     </head>
     <body>
@@ -152,8 +153,8 @@ if(Auth::check()) {
         @csrf
             <input class="buscar" type="text" name="buscar" id="buscar" autocomplete="off" placeholder="<?=$question?>">
             <nav class="filtros">
-                <input oninput = "filter()" autocomplete="off"  name="personas" type="text" id="cantidadDePersonas"> <img src="<?=$carpeta?>/persona.png" alt=""> | MIN <input oninput = "filter()" autocomplete="off"  type="text" name="superficie" id="cantidadDeM2"> m<sup>2</sup> | MAX <input oninput = "filter()" autocomplete="off"  type="text" name="precio" id="quePrecio"> <img src="<?=$carpeta?>/peso.png" >
                 <label for="enviarBusqueda"><img src="<?=$carpeta?>/buscar.png" id="lupa" alt=""></label>
+                <input oninput = "filter()" autocomplete="off"  name="personas" type="text" id="cantidadDePersonas"> <img src="<?=$carpeta?>/persona.png" alt=""> | MIN <input oninput = "filter()" autocomplete="off"  type="text" name="superficie" id="cantidadDeM2"> m<sup>2</sup> | MAX <input oninput = "filter()" autocomplete="off"  type="text" name="precio" id="quePrecio"> <?=$symbol?>
                 <input type="submit" style="display:none;">
                 <input onclick = "searchAgain()" type="" id="enviarBusqueda" style="display:none;">
             </nav>
@@ -364,16 +365,18 @@ if(Auth::check()) {
         <section class="agregarDepto" id="bookPropForm">
             <section class="formularioAgregar">
                 <img src="<?=$carpeta?>/cruz.png" class="cerrar" alt="">
-                <h1>RESERVAR PROPIEDAD</h1>
+                <h1 style="margin-left: 10px;"><?=$reserverProp?></h1>
                 <form action="/bookProperty" method="POST">
-                @csrf
-                
-
-                   
+                @csrf 
+                    <label for="dateIn" class="file formLogin" style="display: inline-block; border: none; width: 298px; margin-bottom: 0; text-indent: 10px;"><?=$depuis?></label>
+                    <label for="dateOut" class="file formLogin" style="display: inline-block; border: none; width: 298px; margin-bottom: 0; text-indent: 10px;"><?=$jusqua?></label>
+                    <input style="display: inline-block;" type="text" name="dateIn" id="dateIn" readonly>
+                    <input style="display: inline-block;" type="text" name="dateOut" id="dateOut" readonly>
+                    <input type="submit" value="<?=$reserver?>" class="aceptar" style="margin-left: 10px; margin-top: 230px;">
                 </form>
             </section>
         </section>
-
+        <script src="/calendar/dist/datepicker.min.js"></script> 
     </body>
 </html>
 

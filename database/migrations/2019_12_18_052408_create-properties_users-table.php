@@ -17,6 +17,10 @@ class CreatePropertiesUsersTable extends Migration
             $table->bigIncrements('id');
             $table->integer('property_id')->references('id')->on('properties');
             $table->integer('user_id')->references('id')->on('users');
+            $table->integer('favorite')->default(0);
+            $table->integer('booked')->default(0);
+            $table->date('date_in');
+            $table->date('date_out');
         });
     }
 

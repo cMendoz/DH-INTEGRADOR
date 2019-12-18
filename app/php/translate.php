@@ -57,6 +57,11 @@ if($language == "es") {
 
     $choisirPhoto2 = "Agregar fotos";
     $choisirPhoto3 = "Elegir una foto principal";
+
+    $reserver = "Reservar";
+    $reserverProp = "RESERVAR ALOJAMIENTO";
+    $depuis = "Desde";
+    $jusqua = "Hasta";
 }
 
 if($language == "fr") {
@@ -116,6 +121,11 @@ if($language == "fr") {
 
     $choisirPhoto2 = "Ajouter des photos";
     $choisirPhoto3 = "Choisir une photo principale";
+
+    $reserver = "Réserver";
+    $reserverProp = "RÉSERVER LOGEMENT";
+    $depuis = "Depuis le";
+    $jusqua = "Jusqu'au";
 }
 
 if($language == "en") {
@@ -175,6 +185,11 @@ if($language == "en") {
 
     $choisirPhoto2 = "Add pictures";
     $choisirPhoto3 = "Choose main picture";
+
+    $reserver = "Book";
+    $reserverProp = "BOOK ACCOMMODATION";
+    $depuis = "From";
+    $jusqua = "To";
 }
 
 ?>

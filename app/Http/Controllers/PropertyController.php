@@ -51,8 +51,14 @@ class PropertyController extends Controller
             $newFavorite = new Favorite();
             $newFavorite->property_id = $favorite;
             $newFavorite->user_id = Auth::user()->id;
+            $newFavorite->favorite = 1;
             $newFavorite->save();
         }
+
+        return redirect('/');
+    }
+
+    public function bookings(Request $request) {
 
         return redirect('/');
     }

@@ -5,30 +5,116 @@ if(language == "es") {
     var personnes = "persona(s)" ;
     var jour = "día";
     var erreur_filtre = "Estás siendo demasiado exigente...";
-    var erreur_filtre2 = "Acordate que eliminaste todos los resultados...";
+    var erreur_filtre2 = "No hay resultados que filtrar...";
     var publie = "Aún no publicaste propiedades";
     var favoris = "Aún no agregaste favoritos";
     var reserver = "RESERVAR";
+
+    var dimanche = "Dom";
+    var lundi = "Lun";
+    var mardi = "Mar";
+    var mercredi = "Mie";
+    var jeudi = "Jue";
+    var vendredi = "Vie";
+    var samedi = "Sáb";
+
+    var janvier = "Enero";
+    var fevrier = "Febrero";
+    var mars = "Marzo";
+    var avril = "Abril";
+    var mai = "Mayo";
+    var juin = "Junio";
+    var juillet = "Julio";
+    var aout = "Agosto";
+    var septembre = "Septiembre";
+    var octobre = "Octubre";
+    var novembre = "Noviembre";
+    var decembre = "Diciembre";
+
 } else if (language == "fr") {
     var personnes = "personne(s)" ;
     var jour = "jour";
     var erreur_filtre = "Il semblerait que vous êtes beaucoup trop exigeant...";
-    var erreur_filtre2 = "Notez que vous avez éliminé tous les résultats...";
+    var erreur_filtre2 = "Il n'y a pas de résultats à filtrer...";
     var publie = "Vous n'avez pas encore publié de propriétés";
     var favoris = "Vous n'avez pas encore ajouté de favoris";
     var reserver = "RÉSERVER";
+
+    var dimanche = "Dim";
+    var lundi = "Lun";
+    var mardi = "Mar";
+    var mercredi = "Mer";
+    var jeudi = "Jeu";
+    var vendredi = "Ven";
+    var samedi = "Sam";
+
+    var janvier = "Janvier";
+    var fevrier = "Février";
+    var mars = "Mars";
+    var avril = "Avril";
+    var mai = "Mai";
+    var juin = "Juin";
+    var juillet = "Juillet";
+    var aout = "Août";
+    var septembre = "Septembre";
+    var octobre = "Octobre";
+    var novembre = "Novembre";
+    var decembre = "Décembre";
+
 } else if (language == "en") {
     var personnes = "people" ;
     var jour = "day";
     var erreur_filtre = "You are being overly stringent...";
-    var erreur_filtre2 = "Remember you've cleared all the results...";
+    var erreur_filtre2 = "There are no results to filter...";
     var publie = "You have not published any property yet";
     var favoris = "You have not added any favorites yet";
     var reserver = "BOOK";
+
+    var dimanche = "Sun";
+    var lundi = "Mon";
+    var mardi = "Tue";
+    var mercredi = "Wed";
+    var jeudi = "Thu";
+    var vendredi = "Fri";
+    var samedi = "Sat";
+
+    var janvier = "January";
+    var fevrier = "February";
+    var mars = "March";
+    var avril = "April";
+    var mai = "May";
+    var juin = "June";
+    var juillet = "July";
+    var aout = "August";
+    var septembre = "September";
+    var octobre = "October";
+    var novembre = "November";
+    var decembre = "December";
 }
 
 $(document).ready(function() {
     countrySelect();
+});
+
+const dateIn = datepicker("#dateIn", { 
+    id: 1, 
+    alwaysShow: true, 
+    customDays: [dimanche, lundi, mardi, mercredi, jeudi, vendredi, samedi], 
+    customMonths: [janvier, fevrier, mars, avril, mai, juin, juillet, aout, septembre, octobre, novembre, decembre],
+    formatter: (input, date, instance) => {
+        const value = date.toLocaleDateString()
+        input.value = value
+    }
+});
+const dateOut = datepicker("#dateOut", { 
+    id: 1, 
+    alwaysShow: true, 
+    customDays: [dimanche, lundi, mardi, mercredi, jeudi, vendredi, samedi], 
+    customMonths: [janvier, fevrier, mars, avril, mai, juin, juillet, aout, septembre, octobre, novembre, decembre],
+    formatter: (input, date, instance) => {
+        const value = date.toLocaleDateString()
+        input.value = value
+    }
 });
 
 $(".activarMapa").click(function(){
@@ -149,18 +235,19 @@ var searchedProperties = {};
 function searchAgain() {
     var alreadySearched = 1;
     $(".filtros").hide();
-    $(".buscar").animate({width:"500px"},1000);
+    $(".buscar").animate({width:"500px"},500);
     $(".buscar").focus();
     return alreadySearched;
 };
 
 $('#formBuscar').submit(function search(event){
     event.preventDefault();
+    if($(".buscar").val() == "") {return;}
     $('.seccionPrincipalArticulos').show();
     $('.seccionPrincipalArticulos').children('h2').remove();
     $(".filtros").css("display","inline-block");
     $(".filtros").show();
-    $(".buscar").animate({width:"0px"},1000);
+    $(".buscar").animate({width:"50px"},500);
     $("footer").animate({left:"60%"},1000);
     $busqueda = $('#buscar').val().toLowerCase(); 
     var sameLocationProperties = [];
@@ -173,6 +260,10 @@ $('#formBuscar').submit(function search(event){
     });
     searchedProperties[$busqueda] = sameLocationProperties;
     $('.seccionPrincipalArticulos').prepend('<div class="pestana" id="'+$busqueda+'">'+$('#buscar').val()+'<span class="closeTab"> &#215;</span></div>');
+
+    $(".buscar").removeAttr('placeholder');
+    $(".buscar").val("");
+    $(".buscar").blur()
 });
 
 var typingTimer; 
@@ -372,7 +463,7 @@ properties.forEach(function(property) {
     }
     myFavorites.forEach(function(myFavorite) {
         if(myFavorite.property_id == property.id) {
-            $("#myFavorites").prepend('<article class="articulosFavoritos favOpac" style="background-image:url(\'/storage/'+property.main_picture+'\');"><img class="flecha flechaIzq" src="/img/light_mode/arrow2.png" alt=""><img class="flecha flechaDer" src="/img/light_mode/arrow2.png" alt=""><p class="infoFavoritos">'+property.title+'</p></article>');
+            $("#myFavorites").prepend('<article class="articulosFavoritos favOpac" style="background-image:url(\'/storage/'+property.main_picture+'\');"><img class="flecha flechaIzq" src="/img/light_mode/arrow2.png" alt=""><img class="flecha flechaDer" src="/img/light_mode/arrow2.png" alt=""><p class="infoFavoritos">'+property.title+' <strong>'+Math.round(multiplier*property.price)+' '+symbol+'/'+jour+'</strong></p></article>');
             myFavoritesIndex++;
         }
     })
@@ -417,15 +508,31 @@ $(function(){
         switch ( iteration) {
             case 1:
                 $(this).animate({width: "96%", height: 3*width});
+
+                $(this).animate({
+                    borderTopLeftRadius: 0, 
+                    borderTopRightRadius: 0, 
+                    borderBottomLeftRadius: 0, 
+                    borderBottomRightRadius: 0}, { duration: 500, queue: false });
+                
                 $(".flecha", this).css("display", "inline-block");
                 $("p", this).css("display", "block");
+                $("p", this).animate({opacity: 1});
                 $(this).removeClass('favOpac');
                 break;
 
             case 2:
                 $(this).animate({width: "30%", height: width});
+
+                $(this).animate({
+                    borderTopLeftRadius: '50%', 
+                    borderTopRightRadius: '50%', 
+                    borderBottomLeftRadius: '50%', 
+                    borderBottomRightRadius: '50%'}, { duration: 500, queue: false });
+                
                 $(".flecha", this).css("display", "none");
                 $("p", this).css("display", "none");
+                $("p", this).delay(500).animate({opacity: 0});
                 $(this).addClass('favOpac');
                 break;
         }

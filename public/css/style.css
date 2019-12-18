@@ -154,6 +154,8 @@ form input.buscar {
 form #lupa {
     margin-left: 10px;
     height: 30px;
+    position: relative;
+    left: -63px;
 }
 input::placeholder {
     opacity: 0.6;
@@ -168,7 +170,7 @@ nav.filtros {
     font-family: monospace;
     display: none;
     animation-name: opac;
-    animation-duration: 4s;
+    animation-duration: 3s;
 }
 nav.filtros input {
     display: inline-block;
@@ -336,16 +338,13 @@ section.mapa {
     display: none;
     position: relative;
     z-index: 30;
-    margin-top: 70%;
+    margin-top: 82.5%;
     padding-top: 5px;
     text-align: center;
     width: 100%;
-    height: 30%;
-    opacity: 1;
-    box-sizing: border-box;
-}
-.articulosFavoritos:hover > .infoFavoritos {
+    height: 15%;
     opacity: 0;
+    box-sizing: border-box;
 }
 
 label.file, label.checkbox {
@@ -502,7 +501,30 @@ section.formularioAgregar form label {
     z-index: 10000;
 }
 
-
+.qs-datepicker-container {
+    font-size: 1.192rem !important;
+    font-family: 'Titillium Web' !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+}
+.qs-datepicker .qs-controls {
+    background: none !important;
+}
+.qs-datepicker .qs-square {
+    border-radius: 0 !important;
+}
+.qs-datepicker .qs-squares {
+    padding: 0 !important;
+}
+#dateIn, #dateOut {
+    display: inline-block;
+    width: 298px;
+    border: none;
+    text-indent: 10px;
+    font-weight: bolder;
+}
 
 @media (min-width: 700px) {
 
@@ -602,5 +624,7 @@ section.formularioAgregar form label {
     #bookButton:hover {
         background-color:rgba(104,128,131,0.3);
     }
-
+    #bookPropForm section {
+        width: 600px;
+    }
 }
