@@ -1,4 +1,4 @@
-<?php   
+<?php
 
 use App\Property;
 use App\Favorite;
@@ -55,7 +55,7 @@ if(Auth::check()) {
     $selectedEn = "";
 
     if(Auth::check()) {
-        $language = Auth::user()->language;    
+        $language = Auth::user()->language;
     };
 
     include(app_path().'/php/translate.php');
@@ -65,7 +65,7 @@ if(Auth::check()) {
     $country = "argentina";
 
     if(Auth::check()) {
-        $country = Auth::user()->country;    
+        $country = Auth::user()->country;
     };
 
     // CHEQUEO DE LA MONEDA
@@ -104,7 +104,7 @@ if(Auth::check()) {
     <head>
         <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/css/style.css">
-        <link rel="stylesheet" href=<?=$css?>>
+        <link rel="stylesheet" href={{$css}}>
         <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Plaster&display=swap" rel="stylesheet">
         <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.js'></script>
@@ -132,12 +132,12 @@ if(Auth::check()) {
 
             <!-- FLECHA RETORNO -->
 
-            <img src="<?=$carpeta?>/arrow.png" class="retorno" id="retorno" alt="">
+            <img src="{{$carpeta}}/arrow.png" class="retorno" id="retorno" alt="">
             <nav class="encabezado">
-                <div class="fotoUsuario"><img src="<?=$avatar?>" id="fotoDeUsuario" alt=""></div>
-                <div class="favoritos"><img src="<?=$carpeta?>/heart.png" alt=""><br><span style="opacity: 0; font-size: 30px; position: relative; top: -12px; text-align: center; width: 30px; display: inline-block;">&#9679</span></div>
-                <div class="info"><img src="<?=$carpeta?>/info.png" alt=""></div>
-                @if(Auth::check())<div class="plus"><img src="<?=$carpeta?>/plus.png" alt=""></div>@endif
+                <div class="fotoUsuario"><img src="{{$avatar}}" id="fotoDeUsuario" alt=""></div>
+                <div class="favoritos"><img src="{{$carpeta}}/heart.png" alt=""><br><span style="opacity: 0; font-size: 30px; position: relative; top: -12px; text-align: center; width: 30px; display: inline-block;"> &#9679; </span></div>
+                <div class="info"><img src="{{$carpeta}}/info.png" alt=""></div>
+                @if(Auth::check())<div class="plus"><img src="{{$carpeta}}/plus.png" alt=""></div>@endif
             </nav>
         </header>
 
@@ -150,35 +150,35 @@ if(Auth::check()) {
 
         <form action="/search" id="formBuscar" method="POST">
         @csrf
-            <input class="buscar" type="text" name="buscar" id="buscar" autocomplete="off" placeholder="<?=$question?>">
+            <input class="buscar" type="text" name="buscar" id="buscar" autocomplete="off" placeholder="{{$question}}">
             <nav class="filtros">
-                <input oninput = "filter()" autocomplete="off"  name="personas" type="text" id="cantidadDePersonas"> <img src="<?=$carpeta?>/persona.png" alt=""> | MIN <input oninput = "filter()" autocomplete="off"  type="text" name="superficie" id="cantidadDeM2"> m<sup>2</sup> | MAX <input oninput = "filter()" autocomplete="off"  type="text" name="precio" id="quePrecio"> <img src="<?=$carpeta?>/peso.png" >
-                <label for="enviarBusqueda"><img src="<?=$carpeta?>/buscar.png" id="lupa" alt=""></label>
+                <input oninput = "filter()" autocomplete="off"  name="personas" type="text" id="cantidadDePersonas"> <img src="{{$carpeta}}/persona.png" alt=""> | MIN <input oninput = "filter()" autocomplete="off"  type="text" name="superficie" id="cantidadDeM2"> m<sup>2</sup> | MAX <input oninput = "filter()" autocomplete="off"  type="text" name="precio" id="quePrecio"> <img src="{{$carpeta}}/peso.png" >
+                <label for="enviarBusqueda"><img src="{{$carpeta}}/buscar.png" id="lupa" alt=""></label>
                 <input type="submit" style="display:none;">
                 <input onclick = "searchAgain()" type="" id="enviarBusqueda" style="display:none;">
             </nav>
         </form>
 
         <footer>
-          <?=$presse?>
+          {{$presse}}
         </footer>
 
         <!-- ------------------------------ RESULTADOS (SE GENERAN EN JS) ---------------------------------- -->
 
         <section class="seccionPrincipalArticulos">
-                      
+
         </section>
 
         <!-- -------------------- MIS FAVORITOS Y MIS PROPIEDADES (SE GENERAN EN JS) ----------------------- -->
 
         <section class="panel panelFavoritos">
-            <h2><?=$favoris?></h2>
+            <h2>{{$favoris}}</h2>
             <form action="/addFavorites" method="POST" style="display:none;" id="addFavorites">
             @csrf
                 <input type="submit" value="Guardar nuevo(s) favorito(s)" class="aceptar">
             </form>
             <div id="myFavorites"></div>
-            <h2><?=$proprietes?></h2>
+            <h2>{{$proprietes}}</h2>
             <div id="myProperties"></div>
         </section>
 
@@ -190,54 +190,54 @@ if(Auth::check()) {
 
             <!-- SIGN IN -->
 
-            <h2><?=$enregistrer?></h2>
-            <img class="social" src="<?=$carpeta?>/loginFacebook.png" alt="Facebook">
-            <img class="social" src="<?=$carpeta?>/loginTwitter.png" alt="Twitter">
-            <img class="social" src="<?=$carpeta?>/loginLinkedin.png" alt="LinkedIn">
+            <h2>{{$enregistrer}}</h2>
+            <img class="social" src="{{$carpeta}}/loginFacebook.png" alt="Facebook">
+            <img class="social" src="{{$carpeta}}/loginTwitter.png" alt="Twitter">
+            <img class="social" src="{{$carpeta}}/loginLinkedin.png" alt="LinkedIn">
 
             <form class="formRegistro" action="{{ route('register') }}" method="post">
             @csrf
                 <input name="email" type="email" placeholder= "E-mail" autocomplete="off"  value="{{ old('email') }}">
-                <input name="name" type="text" placeholder= "<?=$utilisateur?>" autocomplete="off"  value="{{ old('name') }}">
-                <input name="password" type="password" placeholder="<?=$mdp?>" autocomplete="off"  value="">
-                <input name="password_confirmation" type="password" placeholder="<?=$confirmerMdp?>" autocomplete="off"  value="">
+                <input name="name" type="text" placeholder= "{{$utilisateur}}" autocomplete="off"  value="{{ old('name') }}">
+                <input name="password" type="password" placeholder="{{$mdp}}" autocomplete="off"  value="">
+                <input name="password_confirmation" type="password" placeholder="{{$confirmerMdp}}" autocomplete="off"  value="">
                 <span class="alertaContrasena"></span>
-                <input type="submit" name="registrarse" value="<?=$registrer?>" class="aceptar">
+                <input type="submit" name="registrarse" value="{{$registrer}}" class="aceptar">
             </form>
 
             <!-- LOGIN -->
-            
-            <h5><?=$dejaRegistre?></h5>
-            <h2><?=$connexion?></h2>
+
+            <h5>{{$dejaRegistre}}</h5>
+            <h2>{{$connexion}}</h2>
             <form class="formLogin" action="{{ route('login') }}" method="POST">
             @csrf
                 <input name="email" type="email" placeholder= "E-mail" autocomplete="off"  value="{{ old('email') }}">
-                <input name="password" type="password" autocomplete="off"  placeholder="<?=$mdp?>">
+                <input name="password" type="password" autocomplete="off"  placeholder="{{$mdp}}">
                 <span class="alertaContrasena"></span>
                 <label for="remember" class="checkbox" id="rememberMe">
-                <?=$rappeler?>
+                {{$rappeler}}
                 </label>
                 <input type="checkbox" class="checkbox subir" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                
-                <input name="login" type="submit" value="<?=$connecter?>" class="aceptar botonLogin">
+
+                <input name="login" type="submit" value="{{$connecter}}" class="aceptar botonLogin">
             </form>
-            <p class="olvide"><?=$oubli?></p>
+            <p class="olvide">{{$oubli}}</p>
             <form action="mail.php" method="POST" class="formLogin">
                 <input name="mailOlvide" type="email" placeholder="E-mail" class="emailOlvide">
             </form>
 
             @elseif (Auth::check())
 
-            
+
             <h2>{{Auth::user()->name}}</h2>
 
             <!-- FOTO -->
 
             <form action="/uploadAvatar" method="POST" enctype="multipart/form-data">
             @csrf
-                <label for="foto" class="file formLogin"><?=$choisirPhoto?></label>
+                <label for="foto" class="file formLogin">{{$choisirPhoto}}</label>
                 <input type="file" id="foto" class="file" name="avatar">
-                <label for="subir" class="file formLogin" id="sendAvatar"><?=$envoyer?></label>
+                <label for="subir" class="file formLogin" id="sendAvatar">{{$envoyer}}</label>
                 <input type="submit" id="subir" class="subir" value="Subir" class="aceptar">
             </form>
 
@@ -245,11 +245,11 @@ if(Auth::check()) {
 
             <form action="/changeCurrency" class="formLogin" id="formCurrency" method="POST">
             @csrf
-            <label for="currency" class="formLogin"><?=$devise?></label>
+            <label for="currency" class="formLogin">{{$devise}}</label>
                 <select name="currency" id="currency" onchange='this.form.submit()'>
-                    <option <?=$selectedARS?> value="ARS">ARS</option>
-                    <option <?=$selectedEUR?> value="EUR">EUR</option>
-                    <option <?=$selectedUSD?> value="USD">USD</option>
+                    <option {{$selectedARS}} value="ARS">ARS</option>
+                    <option {{$selectedEUR}} value="EUR">EUR</option>
+                    <option {{$selectedUSD}} value="USD">USD</option>
                 </select>
             </form>
 
@@ -257,11 +257,11 @@ if(Auth::check()) {
 
             <form action="/changeLanguage" class="formLogin" id="formLanguage" method="POST">
             @csrf
-                <label for="language" class="formLogin"><?=$langue?></label>
+                <label for="language" class="formLogin">{{$langue}}</label>
                 <select name="language" id="language" onchange='this.form.submit()'>
-                    <option <?=$selectedEs?> value="es">Español (Argentina)</option>
-                    <option <?=$selectedFr?> value="fr">Français (France)</option>
-                    <option <?=$selectedEn?> value="en">English (US)</option>
+                    <option {{$selectedEs}} value="es">Español (Argentina)</option>
+                    <option {{$selectedFr}} value="fr">Français (France)</option>
+                    <option {{$selectedEn}} value="en">English (US)</option>
                 </select>
             </form>
 
@@ -269,7 +269,7 @@ if(Auth::check()) {
 
             <form action="/changeCountry" class="formLogin" id="formCountry" method="POST">
             @csrf
-                <label for="country" class="formLogin"><?=$pays?></label>
+                <label for="country" class="formLogin">{{$pays}}</label>
                 <div id="country"></div>
             </form>
 
@@ -277,10 +277,10 @@ if(Auth::check()) {
 
             <form action="/" class="formLogin" id="formTheme" method="POST">
             @csrf
-                <label for="theme" class="formLogin"><?=$styleVisuel?></label>
+                <label for="theme" class="formLogin">{{$styleVisuel}}</label>
                 <select name="theme" id="theme" onchange='this.form.submit()'>
-                    <option <?=$selectedThemeClaro?> value="claro"><?=$clair?></option>
-                    <option <?=$selectedThemeOscuro?> value="oscuro"><?=$fonce?></option>
+                    <option {{$selectedThemeClaro}} value="claro">{{$clair}}</option>
+                    <option {{$selectedThemeOscuro}} value="oscuro">{{$fonce}}</option>
                 </select>
             </form>
 
@@ -290,9 +290,9 @@ if(Auth::check()) {
 
             <form action="{{ route('logout') }}" class="formLogin" method="POST">
             @csrf
-                <input type="submit" name="desconectarse" value="<?=$deconexion?>" class="aceptar">
+                <input type="submit" name="desconectarse" value="{{$deconexion}}" class="aceptar">
             </form>
-        
+
             @endif
 
         </section>
@@ -300,34 +300,34 @@ if(Auth::check()) {
         <!-- ---------------------------------------- INFO -------------------------------------------- -->
 
         <section class="panel panelInfo" id="panelInfo">
-           <h2 class="aceptar preguntasFrecuentesH2"><?=$questionsFrequentes?></h2>
+           <h2 class="aceptar preguntasFrecuentesH2">{{$questionsFrequentes}}</h2>
            <ul class="preguntasFrecuentes" type="bullet">
-             <li class="pregunta"><?=$question1?><p class="respuesta"><?=$reponse1?></p></li> 
-             <li class="pregunta"><?=$question2?><p class="respuesta"><?=$reponse2?></p></li> 
-             <li class="pregunta"><?=$question3?><p class="respuesta"><?=$reponse3?></p></li>
-             <li class="pregunta"><?=$question4?><p class="respuesta"><?=$reponse4?></p></li> 
-             <li class="pregunta"><?=$question5?><p class="respuesta"><?=$reponse5?></p></li> 
+             <li class="pregunta">{{$question1}}<p class="respuesta">{{$reponse1}}</p></li>
+             <li class="pregunta">{{$question2}}<p class="respuesta">{{$reponse2}}</p></li>
+             <li class="pregunta">{{$question3}}<p class="respuesta">{{$reponse3}}</p></li>
+             <li class="pregunta">{{$question4}}<p class="respuesta">{{$reponse4}}</p></li>
+             <li class="pregunta">{{$question5}}<p class="respuesta">{{$reponse5}}</p></li>
            </ul>
-           <h2 class="aceptar escribirComentarioH2"><?=$ecrireCommentaire?></h2>
+           <h2 class="aceptar escribirComentarioH2">{{$ecrireCommentaire}}</h2>
            <form class="formInfo escribirComentario" action="" method="POST">
-            
+
            @if(!Auth::check())
            <h5>
-                <span class="conectarse"><?=$connexion?></span>
+                <span class="conectarse">{{$connexion}}</span>
             </h5>
             @endif
 
-            <textarea name="comentario" rows="5" placeholder="<?=$ecrireCommentaire2?>" id="areaComentario"></textarea>
-            <input type="submit" value="<?=$envoyer?>" class="aceptar" id="aceptarComentario">
+            <textarea name="comentario" rows="5" placeholder="{{$ecrireCommentaire2}}" id="areaComentario"></textarea>
+            <input type="submit" value="{{$envoyer}}" class="aceptar" id="aceptarComentario">
            </form>
-           <h2 class="aceptar forumH2"><?=$commentaires?></h2>
+           <h2 class="aceptar forumH2">{{$commentaires}}</h2>
         </section>
 
         <!-- ---------------------------------- AGREGAR PROPIEDAD -------------------------------------- -->
 
         <section class="agregarDepto" id="agregarDepto">
             <section class="formularioAgregar">
-                <img src="<?=$carpeta?>/cruz.png" class="cerrar" alt="">
+                <img src="{{$carpeta}}/cruz.png" class="cerrar" alt="">
                 <h1>AGREGAR PROPIEDAD</h1>
                 <form action="/addProperty" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -346,10 +346,10 @@ if(Auth::check()) {
 
                     <!-- <label for="foto2" class="file formLogin"></label>
                     <input type="file" id="foto2" class="file" name="main_picture"> -->
-                    
-                    <label for="foto2" class="file formLogin"><?=$choisirPhoto2?></label>
+
+                    <label for="foto2" class="file formLogin">{{$choisirPhoto2}}</label>
                     <input type="file" id="foto2" class="file" name="pictures[]" multiple="multiple">
-                    
+
                     <input type="text" name="area" placeholder="Cuántos m2?">
                     <input type="text" name="beds" placeholder="Cuántas camas?">
                     <input type="text" name="price" placeholder="Cuánto por mes?">
@@ -363,11 +363,11 @@ if(Auth::check()) {
 
         <section class="agregarDepto" id="bookPropForm">
             <section class="formularioAgregar">
-                <img src="<?=$carpeta?>/cruz.png" class="cerrar" alt="">
+                <img src="{{$carpeta}}/cruz.png" class="cerrar" alt="">
                 <h1>RESERVAR PROPIEDAD</h1>
                 <form action="/bookProperty" method="POST">
                 @csrf
-                   
+
                 </form>
             </section>
         </section>

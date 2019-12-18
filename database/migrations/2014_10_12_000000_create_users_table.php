@@ -23,6 +23,12 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('languaje')->default('es');
+            $table->string('country')->default('argentina');
+            $table->string('currency')->default('ARS');
+        });
     }
 
     /**
