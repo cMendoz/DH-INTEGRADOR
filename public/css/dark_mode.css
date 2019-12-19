@@ -1,0 +1,92 @@
+body {
+    background-color: black;
+    color: white;
+}
+a {
+    color: white;
+}
+form input,select {
+    color: white;
+}
+footer{
+  color: lightgrey;
+}
+form input.buscar {
+    background: rgba(0, 0, 0, 0.5);
+    border-left: solid white 3px;
+    border-right: solid white 3px;
+    caret-color: white;
+}
+input::placeholder {
+    color: white;
+}
+textarea {
+    color: white;
+}
+textarea::placeholder {
+    color: white;
+}
+section.mapa {
+    background-image: url("/img/dark_mode/map2.jpg");
+}
+.pestana {
+    background-color: rgba(0,0,0,0.8);
+}
+.articulosPrincipales p {
+    background-color: rgba(0, 0, 0, 0.75);
+}
+.panelFavoritos {
+    background:rgba(90,90,83,1);
+}
+.infoFavoritos {
+    background-color: rgba(0, 0, 0, 0.75);
+}
+.panelLogin{
+  background: rgba(75,71,60,1);
+}
+.panelInfo{
+  background: rgba(120,91,66,1);
+}
+section.agregarDepto {
+    background-color: rgba(0,0,0,0.5);
+}
+section.formularioAgregar {
+    background-color: rgba(0,0,0,0.9);
+}
+#bookButton {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.qs-datepicker-container {
+    background: rgba(255,255,255,0.1) !important;
+    color: white !important;
+}
+.qs-datepicker .qs-square.qs-active {
+    background: rgba(255,255,255,0.3) !important;
+}
+.qs-datepicker .qs-square.qs-range-date-middle {
+    background: rgba(255,255,255,0.2) !important;
+}
+
+@media (min-width: 700px) {
+    a:hover {
+        color: skyblue;
+    }
+    .aceptar:hover {
+        color: skyblue;
+    }
+    .pestana:hover {
+        background-color: black;
+    }
+    .panelInfo .conectarse:hover {
+        color: skyblue;
+    }
+    label.file:hover, label.checkbox:hover {
+        color: skyblue;
+    }
+    .panel .alertaContrasena {
+        color: skyblue;
+    }
+    .panelLogin .olvide:hover {
+        color: skyblue;
+    }
+}
