@@ -3,6 +3,7 @@
 use App\Property;
 use App\Favorite;
 use App\Photo;
+use App\User;
 
     // VAR_DUMP CUSTOMIZADO
 
@@ -12,7 +13,7 @@ function vardump ($data) {
 
     // ChEQUEO USUARIO
 
-$userID = "N";
+$userID = 0;
 
 if(Auth::check()) {
     $userID = Auth::user()->id;
@@ -93,8 +94,10 @@ if(Auth::check()) {
 
     // PROPIEDADES, FAVORITOS, FOTOS
 
+    $users = User::all()->toArray();
     $properties = Property::all()->toArray();
     $myFavorites = Favorite::where('user_id', '=', $userID)->where('favorite', '=', 1)->get('property_id')->toArray();
+    $myBookings = Favorite::where('user_id', '=', $userID)->where('booked', '=', 1)->get()->toArray();
     $pictures = Photo::all()->toArray();
 
 ?>
@@ -107,8 +110,8 @@ if(Auth::check()) {
         <link rel="stylesheet" href=<?=$css?>>
         <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Plaster&display=swap" rel="stylesheet">
-        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.js'></script>
-        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.css' rel='stylesheet' />
+        <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
         <link rel="stylesheet" href="/calendar/dist/datepicker.min.css">
         <title>NOMADE</title>
     </head>
@@ -170,9 +173,11 @@ if(Auth::check()) {
                       
         </section>
 
-        <!-- -------------------- MIS FAVORITOS Y MIS PROPIEDADES (SE GENERAN EN JS) ----------------------- -->
+        <!-- ------------- MIS RESEVRAS, MIS FAVORITOS Y MIS PROPIEDADES (SE GENERAN EN JS) ---------------- -->
 
         <section class="panel panelFavoritos">
+            <h2><?=$reserves?></h2>
+            <div id="myBookings"></div>
             <h2><?=$favoris?></h2>
             <form action="/addFavorites" method="POST" style="display:none;" id="addFavorites">
             @csrf
@@ -198,10 +203,10 @@ if(Auth::check()) {
 
             <form class="formRegistro" action="{{ route('register') }}" method="post">
             @csrf
-                <input name="email" type="email" placeholder= "E-mail" autocomplete="off"  value="{{ old('email') }}">
-                <input name="name" type="text" placeholder= "<?=$utilisateur?>" autocomplete="off"  value="{{ old('name') }}">
-                <input name="password" type="password" placeholder="<?=$mdp?>" autocomplete="off"  value="">
-                <input name="password_confirmation" type="password" placeholder="<?=$confirmerMdp?>" autocomplete="off"  value="">
+                <input id="register_mail" name="email" type="email" placeholder= "E-mail" autocomplete="off"  value="{{ old('email') }}">
+                <input id="register_name" name="name" type="text" placeholder= "<?=$utilisateur?>" autocomplete="off"  value="{{ old('name') }}">
+                <input id="register_pass" name="password" type="password" placeholder="<?=$mdp?>" autocomplete="off"  value="">
+                <input id="register_conf_pass" name="password_confirmation" type="password" placeholder="<?=$confirmerMdp?>" autocomplete="off"  value="">
                 <span class="alertaContrasena"></span>
                 <input type="submit" name="registrarse" value="<?=$registrer?>" class="aceptar">
             </form>
@@ -212,8 +217,8 @@ if(Auth::check()) {
             <h2><?=$connexion?></h2>
             <form class="formLogin" action="{{ route('login') }}" method="POST">
             @csrf
-                <input name="email" type="email" placeholder= "E-mail" autocomplete="off"  value="{{ old('email') }}">
-                <input name="password" type="password" autocomplete="off"  placeholder="<?=$mdp?>">
+                <input id="login_mail" name="email" type="email" placeholder= "E-mail" autocomplete="off"  value="{{ old('email') }}">
+                <input id="login_pass" name="password" type="password" autocomplete="off"  placeholder="<?=$mdp?>">
                 <span class="alertaContrasena"></span>
                 <label for="remember" class="checkbox" id="rememberMe">
                 <?=$rappeler?>
@@ -285,7 +290,7 @@ if(Auth::check()) {
                 </select>
             </form>
 
-            <p class="aceptar activarMapa"  style="display:none;">Activar mapa</p>
+            <p class="aceptar activarMapa" style="display: none;">Activar mapa</p>
 
             <!-- LOGOUT -->
 
@@ -370,9 +375,10 @@ if(Auth::check()) {
                 @csrf 
                     <label for="dateIn" class="file formLogin" style="display: inline-block; border: none; width: 298px; margin-bottom: 0; text-indent: 10px;"><?=$depuis?></label>
                     <label for="dateOut" class="file formLogin" style="display: inline-block; border: none; width: 298px; margin-bottom: 0; text-indent: 10px;"><?=$jusqua?></label>
-                    <input style="display: inline-block;" type="text" name="dateIn" id="dateIn" readonly>
-                    <input style="display: inline-block;" type="text" name="dateOut" id="dateOut" readonly>
-                    <input type="submit" value="<?=$reserver?>" class="aceptar" style="margin-left: 10px; margin-top: 230px;">
+                    <input style="display: inline-block; color:transparent; height: 0px;" type="text" name="dateIn" id="dateIn" readonly>
+                    <input style="display: inline-block; color:transparent; height: 0px;" type="text" name="dateOut" id="dateOut" readonly>
+                    <p id='firstDate' style='margin-left: 10px; margin-top: 230px; margin-bottom: 10px; opacity: 0; font-size: 20px; font-weight: bolder'>PRECIO</p>
+                    <input type="submit" value="<?=$reserver?>" class="aceptar" style="margin-left: 10px;">
                 </form>
             </section>
         </section>
@@ -383,20 +389,35 @@ if(Auth::check()) {
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 <script>
+    var users = <?php echo json_encode($users) ?>;
     var properties = <?php echo json_encode($properties) ?>;
     var myFavorites = <?php echo json_encode($myFavorites) ?>;
+    var myBookings = <?php echo json_encode($myBookings) ?>;
     var propertyPictures = <?php echo json_encode($pictures) ?>;
     var country = "<?php echo $country; ?>";
     var language = "<?php echo $language ?>";
     var multiplier = <?php echo $multiplier ?>;
     var symbol = "<?php echo $symbol ?>";
     var userID = <?php echo $userID ?>;
+    console.log("Usuarios:");
+    console.log(users);
+    console.log("Propiedades:");
+    console.log(properties);
+    console.log("Favoritos:");
     console.log(myFavorites);
+    console.log("Reservas:");
+    console.log(myBookings);
+    console.log("Fotos de propiedades:");
     console.log(propertyPictures);
+    console.log("País:");
     console.log(country);
+    console.log("Idioma:");
     console.log(language);
+    console.log("Multiplicador de precio:");
     console.log(multiplier);
+    console.log("Moneda:");
     console.log(symbol);
+    console.log("ID de usuario:");
     console.log(userID);
 </script>
 

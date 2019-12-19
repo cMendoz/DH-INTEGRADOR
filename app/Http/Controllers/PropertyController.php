@@ -60,6 +60,16 @@ class PropertyController extends Controller
 
     public function bookings(Request $request) {
 
+        $newBooking = new Favorite();
+
+        $newBooking->booked = 1;
+        $newBooking->date_in = strtotime($request['dateIn']);
+        $newBooking->date_out = strtotime($request['dateOut']);
+        $newBooking->property_id = $request['id'];
+        $newBooking->user_id = Auth::user()->id;
+        $newBooking->price = $request['price'];
+        $newBooking->save();
+
         return redirect('/');
     }
     

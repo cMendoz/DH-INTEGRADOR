@@ -9,6 +9,8 @@ if(language == "es") {
     var publie = "Aún no publicaste propiedades";
     var favoris = "Aún no agregaste favoritos";
     var reserver = "RESERVAR";
+    var a_partir_du = "a partir del";
+    var pour = "por";
 
     var dimanche = "Dom";
     var lundi = "Lun";
@@ -31,6 +33,15 @@ if(language == "es") {
     var novembre = "Noviembre";
     var decembre = "Diciembre";
 
+    var mail_vide = "Ingresa un mail";
+    var pseudo_vide = "Ingresa un nombre";
+    var mdp_vide = "Ingresa una contraseña";
+    var conf_mdp_vide = "Confirma la contraseña";
+    var mail_meme = "Este mail ya está registrado";
+    var pseudo_meme = "Este nombre ya es usado";
+    var mail_incorrect = "Este mail no está registrado";
+    var mdp_incorrect = "La contraseña es incorrecta";
+
 } else if (language == "fr") {
     var personnes = "personne(s)" ;
     var jour = "jour";
@@ -39,6 +50,8 @@ if(language == "es") {
     var publie = "Vous n'avez pas encore publié de propriétés";
     var favoris = "Vous n'avez pas encore ajouté de favoris";
     var reserver = "RÉSERVER";
+    var a_partir_du = "à partir du";
+    var pour = "pour";
 
     var dimanche = "Dim";
     var lundi = "Lun";
@@ -61,6 +74,15 @@ if(language == "es") {
     var novembre = "Novembre";
     var decembre = "Décembre";
 
+    var mail_vide = "Entrez un mail";
+    var pseudo_vide = "Entrez un nom";
+    var mdp_vide = "Entrez un mot-de-passe";
+    var conf_mdp_vide = "Confirmez le mot-de-passe";
+    var mail_meme = "Cette adresse mail est déjà enregistrée";
+    var pseudo_meme = "Ce nom est dékà pris";
+    var mail_incorrect = "Cette adresse mail n'est pas enregistrée";
+    var mdp_incorrect = "Le mot-de-passe est incorrect";
+
 } else if (language == "en") {
     var personnes = "people" ;
     var jour = "day";
@@ -69,6 +91,8 @@ if(language == "es") {
     var publie = "You have not published any property yet";
     var favoris = "You have not added any favorites yet";
     var reserver = "BOOK";
+    var a_partir_du = "starting the";
+    var pour = "for";
 
     var dimanche = "Sun";
     var lundi = "Mon";
@@ -90,6 +114,15 @@ if(language == "es") {
     var octobre = "October";
     var novembre = "November";
     var decembre = "December";
+
+    var mail_vide = "Enter an e-mail adress";
+    var pseudo_vide = "Enter a name";
+    var mdp_vide = "Enter a password";
+    var conf_mdp_vide = "Confirm the password";
+    var mail_meme = "This mail adress is already registered";
+    var pseudo_meme = "This name is already taken";
+    var mail_incorrect = "This mail adress has not been registered yet";
+    var mdp_incorrect = "The password is incorrect";
 }
 
 $(document).ready(function() {
@@ -101,25 +134,19 @@ const dateIn = datepicker("#dateIn", {
     alwaysShow: true, 
     customDays: [dimanche, lundi, mardi, mercredi, jeudi, vendredi, samedi], 
     customMonths: [janvier, fevrier, mars, avril, mai, juin, juillet, aout, septembre, octobre, novembre, decembre],
-    formatter: (input, date, instance) => {
-        const value = date.toLocaleDateString()
-        input.value = value
-    }
+    disableYearOverlay: true
 });
 const dateOut = datepicker("#dateOut", { 
     id: 1, 
     alwaysShow: true, 
     customDays: [dimanche, lundi, mardi, mercredi, jeudi, vendredi, samedi], 
     customMonths: [janvier, fevrier, mars, avril, mai, juin, juillet, aout, septembre, octobre, novembre, decembre],
-    formatter: (input, date, instance) => {
-        const value = date.toLocaleDateString()
-        input.value = value
-    }
+    disableYearOverlay: true
 });
 
 $(".activarMapa").click(function(){
     $(".mapa").css("background", "none");
-    $(".mapa").load("/map/map.php");
+    $(".mapa").load("/map");
 });
 
 $(document).ready(function(){
@@ -369,9 +396,15 @@ $(document).on("click",".articulosPrincipales", function (event) {
     if(target.attr("id") == "bookButton") {
         $("#bookPropForm").animate({opacity: '1'},500);
         $("#bookPropForm").css("z-index", "100000");
-        console.log("hola");
+        $("#bookPropForm form").append("<input name='id' value='"+thisID+"' style='display:none'></input>");
 
-        return;
+        properties.forEach(function(property) {
+            if(property.id == thisID) {
+                booked_property = property;
+            }
+        });
+
+        return booked_property;
     }
 
     if(target.attr("id") == "favorito") {
@@ -463,7 +496,15 @@ properties.forEach(function(property) {
     }
     myFavorites.forEach(function(myFavorite) {
         if(myFavorite.property_id == property.id) {
-            $("#myFavorites").prepend('<article class="articulosFavoritos favOpac" style="background-image:url(\'/storage/'+property.main_picture+'\');"><img class="flecha flechaIzq" src="/img/light_mode/arrow2.png" alt=""><img class="flecha flechaDer" src="/img/light_mode/arrow2.png" alt=""><p class="infoFavoritos">'+property.title+' <strong>'+Math.round(multiplier*property.price)+' '+symbol+'/'+jour+'</strong></p></article>');
+            $("#myFavorites").prepend('<article class="articulosFavoritos favOpac" style="background-image:url(\'/storage/'+property.main_picture+'\');"><img class="flecha flechaIzq" src="/img/light_mode/arrow2.png" alt=""><img class="flecha flechaDer" src="/img/light_mode/arrow2.png" alt=""><p class="infoFavoritos">'+property.title+' <br><strong>'+Math.round(multiplier*property.price)+' '+symbol+'/'+jour+'</strong></p></article>');
+            myFavoritesIndex++;
+        }
+    });
+    myBookings.forEach(function(myBooking) {
+        if(myBooking.property_id == property.id) {
+            var days = Math.round((myBooking.date_out-myBooking.date_in)/60/60/24);
+            var date = new Date(myBooking.date_in*1000).toLocaleDateString();
+            $("#myBookings").prepend('<article class="articulosFavoritos favOpac" style="background-image:url(\'/storage/'+property.main_picture+'\');"><img class="flecha flechaIzq" src="/img/light_mode/arrow2.png" alt=""><img class="flecha flechaDer" src="/img/light_mode/arrow2.png" alt=""><p class="infoFavoritos">'+property.title+' <br><strong>'+Math.round(multiplier*myBooking.price)+' '+symbol+'</strong><br>'+pour+' '+days+' '+jour+'s <i style="color: grey;">'+a_partir_du+' '+date+'</i></p></article>');
             myFavoritesIndex++;
         }
     })
@@ -592,6 +633,92 @@ $(function(){
         if (iteration>2) iteration=1
         $(this).data('iteration',iteration)
     })
+});
+
+$(document).on("click",".qs-squares", function () {
+    var date1 = Date.parse(dateIn.dateSelected)/1000/60/60/24;
+    var date2 = Date.parse(dateOut.dateSelected)/1000/60/60/24;
+    var range = date2 - date1;
+    if(!isNaN(range)) {
+        $('#firstDate').css('opacity', 1);
+        $('#firstDate').html(Math.round(booked_property.price*multiplier*range)+' '+symbol);
+        $("#bookPropForm form").append("<input name='price' value='"+booked_property.price*range+"' style='display:none'></input>");
+    }
+});
+
+$(document).on("submit",".formRegistro", function (event) {
+    var usermail = $('#register_mail').val().toLowerCase();
+    var username = $('#register_name').val().toLowerCase();
+
+    if(usermail == "") {
+        event.preventDefault();
+        $('body').append('<style>#register_mail::placeholder{color:gold;opacity:1;}</style>');
+        $('#register_mail').attr('placeholder', mail_vide);
+    }
+    if(username == "") {
+        event.preventDefault();
+        $('body').append('<style>#register_name::placeholder{color:gold;opacity:1;}</style>');
+        $('#register_name').attr('placeholder', pseudo_vide);
+    }
+    if($('#register_pass').val() == "") {
+        event.preventDefault();
+        $('body').append('<style>#register_pass::placeholder{color:gold;opacity:1;}</style>');
+        $('#register_pass').attr('placeholder', mdp_vide);
+    }
+    if($('#register_conf_pass').val() == "") {
+        event.preventDefault();
+        $('body').append('<style>#register_conf_pass::placeholder{color:gold;opacity:1;}</style>');
+        $('#register_conf_pass').attr('placeholder', conf_mdp_vide);
+    }
+
+    users.forEach(function(user) {
+        if(usermail == user.email) {
+            event.preventDefault();
+            $('#register_mail').val('');
+            $('body').append('<style>#register_mail::placeholder{color:gold;opacity:1;}</style>');
+            $('#register_mail').attr('placeholder', mail_meme);
+        }
+        if(username == user.name) {
+            event.preventDefault();
+            $('#register_name').val('');
+            $('body').append('<style>#register_name::placeholder{color:gold;opacity:1;}</style>');
+            $('#register_name').attr('placeholder', pseudo_meme);
+        }
+    });
+});
+
+$(document).on("submit",".formLogin", function (event) {
+    var mail_accepted = 0;
+    var login_check = 0;
+    var usermail = $('#login_mail').val().toLowerCase();
+
+    if(usermail == "") {
+        event.preventDefault();
+        $('body').append('<style>#login_mail::placeholder{color:gold;opacity:1;}</style>');
+        $('#login_mail').attr('placeholder', mail_vide);
+    }
+    if($('#login_pass').val() == "") {
+        event.preventDefault();
+        $('body').append('<style>#login_pass::placeholder{color:gold;opacity:1;}</style>');
+        $('#login_pass').attr('placeholder', mdp_vide);
+    }
+    if(usermail != "" && $('#login_pass').val() != "") {
+        users.forEach(function(user) {
+            if(usermail == user.email) {
+                mail_accepted++;
+            }
+        });
+
+        if(mail_accepted == 1) {
+            $(this).submit();
+        } else {
+            event.preventDefault();
+                $('body').append('<style>#login_mail::placeholder{color:gold;opacity:1;}</style>');
+                $('#login_mail').attr('placeholder', mail_incorrect);
+                $('#login_mail').val('');
+                $('#login_pass').val('');
+        }
+    }
 });
 
 function countrySelect() {

@@ -36,3 +36,7 @@ Route::post('/changeCountry', 'CountryController@change');
 Route::post('/changeLanguage', 'LanguageController@change');
 
 Route::post('/changeCurrency', 'CurrencyController@change');
+
+Route::get('/map', function() {
+    return view('map');
+});

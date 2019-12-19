@@ -62,6 +62,8 @@ if($language == "es") {
     $reserverProp = "RESERVAR ALOJAMIENTO";
     $depuis = "Desde";
     $jusqua = "Hasta";
+    $prix = "Precio";
+    $reserves = "MIS RESERVAS";
 }
 
 if($language == "fr") {
@@ -126,6 +128,8 @@ if($language == "fr") {
     $reserverProp = "RÉSERVER LOGEMENT";
     $depuis = "Depuis le";
     $jusqua = "Jusqu'au";
+    $prix = "Prix";
+    $reserves = "MES RÉSERVATIONS";
 }
 
 if($language == "en") {
@@ -190,6 +194,8 @@ if($language == "en") {
     $reserverProp = "BOOK ACCOMMODATION";
     $depuis = "From";
     $jusqua = "To";
+    $prix = "Cost";
+    $reserves = "MY BOOKINGS";
 }
 
 ?>
